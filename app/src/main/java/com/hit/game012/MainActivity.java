@@ -2,6 +2,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.hit.game012.gamelogic.game.Board;
@@ -13,9 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BoardGenerator gen = new BoardGenerator();
-        Board b = gen.generate(6);
-        System.out.println(b);
-
+        Intent intent = new Intent(this, ChooseBoardSize.class);
+        startActivity(intent);
     }
 }

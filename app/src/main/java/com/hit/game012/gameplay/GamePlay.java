@@ -26,7 +26,7 @@ public class GamePlay {
         boardSolver = new BoardSolver(board);
 
         timer.start();
-
+        System.out.println(board);
         // Class viewGameBoard
 
         // Stack of indexes -> undo
