@@ -16,5 +16,6 @@ public class MainActivity extends AppCompatActivity {
         BoardGenerator gen = new BoardGenerator();
         Board b = gen.generate(6);
         System.out.println(b);
+
     }
 }
