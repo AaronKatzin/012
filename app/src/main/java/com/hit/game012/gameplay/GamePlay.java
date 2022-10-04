@@ -15,6 +15,10 @@ public class GamePlay {
     private Timer timer;
     private Stack<Move> moves;
 
+    public Board getBoard() {
+        return board;
+    }
+
     public GamePlay() {
         boardGenerator = new BoardGenerator();
         timer = new Timer();
@@ -28,6 +32,7 @@ public class GamePlay {
         timer.start();
         System.out.println(board);
         // Class viewGameBoard
+        // show board
 
         // Stack of indexes -> undo
 

@@ -2,6 +2,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,13 +16,14 @@ public class ChooseBoardSize extends AppCompatActivity {
         setContentView(R.layout.activity_choose_board_size);
     }
     public void game4 (View view){
-        System.out.println("Game 4*4");
-        GamePlay game = new GamePlay();
-        game.startGame(4);
+        playGame(4);
     }
     public void game6 (View view){
-        System.out.println("Game 6*6");
-        GamePlay game = new GamePlay();
-        game.startGame(6);
+        playGame(6);
+    }
+    private void playGame(int size){
+        Intent intent = new Intent(this, BoardActivity.class);
+        intent.putExtra("size", size);
+        startActivity(intent);
     }
 }
