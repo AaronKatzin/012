@@ -16,4 +16,9 @@ No two rows and no two columns are the same.
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="sign_in">Click to sign in</string>
+
+
+    <string name="logout_button">Sign Out</string>
+    <string name="placeholder">Loading...</string>
 </resources>
