@@ -16,4 +16,5 @@ public class TileViewDecorator extends RecyclerView.ItemDecoration {
         super.getItemOffsets(outRect, view, parent, state);
         outRect.set(left,top,right,bottom);
     }
+
 }

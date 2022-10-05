@@ -61,5 +61,6 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         int position = this.getAdapterPosition();
         Index index = new Index(position/boardSize, position%boardSize);
         Toast.makeText(view.getContext(), "index "+index+" clicked, color is "+tile.getSerialized(), Toast.LENGTH_LONG).show();
+        setColor(tile.nextState());
     }
 }
