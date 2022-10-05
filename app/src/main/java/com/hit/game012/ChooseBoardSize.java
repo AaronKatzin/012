@@ -21,6 +21,13 @@ public class ChooseBoardSize extends AppCompatActivity {
     public void game6 (View view){
         playGame(6);
     }
+    public void game8 (View view){
+        playGame(8);
+    }
+    public void game10 (View view){
+        playGame(10);
+    }
+
     private void playGame(int size){
         Intent intent = new Intent(this, BoardActivity.class);
         intent.putExtra("size", size);

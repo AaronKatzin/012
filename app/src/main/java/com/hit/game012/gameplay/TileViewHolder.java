@@ -24,19 +24,21 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void setColor(Tile tile) {
         this.tile = tile;
-        int trueColor;
+        int tileDrawable;
+
         switch (tile){
             case COLOR1:
-                trueColor = R.color.tileZero;
+                tileDrawable=R.drawable.tile_zero;
                 break;
             case COLOR2:
-                trueColor = R.color.tileOne;
+                tileDrawable=R.drawable.tile_one;
                 break;
             default:
-                trueColor = R.color.tileEmpty;
+                tileDrawable=R.drawable.tile_empty;
         }
-        mTextView.setBackgroundColor( itemView.getResources().
-                getColor(trueColor, itemView.getContext().getTheme()));
+
+        mTextView.setBackground(itemView.getResources().getDrawable(tileDrawable,itemView.getContext().getTheme()));
+
     }
 
 
