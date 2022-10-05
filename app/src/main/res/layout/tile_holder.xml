@@ -11,6 +11,7 @@
     android:id="@+id/tile"
     android:background="@android:color/transparent"
     app:layout_constraintStart_toStartOf="parent"
-    tools:ignore="MissingConstraints" />
+    tools:ignore="MissingConstraints"
+    android:shadowRadius="10"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

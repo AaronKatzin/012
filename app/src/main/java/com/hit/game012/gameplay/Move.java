@@ -36,4 +36,13 @@ public class Move {
     public void setColor(char color) {
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return "Move{" +
+                "index=" + index +
+                ", color=" + color +
+                ", time=" + time +
+                '}';
+    }
 }

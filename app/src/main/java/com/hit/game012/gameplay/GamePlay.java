@@ -14,33 +14,36 @@ import java.util.concurrent.TimeUnit;
 
 public class GamePlay {
     private Board board;
-    private BoardGenerator boardGenerator;
+    //    private BoardGenerator boardGenerator;
     private BoardSolver boardSolver;
     private Timer timer;
-    private Stack<Move> moves;
+    private static Stack<Move> moves;
 
     public Board getBoard() {
         return board;
     }
 
     public GamePlay() {
-        boardGenerator = new BoardGenerator();
+//        boardGenerator = new BoardGenerator();
         timer = new Timer();
         moves = new Stack<>();
     }
 
-    public void startGame(int size){
+    public void startGame(int size) {
 
 //        board = boardGenerator.generate(size);
-        ThreadPoolExecutor threadpool= new ThreadPoolExecutor(1,1,
-                100, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>());
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
+                100, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         try {
-            board=threadpool.submit(new GetBoardThreaded(size)).get();
+            board = threadPoolExecutor.submit(new GetBoardThreaded(size)).get();
+//            boardSolver = threadPoolExecutor.submit(new GetSolverThreaded(board)).get();
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         boardSolver = new BoardSolver(board);
         timer.start();
         System.out.println(board);
@@ -62,15 +65,16 @@ public class GamePlay {
     }
 
 
-
-    public void onTileClick(Index index){
+    public static void onTileClick(Move move) {
         long time = System.currentTimeMillis();
-        Move lastMove = moves.pop();
-        long delay = 500; // 1/2 Second
-        if (time - lastMove.getTime() > delay){
-            moves.push(lastMove);
+        if (!moves.empty()) {
+            Move lastMove = moves.pop();
+            long delay = 1000; // 1 Second
+            if (lastMove.getIndex() != move.getIndex() || time - lastMove.getTime() > delay) {
+                moves.push(lastMove);
+            }
         }
-        moves.push(new Move(index, board.getTile(index).getSerialized()));
-
+        moves.push(move);
+//        System.out.println(moves);
     }
 }

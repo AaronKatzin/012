@@ -35,6 +35,8 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
     public void onBindViewHolder(@NonNull TileViewHolder holder, int position) {
         Index index = indexes.get(position);
         holder.setColor(board.getTile(index));
+        holder.setIndex(new Index(position / board.getSize(), position % board.getSize()));
+
 
     }
 

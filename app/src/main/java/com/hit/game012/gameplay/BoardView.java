@@ -1,5 +1,7 @@
 package com.hit.game012.gameplay;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,24 +42,23 @@ public class BoardView extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_board, container, false);
         mRecyclerView = view.findViewById(R.id.board);
-
         setupAdapter();
-
         return view;
     }
 
     private void setupAdapter(){
+        // get all the indexes
         List<Index> indexes = new ArrayList<>();
-
         for (int i=0; i<board.getSize(); i++)
             for (int j=0; j< board.getSize(); j++)
                 indexes.add(new Index(i,j));
 
-
+        // Build the adapter for the RecyclerView
         BoardViewAdapter adapter = new BoardViewAdapter(indexes, board);
         mRecyclerView.setLayoutManager(
                 new GridLayoutManager(getContext(), board.getSize()));
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addItemDecoration(new TileViewDecorator());
+
     }
 }
