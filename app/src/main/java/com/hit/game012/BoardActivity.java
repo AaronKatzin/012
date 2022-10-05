@@ -18,29 +18,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardActivity extends AppCompatActivity {
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter{
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-        public ViewPagerAdapter(@NonNull FragmentManager fm) {
-            super(fm);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-        public void addFragment(Fragment fragment, String title){
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-    }
-    private ViewPager mViewPager;
+//    private class ViewPagerAdapter extends FragmentStatePagerAdapter{
+//        private final List<Fragment> mFragmentList = new ArrayList<>();
+//        private final List<String> mFragmentTitleList = new ArrayList<>();
+//        public ViewPagerAdapter(@NonNull FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        @NonNull
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragmentList.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragmentList.size();
+//        }
+//        public void addFragment(Fragment fragment, String title){
+//            mFragmentList.add(fragment);
+//            mFragmentTitleList.add(title);
+//        }
+//    }
+//    private ViewPager mViewPager;
     private GamePlay gamePlay;
 
     @Override
@@ -48,12 +48,18 @@ public class BoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         int boardSize = (int) getIntent().getExtras().get("size");
-        mViewPager = findViewById(R.id.board_fragment);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+//        mViewPager = findViewById(R.id.board_fragment);
+//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         gamePlay = new GamePlay();
         gamePlay.startGame(boardSize);
-        adapter.addFragment(new BoardView(gamePlay.getBoard()), "Board");
-        mViewPager.setAdapter(adapter);
+//        adapter.addFragment(new BoardView(gamePlay.getBoard()), "Board");
+//        mViewPager.setAdapter(adapter);
+        Fragment boardFragment = new BoardView(gamePlay.getBoard());
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_frame, boardFragment, boardFragment.getClass().getSimpleName())
+                .addToBackStack(null)
+                .commit();
+
 
 
     }

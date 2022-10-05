@@ -5,7 +5,7 @@ import android.graphics.Color;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.game.Tile;
 
-public class TileView {
+public class TileView{
     private Index index;
     private Tile color;
     private boolean isHighlighted = false;
@@ -45,5 +45,9 @@ public class TileView {
 
     public void setLocked(boolean locked) {
         isLocked = locked;
+    }
+
+    public Tile stepTile(){
+        return color.nextState();
     }
 }

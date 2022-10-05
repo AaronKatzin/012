@@ -55,7 +55,9 @@ public class BoardView extends Fragment {
 
 
         BoardViewAdapter adapter = new BoardViewAdapter(indexes, board);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), board.getSize()));
+        mRecyclerView.setLayoutManager(
+                new GridLayoutManager(getContext(), board.getSize()));
         mRecyclerView.setAdapter(adapter);
+        mRecyclerView.addItemDecoration(new TileViewDecorator());
     }
 }

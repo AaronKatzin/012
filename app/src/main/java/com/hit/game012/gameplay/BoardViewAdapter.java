@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hit.game012.R;
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gamelogic.game.Index;
+import com.hit.game012.gamelogic.game.Tile;
 
 import java.util.List;
 
@@ -27,13 +28,13 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
     @Override
     public TileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.tile_holder, parent, false);
-        return new TileViewHolder(layout, 'e');
+        return new TileViewHolder(layout, Tile.EMPTY, board.getSize());
     }
 
     @Override
     public void onBindViewHolder(@NonNull TileViewHolder holder, int position) {
         Index index = indexes.get(position);
-        holder.setColor(board.getTile(index).getSerialized());
+        holder.setColor(board.getTile(index));
 
     }
 
