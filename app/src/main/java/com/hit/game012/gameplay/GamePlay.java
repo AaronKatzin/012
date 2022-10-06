@@ -5,6 +5,7 @@ import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.generator.BoardGenerator;
 import com.hit.game012.gamelogic.solver.BoardSolver;
+import com.hit.game012.gamelogic.solver.Hint;
 
 import java.util.Stack;
 import java.util.concurrent.ExecutionException;
@@ -33,7 +34,7 @@ public class GamePlay {
 
 //        board = boardGenerator.generate(size);
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
-                100, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+                1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         try {
             board = threadPoolExecutor.submit(new GetBoardThreaded(size)).get();
 //            boardSolver = threadPoolExecutor.submit(new GetSolverThreaded(board)).get();
@@ -76,5 +77,8 @@ public class GamePlay {
         }
         moves.push(move);
 //        System.out.println(moves);
+    }
+    public Hint requestHint(){
+        return boardSolver.requestHint();
     }
 }

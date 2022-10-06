@@ -124,8 +124,9 @@ public class Board {
         return setTile(new Index(row, col), oppositeColor);
     }
 
-    public void setLockAt(int row, int col, boolean locked) {
-        setLocked(new Index(row, col), locked);
+    public boolean isLocked(Index index){
+        checkIndexInRange(index);
+        return board[index.getRow()].isLocked(index.getCol());
     }
 }
 

@@ -79,11 +79,10 @@ public class BoardGenerator {
 
 
         }
-//        if (bestBoard != null)
-        lockRemaining(bestBoard);
-
 
         //TODO: lock the tiles on the board
+        lockRemaining(bestBoard);
+
         return bestBoard;
     }
 

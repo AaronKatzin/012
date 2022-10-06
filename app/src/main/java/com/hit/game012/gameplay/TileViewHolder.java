@@ -1,14 +1,10 @@
 package com.hit.game012.gameplay;
 
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hit.game012.R;
@@ -18,10 +14,11 @@ import com.hit.game012.gamelogic.game.Tile;
 public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Tile tile;
     private final int boardSize;
+    private int tileSize;
     private TextView mTextView;
     private Index index;
     private boolean isHighlighted = false;
-    private boolean isLocked = false;
+    private boolean isLocked;
 
     public TileViewHolder(@NonNull View itemView, Tile tile, int boardSize) {
         super(itemView);
@@ -31,8 +28,10 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         mTextView = itemView.findViewById(R.id.tile);
         setColor(tile);
         setTileSize();
+
         itemView.setOnClickListener(this); // ?
     }
+
 
     public Tile setColor(Tile tile) {
         this.tile = tile;
@@ -58,9 +57,18 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
 
     public void setTileSize(){
-        int tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 200)/ boardSize ;
+        tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 200)/ boardSize ;
         mTextView.setWidth(tileSize);
         mTextView.setHeight(tileSize);
+    }
+    public void showLock(View view, boolean toShow){
+        if (toShow && isLocked) {
+            view.findViewById(R.id.lock_icon).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.lock_icon).setPadding(tileSize/3,tileSize/3,
+                    tileSize/3, tileSize/3);
+
+        }
+
     }
 
     public Index getIndex() {
@@ -80,6 +88,7 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
     public void setLocked(boolean locked) {
         isLocked = locked;
+        showLock(itemView, locked);
     }
 
     public Tile stepTile(){
@@ -93,8 +102,10 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        Tile newMove = stepTile();
-        Move move = new Move(index, newMove.getSerialized());
-        GamePlay.onTileClick(move);
+        if (!isLocked){
+            Tile newMove = stepTile();
+            Move move = new Move(index, newMove.getSerialized());
+            GamePlay.onTileClick(move);
+        }
     }
 }

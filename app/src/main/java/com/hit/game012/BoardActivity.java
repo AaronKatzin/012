@@ -1,59 +1,40 @@
 package com.hit.game012;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
-import com.hit.game012.gamelogic.game.Board;
+
+import com.hit.game012.gamelogic.game.Index;
+import com.hit.game012.gamelogic.solver.Hint;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GamePlay;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BoardActivity extends AppCompatActivity {
-//    private class ViewPagerAdapter extends FragmentStatePagerAdapter{
-//        private final List<Fragment> mFragmentList = new ArrayList<>();
-//        private final List<String> mFragmentTitleList = new ArrayList<>();
-//        public ViewPagerAdapter(@NonNull FragmentManager fm) {
-//            super(fm);
-//        }
-//
-//        @NonNull
-//        @Override
-//        public Fragment getItem(int position) {
-//            return mFragmentList.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mFragmentList.size();
-//        }
-//        public void addFragment(Fragment fragment, String title){
-//            mFragmentList.add(fragment);
-//            mFragmentTitleList.add(title);
-//        }
-//    }
-//    private ViewPager mViewPager;
+
     private GamePlay gamePlay;
+    private static TextView inGameMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         int boardSize = (int) getIntent().getExtras().get("size");
-//        mViewPager = findViewById(R.id.board_fragment);
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        // show message
+        inGameMessage = findViewById(R.id.in_game_message);
+        resetInGameMessage(boardSize);
+
         gamePlay = new GamePlay();
         gamePlay.startGame(boardSize);
-//        adapter.addFragment(new BoardView(gamePlay.getBoard()), "Board");
-//        mViewPager.setAdapter(adapter);
+
+        // show board fragment
         Fragment boardFragment = new BoardView(gamePlay.getBoard());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_frame, boardFragment, boardFragment.getClass().getSimpleName())
@@ -62,5 +43,25 @@ public class BoardActivity extends AppCompatActivity {
 
 
 
+    }
+    public void backToMenu(View view){
+        finish();
+    }
+    public void getHint(View view){
+        Hint hint = gamePlay.requestHint();
+        String message = hint.getMessage();
+        List<Index> involvedTiles = hint.getInvolvedTiles();
+        if (!involvedTiles.isEmpty()){
+            //highlight the involved tiles
+        }
+        inGameMessage.setTextSize(30);
+        inGameMessage.setText(message);
+    }
+    public void undo(View view){
+
+    }
+    public void resetInGameMessage(int boardSize){
+        inGameMessage.setTextSize(40);
+        inGameMessage.setText(boardSize+" X "+ boardSize);
     }
 }

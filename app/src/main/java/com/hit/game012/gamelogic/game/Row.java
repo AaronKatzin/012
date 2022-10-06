@@ -64,6 +64,9 @@ public class Row {
         return result;
     }
 
+    public boolean isLocked(int col){
+        return content[col].isLocked();
+    }
     @Override
     public String toString() {
         return Arrays.toString(content);

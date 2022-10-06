@@ -1,7 +1,5 @@
 package com.hit.game012.gameplay;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +38,7 @@ public class BoardView extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.view_board, container, false);
+        View view = inflater.inflate(R.layout.view_board_fragment, container, false);
         mRecyclerView = view.findViewById(R.id.board);
         setupAdapter();
         return view;

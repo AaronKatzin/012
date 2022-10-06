@@ -12,6 +12,15 @@
     android:background="@android:color/transparent"
     app:layout_constraintStart_toStartOf="parent"
     tools:ignore="MissingConstraints"
-    android:shadowRadius="10"/>
+    />
+    <TextView
+        android:layout_width="@+id/tile"
+        android:layout_height="@+id/tile"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/padlock"
+        android:id="@+id/lock_icon"
+        android:visibility="invisible"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
