@@ -44,4 +44,5 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
     public int getItemCount() {
         return indexes.size();
     }
+
 }

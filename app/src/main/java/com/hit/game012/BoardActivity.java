@@ -9,17 +9,23 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import com.hit.game012.gamelogic.checker.BoardChecker;
+import com.hit.game012.gamelogic.checker.CheckResult;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.solver.Hint;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GamePlay;
 
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class BoardActivity extends AppCompatActivity {
 
     private GamePlay gamePlay;
-    private static TextView inGameMessage;
+    private TextView inGameMessage;
+    private TextView gameTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,9 @@ public class BoardActivity extends AppCompatActivity {
 
         gamePlay = new GamePlay();
         gamePlay.startGame(boardSize);
+
+        //show timer?
+        gameTimer = findViewById(R.id.timer_text);
 
         // show board fragment
         Fragment boardFragment = new BoardView(gamePlay.getBoard());

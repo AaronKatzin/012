@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:id="@+id/relative_layout_tile_view"
+    android:layout_gravity="center"
+    android:gravity="center">
 
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/tile"
     android:background="@android:color/transparent"
-    app:layout_constraintStart_toStartOf="parent"
-    tools:ignore="MissingConstraints"
     />
-    <TextView
-        android:layout_width="@+id/tile"
-        android:layout_height="@+id/tile"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/padlock"
         android:id="@+id/lock_icon"
-        android:visibility="invisible"/>
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

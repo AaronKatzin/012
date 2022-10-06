@@ -1,7 +1,18 @@
 package com.hit.game012.gameplay;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,20 +26,23 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private Tile tile;
     private final int boardSize;
     private int tileSize;
-    private TextView mTextView;
+    private TextView tileView;
+    private ImageView padlockView;
     private Index index;
     private boolean isHighlighted = false;
     private boolean isLocked;
+    private RelativeLayout rl;
 
     public TileViewHolder(@NonNull View itemView, Tile tile, int boardSize) {
         super(itemView);
         this.tile = tile;
         this.boardSize = boardSize;
-
-        mTextView = itemView.findViewById(R.id.tile);
+        rl = itemView.findViewById(R.id.relative_layout_tile_view);
+        tileView = itemView.findViewById(R.id.tile);
+        padlockView = itemView.findViewById(R.id.lock_icon);
         setColor(tile);
         setTileSize();
-
+//        setPadlockSize();
         itemView.setOnClickListener(this); // ?
     }
 
@@ -52,23 +66,30 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 tileDrawable=R.drawable.tile_empty;
                 newTile = Tile.EMPTY;
         }
-        mTextView.setBackground(itemView.getResources().getDrawable(tileDrawable,itemView.getContext().getTheme()));
+        tileView.setBackground(itemView.getResources().getDrawable(tileDrawable,itemView.getContext().getTheme()));
         return newTile;
     }
 
     public void setTileSize(){
-        tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 200)/ boardSize ;
-        mTextView.setWidth(tileSize);
-        mTextView.setHeight(tileSize);
+        tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100)/ boardSize ;
+        tileView.setWidth(tileSize);
+        tileView.setHeight(tileSize);
     }
-    public void showLock(View view, boolean toShow){
-        if (toShow && isLocked) {
-            view.findViewById(R.id.lock_icon).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.lock_icon).setPadding(tileSize/3,tileSize/3,
-                    tileSize/3, tileSize/3);
+    public void setPadlockSize(){
+        Drawable lock = Resources.getSystem().getDrawable(R.drawable.padlock, itemView.getContext().getTheme());
+        Bitmap lockBitmap = ((BitmapDrawable) lock).getBitmap();
+        Bitmap lockBitmapScaled = Bitmap.createScaledBitmap(lockBitmap, tileSize/2, tileSize/2, true);
+        padlockView.setImageBitmap(lockBitmapScaled);
 
+    }
+    public void switchLock(){
+        if (isLocked){
+            if (padlockView.getVisibility() == VISIBLE) padlockView.setVisibility(INVISIBLE);
+            else {
+                padlockView.setVisibility(VISIBLE);
+                tileView.startAnimation(AnimationUtils.loadAnimation(tileView.getContext(), R.anim.shake_anim));
+            }
         }
-
     }
 
     public Index getIndex() {
@@ -88,7 +109,6 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
     public void setLocked(boolean locked) {
         isLocked = locked;
-        showLock(itemView, locked);
     }
 
     public Tile stepTile(){
@@ -106,6 +126,9 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             Tile newMove = stepTile();
             Move move = new Move(index, newMove.getSerialized());
             GamePlay.onTileClick(move);
+        }
+        else{
+            switchLock();
         }
     }
 }

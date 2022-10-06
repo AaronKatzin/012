@@ -17,7 +17,7 @@ public class GamePlay {
     private Board board;
     //    private BoardGenerator boardGenerator;
     private BoardSolver boardSolver;
-    private Timer timer;
+    private static Timer timer;
     private static Stack<Move> moves;
 
     public Board getBoard() {
@@ -81,4 +81,8 @@ public class GamePlay {
     public Hint requestHint(){
         return boardSolver.requestHint();
     }
+    public long getGameTime(){
+        return timer.getTotalTime();
+    }
+
 }
