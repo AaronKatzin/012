@@ -78,11 +78,6 @@ public class GamePlay {
         moves.push(move);
 //        System.out.println(moves);
     }
-    public Hint requestHint(){
-        return boardSolver.requestHint();
-    }
-    public long getGameTime(){
-        return timer.getTotalTime();
-    }
+
 
 }

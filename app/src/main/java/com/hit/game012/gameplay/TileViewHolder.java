@@ -7,12 +7,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.Gravity;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,22 +25,22 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private int tileSize;
     private TextView tileView;
     private ImageView padlockView;
+    private ImageView highlightView;
     private Index index;
     private boolean isHighlighted = false;
     private boolean isLocked;
-    private RelativeLayout rl;
+
 
     public TileViewHolder(@NonNull View itemView, Tile tile, int boardSize) {
         super(itemView);
         this.tile = tile;
         this.boardSize = boardSize;
-        rl = itemView.findViewById(R.id.relative_layout_tile_view);
         tileView = itemView.findViewById(R.id.tile);
         padlockView = itemView.findViewById(R.id.lock_icon);
+        highlightView = itemView.findViewById(R.id.highlight);
         setColor(tile);
         setTileSize();
-//        setPadlockSize();
-        itemView.setOnClickListener(this); // ?
+        itemView.setOnClickListener(this);
     }
 
 
@@ -53,37 +50,40 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         Tile newTile;
         int tileDrawable;
 
-        switch (tile){
+        switch (tile) {
             case COLOR1:
-                tileDrawable=R.drawable.tile_zero;
+                tileDrawable = R.drawable.tile_zero;
                 newTile = Tile.COLOR1;
                 break;
             case COLOR2:
-                tileDrawable=R.drawable.tile_one;
+                tileDrawable = R.drawable.tile_one;
                 newTile = Tile.COLOR2;
                 break;
             default:
-                tileDrawable=R.drawable.tile_empty;
+                tileDrawable = R.drawable.tile_empty;
                 newTile = Tile.EMPTY;
         }
-        tileView.setBackground(itemView.getResources().getDrawable(tileDrawable,itemView.getContext().getTheme()));
+
+        tileView.setBackground(itemView.getResources().getDrawable(tileDrawable, itemView.getContext().getTheme()));
         return newTile;
     }
 
-    public void setTileSize(){
-        tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100)/ boardSize ;
+    public void setTileSize() {
+        tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100) / boardSize;
         tileView.setWidth(tileSize);
         tileView.setHeight(tileSize);
     }
-    public void setPadlockSize(){
+
+    public void setPadlockSize() {
         Drawable lock = Resources.getSystem().getDrawable(R.drawable.padlock, itemView.getContext().getTheme());
         Bitmap lockBitmap = ((BitmapDrawable) lock).getBitmap();
-        Bitmap lockBitmapScaled = Bitmap.createScaledBitmap(lockBitmap, tileSize/2, tileSize/2, true);
+        Bitmap lockBitmapScaled = Bitmap.createScaledBitmap(lockBitmap, tileSize / 2, tileSize / 2, true);
         padlockView.setImageBitmap(lockBitmapScaled);
 
     }
-    public void switchLock(){
-        if (isLocked){
+
+    public void switchLock() {
+        if (isLocked) {
             if (padlockView.getVisibility() == VISIBLE) padlockView.setVisibility(INVISIBLE);
             else {
                 padlockView.setVisibility(VISIBLE);
@@ -92,28 +92,36 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         }
     }
 
+    public void showHighlight() {
+        highlightView.setVisibility(VISIBLE);
+    }
+
+    public void resetHighlight() {
+        highlightView.setVisibility(INVISIBLE);
+    }
+
     public Index getIndex() {
         return index;
     }
+
     public void setIndex(Index index) {
         this.index = index;
     }
+
     public boolean isHighlighted() {
         return isHighlighted;
     }
+
     public void setHighlighted(boolean highlighted) {
         isHighlighted = highlighted;
     }
+
     public boolean isLocked() {
         return isLocked;
     }
+
     public void setLocked(boolean locked) {
         isLocked = locked;
-    }
-
-    public Tile stepTile(){
-        return setColor(tile.nextState());
-
     }
 
     public char getColor() {
@@ -122,12 +130,10 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        if (!isLocked){
-            Tile newMove = stepTile();
-            Move move = new Move(index, newMove.getSerialized());
-            GamePlay.onTileClick(move);
-        }
-        else{
+        if (!BoardView.getBoard().isLocked(index)) {
+            Tile newTile = BoardView.onClick(view, index);
+            setColor(newTile);
+        } else {
             switchLock();
         }
     }

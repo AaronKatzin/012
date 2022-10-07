@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.hit.game012.gameplay.GamePlay;
 
 public class ChooseBoardSize extends AppCompatActivity {
 

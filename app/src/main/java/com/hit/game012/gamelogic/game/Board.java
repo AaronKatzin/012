@@ -128,6 +128,9 @@ public class Board {
         checkIndexInRange(index);
         return board[index.getRow()].isLocked(index.getCol());
     }
+    public Index getIndex(int id){
+        return new Index (id/size, id % size);
+    }
 }
 
 

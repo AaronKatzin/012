@@ -9,68 +9,73 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.hit.game012.gamelogic.checker.BoardChecker;
-import com.hit.game012.gamelogic.checker.CheckResult;
-import com.hit.game012.gamelogic.game.Index;
-import com.hit.game012.gamelogic.solver.Hint;
+import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gameplay.BoardView;
-import com.hit.game012.gameplay.GamePlay;
+import com.hit.game012.gameplay.GetBoardThreaded;
 
-import java.util.List;
+
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class BoardActivity extends AppCompatActivity {
 
-    private GamePlay gamePlay;
-    private TextView inGameMessage;
-    private TextView gameTimer;
+public class BoardActivity extends AppCompatActivity {
+    private Board board;
+    private int boardSize;
+    private TextView inGameMessageTextView;
+    private TextView inGameTimerTextView;
+    private BoardView boardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
-        int boardSize = (int) getIntent().getExtras().get("size");
-
-        // show message
-        inGameMessage = findViewById(R.id.in_game_message);
+        init();
+        getBoard();
         resetInGameMessage(boardSize);
-
-        gamePlay = new GamePlay();
-        gamePlay.startGame(boardSize);
-
-        //show timer?
-        gameTimer = findViewById(R.id.timer_text);
-
         // show board fragment
-        Fragment boardFragment = new BoardView(gamePlay.getBoard());
+        boardView = new BoardView(board);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_frame, boardFragment, boardFragment.getClass().getSimpleName())
+                .replace(R.id.fragment_frame, boardView, boardView.getClass().getSimpleName())
                 .addToBackStack(null)
                 .commit();
 
-
-
+        boardView.startGame();
     }
+    private void init(){
+        inGameMessageTextView = findViewById(R.id.in_game_message);
+        inGameTimerTextView = findViewById(R.id.timer_text);
+        boardSize = (int) getIntent().getExtras().get("size");
+    }
+    private void getBoard(){
+        // Get board threaded
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
+                1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        try {
+            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize)).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void backToMenu(View view){
         finish();
     }
     public void getHint(View view){
-        Hint hint = gamePlay.requestHint();
-        String message = hint.getMessage();
-        List<Index> involvedTiles = hint.getInvolvedTiles();
-        if (!involvedTiles.isEmpty()){
-            //highlight the involved tiles
-        }
-        inGameMessage.setTextSize(30);
-        inGameMessage.setText(message);
+        String message = boardView.requestHint();
+        inGameMessageTextView.setTextSize(30);
+        inGameMessageTextView.setText(message);
     }
     public void undo(View view){
 
     }
     public void resetInGameMessage(int boardSize){
-        inGameMessage.setTextSize(40);
-        inGameMessage.setText(boardSize+" X "+ boardSize);
+        inGameMessageTextView.setTextSize(40);
+        inGameMessageTextView.setText(boardSize+" X "+ boardSize);
     }
+
 }
