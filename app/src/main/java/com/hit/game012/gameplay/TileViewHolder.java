@@ -27,8 +27,7 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ImageView padlockView;
     private ImageView highlightView;
     private Index index;
-    private boolean isHighlighted = false;
-    private boolean isLocked;
+
 
 
     public TileViewHolder(@NonNull View itemView, Tile tile, int boardSize) {
@@ -72,18 +71,13 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100) / boardSize;
         tileView.setWidth(tileSize);
         tileView.setHeight(tileSize);
+        highlightView.setMaxHeight(tileSize);
+        highlightView.setMaxWidth(tileSize);
     }
 
-    public void setPadlockSize() {
-        Drawable lock = Resources.getSystem().getDrawable(R.drawable.padlock, itemView.getContext().getTheme());
-        Bitmap lockBitmap = ((BitmapDrawable) lock).getBitmap();
-        Bitmap lockBitmapScaled = Bitmap.createScaledBitmap(lockBitmap, tileSize / 2, tileSize / 2, true);
-        padlockView.setImageBitmap(lockBitmapScaled);
-
-    }
 
     public void switchLock() {
-        if (isLocked) {
+        if (BoardView.getBoard().isLocked(index)) {
             if (padlockView.getVisibility() == VISIBLE) padlockView.setVisibility(INVISIBLE);
             else {
                 padlockView.setVisibility(VISIBLE);
@@ -108,28 +102,13 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         this.index = index;
     }
 
-    public boolean isHighlighted() {
-        return isHighlighted;
-    }
-
-    public void setHighlighted(boolean highlighted) {
-        isHighlighted = highlighted;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
-
     public char getColor() {
         return tile.getSerialized();
     }
 
     @Override
     public void onClick(View view) {
+
         if (!BoardView.getBoard().isLocked(index)) {
             Tile newTile = BoardView.onClick(view, index);
             setColor(newTile);

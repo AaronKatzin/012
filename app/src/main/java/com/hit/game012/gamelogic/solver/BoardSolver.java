@@ -55,15 +55,15 @@ public class BoardSolver {
         }
         index = findTilesByColCount(false);
         if (index != null) {
-            int row = index.getRow();
-            IntStream.range(0, board.getSize()).forEach(col -> involvedTiles.add(new Index(row, col)));
-            return new Hint("Columns have an equal amount of each color.", involvedTiles);
+            int col = index.getCol();
+            IntStream.range(0, board.getSize()).forEach(row -> involvedTiles.add(new Index(row, col)));
+            return new Hint("Column have an equal amount of each color.", involvedTiles);
         }
         index = findTilesByRowCount(false);
         if (index != null) {
-            int col = index.getCol();
-            IntStream.range(0, board.getSize()).forEach(row -> involvedTiles.add(new Index(row, col)));
-            return new Hint("Rows have an equal amount of each color.", involvedTiles);
+            int row = index.getRow();
+            IntStream.range(0, board.getSize()).forEach(col -> involvedTiles.add(new Index(row, col)));
+            return new Hint("Row have an equal amount of each color.", involvedTiles);
         }
         Index[] differentColorCells = findUniqueCol(false);
         if (differentColorCells != null) {

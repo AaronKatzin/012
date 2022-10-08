@@ -11,8 +11,25 @@
     android:layout_height="wrap_content"
     android:id="@+id/tile"
     android:background="@android:color/transparent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+
     />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/highlight"
+        android:id="@+id/highlight"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_alignBottom="@id/tile"
+        android:layout_alignTop="@id/tile"
+        android:layout_alignStart="@id/tile"
+        android:layout_alignEnd="@id/tile"
+/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,14 +37,8 @@
         android:id="@+id/lock_icon"
         android:layout_centerInParent="true"
         android:visibility="invisible"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/highlight"
-        android:id="@+id/highlight"
-        android:layout_centerInParent="true"
-        android:visibility="invisible"
+
+
         />
 
 

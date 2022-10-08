@@ -21,6 +21,7 @@ import com.hit.game012.gamelogic.solver.Hint;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.IntStream;
@@ -29,14 +30,11 @@ import java.util.stream.IntStream;
 public class BoardView extends Fragment {
     private static Board board;
     private BoardSolver boardSolver;
-    private Set<ClickListener> ClickListeners;
     private static Timer timer;
     private static Stack<Move> moves;
     private Set<Index> highlightedIndexes;
     private RecyclerView mRecyclerView;
     private BoardViewAdapter adapter;
-
-    private List<TileViewHolder> tiles;
 
 
     public static Board getBoard() {
@@ -49,7 +47,6 @@ public class BoardView extends Fragment {
         timer = new Timer();
 
         highlightedIndexes = new HashSet<>();
-        ClickListeners = new HashSet<>();
         moves = new Stack<>();
 
     }
@@ -67,22 +64,42 @@ public class BoardView extends Fragment {
         if (involvedTiles != null) {
             highlightedIndexes.addAll(involvedTiles);
             System.out.println("Highlighted indexes: " + highlightedIndexes);
-            for (Index index : highlightedIndexes) {
-
-            }
         }
+        highlightHintTiles(involvedTiles);
         return hint.getMessage();
     }
 
-    public void showAllLocks() {
-        IntStream.range(0, board.getSize() * board.getSize()).forEach(i -> {
-            Index index = board.getIndex(i);
-            if (board.isLocked(index)) {
-                TileViewHolder tileViewHolder = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
-                if (tileViewHolder != null) tileViewHolder.switchLock();
+    private void highlightHintTiles(List<Index> highlighted) {
+        if (highlighted != null) {
+            // There is a tile to highlight
+            for (int i = 0; i < board.getSize() * board.getSize(); i++) {
+                TileViewHolder tileView = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
+                Index index = tileView.getIndex();
+                if (highlighted.contains(index)) {
+                    tileView.showHighlight();
+                } else {
+                    tileView.resetHighlight();
+                }
             }
-        });
+        } else {
+            // No tiles to highlight - reset all highlights
+            for (int i = 0; i < board.getSize() * board.getSize(); i++) {
+                TileViewHolder tileView = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
+                tileView.resetHighlight();
+
+            }
+        }
     }
+
+//    public void showAllLocks() {
+//        IntStream.range(0, board.getSize() * board.getSize()).forEach(i -> {
+//            Index index = board.getIndex(i);
+//            if (board.isLocked(index)) {
+//                TileViewHolder tileViewHolder = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
+//                if (tileViewHolder != null) tileViewHolder.switchLock();
+//            }
+//        });
+//    }
 
     public static void addToMoveStack(Move move) {
         long time = System.currentTimeMillis();
@@ -128,7 +145,6 @@ public class BoardView extends Fragment {
     }
 
     public static Tile onClick(View view, Index index) {
-
         Tile newMove = board.stepTile(index);
         Move move = new Move(index, newMove.getSerialized());
         addToMoveStack(move);

@@ -51,7 +51,7 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
         Index index = indexes.get(position);
         holder.setColor(BoardView.getBoard().getTile(index));
         holder.setIndex(index);
-        holder.setLocked(BoardView.getBoard().isLocked(index));
+//        holder.setLocked(BoardView.getBoard().isLocked(index));
 //        BoardView.setClickListener(holder.itemView, index);
 
     }
