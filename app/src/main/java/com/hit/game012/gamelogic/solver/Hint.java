@@ -5,15 +5,15 @@ import com.hit.game012.gamelogic.game.Index;
 import java.util.List;
 
 public class Hint {
-    private String message;
+    private int message;
     private List<Index> involvedTiles;
 
-    public Hint(String message, List<Index> involvedTiles) {
+    public Hint(int message, List<Index> involvedTiles) {
         this.message = message;
         this.involvedTiles = involvedTiles;
     }
 
-    public String getMessage() {
+    public int getMessage() {
         return message;
     }
 
@@ -25,7 +25,7 @@ public class Hint {
                 '}';
     }
 
-    public void setMessage(String message) {
+    public void setMessage(int message) {
         this.message = message;
     }
 

@@ -56,7 +56,7 @@ public class BoardView extends Fragment {
 
     }
 
-    public String requestHint() {
+    public int requestHint() {
         boardSolver.setBoard(board);
         Hint hint = boardSolver.requestHint();
         List<Index> involvedTiles = hint.getInvolvedTiles();
@@ -149,6 +149,26 @@ public class BoardView extends Fragment {
         Move move = new Move(index, newMove.getSerialized());
         addToMoveStack(move);
         return newMove;
+    }
+
+
+    public boolean undo(){
+        if (moves.empty()){
+            return false;
+        }
+        char color;
+        Move lastMove=moves.pop();
+        if (moves.contains(lastMove)){
+            color=moves.get(moves.indexOf(lastMove)).getColor();
+        }
+        else
+            color= Tile.EMPTY.getSerialized();
+        int lastMovePos=lastMove.getIndex().getRow()* board.getSize()+lastMove.getIndex().getCol();
+        TileViewHolder tileView = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(lastMovePos);
+        board.setTile(lastMove.getIndex(),Tile.deserialize(color));
+        tileView.setColor(Tile.deserialize(color));
+
+        return true;
     }
 
 }

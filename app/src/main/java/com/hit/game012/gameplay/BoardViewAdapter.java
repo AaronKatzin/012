@@ -20,17 +20,17 @@ import java.util.stream.IntStream;
 public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
     private List<Index> indexes;
 //    private Board board;
-    private  List<TileViewHolder> tiles;
+//    private  List<TileViewHolder> tiles;
 
     public BoardViewAdapter(List<Index> indexes, Board board) {
         this.indexes = indexes;
 //        this.board = board;
-        tiles = new ArrayList<>();
+//        tiles = new ArrayList<>();
     }
 
-    public List<TileViewHolder> getTiles() {
-        return tiles;
-    }
+//    public List<TileViewHolder> getTiles() {
+//        return tiles;
+//    }
 
     @NonNull
     @Override
@@ -40,11 +40,11 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
         return newTile;
     }
 
-    @Override
-    public void onViewAttachedToWindow(@NonNull TileViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        tiles.add(holder);
-    }
+//    @Override
+//    public void onViewAttachedToWindow(@NonNull TileViewHolder holder) {
+//        super.onViewAttachedToWindow(holder);
+////        tiles.add(holder);
+//    }
 
     @Override
     public void onBindViewHolder(@NonNull TileViewHolder holder, int position) {
@@ -61,9 +61,9 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
         return indexes.size();
     }
 
-    public static void highlightIndexes(List<Index> highlighted){
-        for (Index index : highlighted){
-
-        }
-    }
+//    public static void highlightIndexes(List<Index> highlighted){
+//        for (Index index : highlighted){
+//
+//        }
+//    }
 }

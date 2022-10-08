@@ -3,6 +3,9 @@ package com.hit.game012.gamelogic.solver;
 import static com.hit.game012.gamelogic.game.Tile.*;
 import static com.hit.game012.gamelogic.game.Tile.EMPTY;
 
+import android.content.res.Resources;
+
+import com.hit.game012.R;
 import com.hit.game012.gamelogic.checker.BoardChecker;
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gamelogic.game.Index;
@@ -40,30 +43,31 @@ public class BoardSolver {
     }
 
     public Hint requestHint() {
-        if (board.isFull())
-            return new Hint("Board is full", null);
+        if (board.isFull()) {
+            return new Hint(R.string.hint_board_full, null);
+        }
         List<Index> involvedTiles = new ArrayList<>();
         Index index = findEmptyNextToTwoAdjacentTile(false);
         if (index != null) {
             involvedTiles.add(index);
-            return new Hint("Three of the same color are not allowed orthogonally.", involvedTiles);
+            return new Hint(R.string.hint_3_color, involvedTiles);
         }
         index = findEmptyBetweenTwoSeperatedTiles(false);
         if (index != null) {
             involvedTiles.add(index);
-            return new Hint("Three of the same color are not allowed orthogonally.", involvedTiles);
+            return new Hint(R.string.hint_3_color, involvedTiles);
         }
         index = findTilesByColCount(false);
         if (index != null) {
             int col = index.getCol();
             IntStream.range(0, board.getSize()).forEach(row -> involvedTiles.add(new Index(row, col)));
-            return new Hint("Column have an equal amount of each color.", involvedTiles);
+            return new Hint(R.string.hint_col_count, involvedTiles);
         }
         index = findTilesByRowCount(false);
         if (index != null) {
             int row = index.getRow();
             IntStream.range(0, board.getSize()).forEach(col -> involvedTiles.add(new Index(row, col)));
-            return new Hint("Row have an equal amount of each color.", involvedTiles);
+            return new Hint(R.string.hint_row_count, involvedTiles);
         }
         Index[] differentColorCells = findUniqueCol(false);
         if (differentColorCells != null) {
@@ -73,7 +77,7 @@ public class BoardSolver {
                 involvedTiles.add(new Index (row, col));
                 involvedTiles.add(new Index (row, matchingCol));
             });
-            return new Hint("No two columns are the same.", involvedTiles);
+            return new Hint(R.string.hint_unique_col, involvedTiles);
         }
         differentColorCells = findUniqueRow(false);
         if (differentColorCells != null) {
@@ -83,9 +87,9 @@ public class BoardSolver {
                 involvedTiles.add(new Index (row, col));
                 involvedTiles.add(new Index (matchingRow, col));
             });
-            return new Hint("No two rows are the same.", involvedTiles);
+            return new Hint(R.string.hint_unique_row, involvedTiles);
         }
-        return new Hint("Pfff... what a mess :(", null);
+        return new Hint(R.string.hint_dead_end, null);
     }
 
     /**

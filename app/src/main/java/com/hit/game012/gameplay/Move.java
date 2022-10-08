@@ -2,6 +2,8 @@ package com.hit.game012.gameplay;
 
 import com.hit.game012.gamelogic.game.Index;
 
+import java.util.Objects;
+
 public class Move {
     private Index index;
     private char color;
@@ -44,5 +46,18 @@ public class Move {
                 ", color=" + color +
                 ", time=" + time +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Move move = (Move) o;
+        return index.equals(move.index);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(index);
     }
 }

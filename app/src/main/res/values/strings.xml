@@ -2,5 +2,12 @@
     <string name="app_name">012</string>
     <string name="message">hey</string>
     <string name="Choose_board_size">Choose\n board size:</string>
-
+    <string name="hint_board_full">Board is full</string>
+    <string name="hint_3_color">Three of the same color are not allowed orthogonally.</string>
+    <string name="hint_col_count">Column have an equal amount of each color.</string>
+    <string name="hint_row_count">Row have an equal amount of each color.</string>
+    <string name="hint_unique_col">No two columns are the same.</string>
+    <string name="hint_unique_row">No two rows are the same.</string>
+    <string name="hint_dead_end">Pfff... what a mess :(</string>
+    <string name="undo_stack_emp">You still didn’t make any move</string>
 </resources>
