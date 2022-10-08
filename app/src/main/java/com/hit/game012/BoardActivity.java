@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GetBoardThreaded;
+import com.hit.game012.gameplay.TileViewHolder;
 
 
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -26,6 +28,7 @@ public class BoardActivity extends AppCompatActivity {
     private TextView inGameMessageTextView;
     private TextView inGameTimerTextView;
     private BoardView boardView;
+//    private static Set<TileViewHolder> lockedTiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,13 @@ public class BoardActivity extends AppCompatActivity {
         resetInGameMessage(boardSize);
         // show board fragment
         boardView = new BoardView(board);
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_frame, boardView, boardView.getClass().getSimpleName())
                 .addToBackStack(null)
                 .commit();
-
+//        lockedTiles=boardView.getLockedTiles();
+//        System.out.println(board.getLocked());
         boardView.startGame();
     }
     private void init(){

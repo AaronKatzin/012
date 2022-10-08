@@ -21,10 +21,8 @@ import com.hit.game012.gamelogic.solver.Hint;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
-import java.util.stream.IntStream;
 
 
 public class BoardView extends Fragment {
@@ -35,7 +33,8 @@ public class BoardView extends Fragment {
     private Set<Index> highlightedIndexes;
     private RecyclerView mRecyclerView;
     private BoardViewAdapter adapter;
-
+//    private static Set<TileViewHolder> lockedTiles;
+//    private Set<View.OnClickListener> listeners;
 
     public static Board getBoard() {
         return board;
@@ -45,10 +44,8 @@ public class BoardView extends Fragment {
         this.board = board;
         boardSolver = new BoardSolver(board);
         timer = new Timer();
-
         highlightedIndexes = new HashSet<>();
         moves = new Stack<>();
-
     }
 
     public void startGame() {
@@ -91,17 +88,17 @@ public class BoardView extends Fragment {
         }
     }
 
-//    public void showAllLocks() {
-//        IntStream.range(0, board.getSize() * board.getSize()).forEach(i -> {
-//            Index index = board.getIndex(i);
-//            if (board.isLocked(index)) {
-//                TileViewHolder tileViewHolder = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
-//                if (tileViewHolder != null) tileViewHolder.switchLock();
-//            }
-//        });
-//    }
+    public void showAllLocks() {
+        for (int i=0; i<board.getSize()* board.getSize();i++){
+            TileViewHolder tileView = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
+            if(board.isLocked(tileView.getIndex())){
+                tileView.switchLock();
+            }
+        }
 
-    public static void addToMoveStack(Move move) {
+    }
+
+    public static void addMoveToStack(Move move) {
         long time = System.currentTimeMillis();
         if (!moves.empty()) {
             Move lastMove = moves.pop();
@@ -124,9 +121,14 @@ public class BoardView extends Fragment {
         View view = inflater.inflate(R.layout.view_board_fragment, container, false);
         mRecyclerView = view.findViewById(R.id.board);
         setupAdapter();
-
         return view;
     }
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        listeners=adapter.getListeners();
+//    }
 
     private void setupAdapter() {
         // get all the indexes
@@ -141,16 +143,22 @@ public class BoardView extends Fragment {
                 new GridLayoutManager(getContext(), board.getSize()));
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.addItemDecoration(new TileViewDecorator());
-
     }
 
     public static Tile onClick(View view, Index index) {
-        Tile newMove = board.stepTile(index);
-        Move move = new Move(index, newMove.getSerialized());
-        addToMoveStack(move);
-        return newMove;
-    }
+        if(!getBoard().isLocked(index)){
+            Tile newMove = board.stepTile(index);
+            Move move = new Move(index, newMove.getSerialized());
+            addMoveToStack(move);
+            return newMove;
+        }
+        else{
+//            showAllLocks();
+            return null;
+        }
 
+
+    }
 
     public boolean undo(){
         if (moves.empty()){
@@ -167,8 +175,26 @@ public class BoardView extends Fragment {
         TileViewHolder tileView = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(lastMovePos);
         board.setTile(lastMove.getIndex(),Tile.deserialize(color));
         tileView.setColor(Tile.deserialize(color));
-
         return true;
     }
 
+//    public Set<TileViewHolder> getLockedTiles(){
+//        Set<Index> lockedIndexes= board.getLocked();
+//        Set<TileViewHolder> lockedTiles= new HashSet<>();
+//        int pos;
+//       mRecyclerView.setAdapter(adapter);
+////        for (int i = 0; i < adapter.getItemCount(); i++) {
+////            TileViewHolder holder = (TileViewHolder) mRecyclerView.findViewHolderForItemId(adapter.getItemId(i));
+////            lockedTiles.add(holder);
+////        }
+////        for (Index index: lockedIndexes){
+////            pos=index.getRow()* board.getSize()+index.getCol();
+////            TileViewHolder tileView = (TileViewHolder) mRecyclerView.findViewHolderForAdapterPosition(pos);
+////            lockedTiles.add(tileView);
+////        }
+//        return lockedTiles;
+//    }
 }
+
+
+

@@ -3,6 +3,8 @@ package com.hit.game012.gamelogic.game;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class Board {
@@ -55,7 +57,8 @@ public class Board {
 
     public int countTilesInRow(int row, Tile tile) {
         if (row < 0) throw new IllegalArgumentException("row must be >= 0 but was " + row);
-        if (row >= size) throw new IllegalArgumentException("row must be < board size (" + size + ") but was " + row);
+        if (row >= size)
+            throw new IllegalArgumentException("row must be < board size (" + size + ") but was " + row);
         return IntStream.range(0, size).reduce(0, (sum, i) -> (board[row].getTile(i) == tile ? sum + 1 : sum));
     }
 
@@ -67,7 +70,7 @@ public class Board {
     }
 
     public boolean isFull() {
-        return !IntStream.range(0,size).anyMatch(i -> countTilesInRow(i, Tile.EMPTY) > 0);
+        return !IntStream.range(0, size).anyMatch(i -> countTilesInRow(i, Tile.EMPTY) > 0);
     }
 
     public int percentageSolved() {
@@ -77,35 +80,40 @@ public class Board {
         return Math.round(100 * percentFull);
     }
 
-    public void setLocked(Index index, boolean locked){
+    public void setLocked(Index index, boolean locked) {
         checkIndexInRange(index);
         board[index.getRow()].setLocked(index.getCol(), locked);
     }
-    public void setAllLocks(boolean locked){
+
+    public void setAllLocks(boolean locked) {
         Arrays.stream(board).forEach(row -> row.setAllLocks(locked));
     }
+
     public static Board boardFromString(int size, String serializedBoard) {
         Board board = new Board(size);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 char ch = serializedBoard.charAt(0);
-                board.setTile(new Index(i,j), Tile.deserialize(ch));
+                board.setTile(new Index(i, j), Tile.deserialize(ch));
                 serializedBoard = serializedBoard.substring(1);
             }
         }
         return board;
     }
-    public String stringFromBoard(){
+
+    public String stringFromBoard() {
         String serialized = "";
         for (Row row : board)
             serialized += row.serialize();
         return serialized;
     }
+
     public Board copy() {
         Board clone = new Board(size);
         IntStream.range(0, size).forEach(index -> clone.board[index] = board[index].copy());
         return clone;
     }
+
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
@@ -124,13 +132,27 @@ public class Board {
         return setTile(new Index(row, col), oppositeColor);
     }
 
-    public boolean isLocked(Index index){
+    public boolean isLocked(Index index) {
         checkIndexInRange(index);
         return board[index.getRow()].isLocked(index.getCol());
     }
-    public Index getIndex(int id){
-        return new Index (id/size, id % size);
+
+    public Index getIndex(int id) {
+        return new Index(id / size, id % size);
     }
+
+    public Set<Index> getLocked() {
+        Set<Index> lockedSet = new HashSet<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Index index = new Index(i, j);
+                if (isLocked(index))
+                    lockedSet.add(index);
+            }
+        }
+        return lockedSet;
+    }
+
 }
 
 

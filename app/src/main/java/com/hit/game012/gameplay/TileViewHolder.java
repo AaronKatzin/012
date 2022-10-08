@@ -108,9 +108,8 @@ public class TileViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
-
-        if (!BoardView.getBoard().isLocked(index)) {
-            Tile newTile = BoardView.onClick(view, index);
+        Tile newTile = BoardView.onClick(view, index);
+        if (newTile !=null) {
             setColor(newTile);
         } else {
             switchLock();

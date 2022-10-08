@@ -15,10 +15,12 @@ import com.hit.game012.gamelogic.game.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
     private List<Index> indexes;
+//    private Set<View.OnClickListener> listeners;
 //    private Board board;
 //    private  List<TileViewHolder> tiles;
 
@@ -51,6 +53,9 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
         Index index = indexes.get(position);
         holder.setColor(BoardView.getBoard().getTile(index));
         holder.setIndex(index);
+//        if(BoardView.getBoard().isLocked(index)==true){
+//            listeners.add(holder);
+//        }
 //        holder.setLocked(BoardView.getBoard().isLocked(index));
 //        BoardView.setClickListener(holder.itemView, index);
 
@@ -61,7 +66,11 @@ public class BoardViewAdapter extends RecyclerView.Adapter<TileViewHolder> {
         return indexes.size();
     }
 
-//    public static void highlightIndexes(List<Index> highlighted){
+//    public Set<View.OnClickListener> getListeners() {
+//        return listeners;
+//    }
+
+    //    public static void highlightIndexes(List<Index> highlighted){
 //        for (Index index : highlighted){
 //
 //        }
