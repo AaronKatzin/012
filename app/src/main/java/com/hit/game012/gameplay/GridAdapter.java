@@ -29,15 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
-    Context context;
-    Board board;
-    LayoutInflater inflater;
     int tileSize;
+    Board board;
     GridView mGridView;
+    Context context;
+    LayoutInflater inflater;
+    FragmentActivity activity;
     List<View> locked;
     List<Index> highlightedTiles;
-    List<View> allTileViews;
-    FragmentActivity activity;
 
     public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
         this.context = context;
@@ -47,7 +46,6 @@ public class GridAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(context.getApplicationContext());
         locked = new ArrayList<>();
         highlightedTiles = new ArrayList<>();
-        allTileViews = new ArrayList<>();
         this.activity = activity;
     }
 
@@ -99,7 +97,6 @@ public class GridAdapter extends BaseAdapter {
                         padlock.initPadlockAnimation();
                         lockedView.startAnimation(AnimationUtils.loadAnimation(lockedView.getContext(), R.anim.shake_anim));
                         padlock.setVisibility(INVISIBLE);
-
                     }
                 }
 //
@@ -111,7 +108,6 @@ public class GridAdapter extends BaseAdapter {
 
         if (board.isLocked(board.getIndex(position)))
             locked.add(view);
-        allTileViews.add(view);
         return view;
     }
 

@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class BoardActivity extends AppCompatActivity {
     private Board board;
     private int boardSize;
+    private boolean fromServer;
     private TextView inGameMessageTextView;
     private TextView inGameTimerTextView;
     private BoardView boardView;
@@ -47,13 +48,15 @@ public class BoardActivity extends AppCompatActivity {
         inGameMessageTextView = findViewById(R.id.in_game_message);
         inGameTimerTextView = findViewById(R.id.timer_text);
         boardSize = (int) getIntent().getExtras().get("size");
+        fromServer = (boolean) getIntent().getExtras().get("fromServer");
+
     }
     private void getBoard(){
         // Get board threaded
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         try {
-            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize)).get();
+            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize, fromServer)).get();
 
         } catch (ExecutionException e) {
             e.printStackTrace();

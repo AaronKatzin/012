@@ -100,7 +100,7 @@ public class BoardView extends Fragment {
         View view = inflater.inflate(R.layout.view_board_fragment, container, false);
         mGridView = view.findViewById(R.id.board);
         initGrid(view.getContext(), board.getSize());
-        allTileView = adapter.allTileViews;
+//        allTileView = adapter.allTileViews;
 //        setupAdapter();
 
         return view;
