@@ -30,7 +30,7 @@
         android:layout_alignStart="@id/tile"
         android:layout_alignEnd="@id/tile"
 />
-    <ImageView
+    <com.hit.game012.startupsequence.AnimatedImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/padlock"

@@ -67,13 +67,14 @@ public class BoardActivity extends AppCompatActivity {
     }
     public void getHint(View view){
         String message = getResources().getString(boardView.requestHint());
-        inGameMessageTextView.setTextSize(30);
+        inGameMessageTextView.setTextSize(28);
         inGameMessageTextView.setText(message);
+
     }
     public void undo(View view){
         if(!boardView.undo()){
             String message = getResources().getString(R.string.undo_stack_emp);
-            inGameMessageTextView.setTextSize(30);
+            inGameMessageTextView.setTextSize(28);
             inGameMessageTextView.setText(message);
         }
     }

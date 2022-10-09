@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.hit.game012.gamelogic.game.Board;
-import com.hit.game012.gamelogic.generator.BoardGenerator;
 import com.hit.game012.startupsequence.AnimatedImageView;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
@@ -22,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         AnimatedImageView right = findViewById(R.id.right_tile);
         AnimatedTextView gameName = findViewById(R.id.app_name_startup);
 
-        left.initAnimation(1500,1000);
-        right.initAnimation(1500, 2000);
+        left.initStartupAnimation(1500,1000);
+        right.initStartupAnimation(1500, 2000);
         gameName.initAnimation(2000, 3000);
 
 
