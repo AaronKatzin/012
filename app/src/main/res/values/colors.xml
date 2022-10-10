@@ -11,4 +11,5 @@
     <color name="tileOne">#f26e24</color>
     <color name="tileZero">#FFBB86FC</color>
 
+    <color name="background">#353535</color>
 </resources>
