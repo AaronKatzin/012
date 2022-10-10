@@ -6,10 +6,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,18 +34,20 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSigninClient;
     private FirebaseAuth mAuth;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if(user != null){
-            Intent intent = new Intent(getApplicationContext(), logout.class);
-            startActivity(intent);
-
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        FirebaseUser user = mAuth.getCurrentUser();
+//
+//        if(user != null){
+//
+//            Toast.makeText(MainActivity.this, "Already logged in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(getApplicationContext(), logout.class);
+//            startActivity(intent);
+//
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +64,19 @@ public class MainActivity extends AppCompatActivity {
 
         authOnCreate();
 
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+
+            Toast.makeText(MainActivity.this, "Already logged in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), logout.class);
+            startActivity(intent);
+
+        }
+
     }
 
     private void authOnCreate(){
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -144,12 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_firebase_login);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+
     public void startGame(View view){
         Intent intent = new Intent(this, ChooseBoardSize.class);
         startActivity(intent);
