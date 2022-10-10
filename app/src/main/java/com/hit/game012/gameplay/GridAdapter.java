@@ -158,8 +158,12 @@ public class GridAdapter extends BaseAdapter {
 
         Boolean isSolved=false;
         if(board.isFull()){
+            // save the time?
+
             //validate in new thread
             if(threadPoolExecutor.getActiveCount()==0) {
+                // TODO : fix condition to create only one thread!
+
                 System.out.println("start validate");
                 try {
                     isSolved= threadPoolExecutor.submit(new Validator()).get();
@@ -170,10 +174,11 @@ public class GridAdapter extends BaseAdapter {
                 }
 
                 if(isSolved){
+                    // TODO : stop timer
                     int[] winStringMessages={R.string.win_great,R.string.win_good_job,R.string.win_excellent,R.string.win_amazing};
                     Random r=new Random();
                     message=r.nextInt(winStringMessages.length);
-                    ((BoardActivity) activity).setInGameMessage(winStringMessages[message],28);
+                    ((BoardActivity) activity).setInGameMessage(winStringMessages[message],34);
                     popupAnim(view);
                 }
 //                    threadPoolExecutor.execute(new ShowPopUp(view));
@@ -181,7 +186,7 @@ public class GridAdapter extends BaseAdapter {
                     int[] loseStringMessages={R.string.lose_next_time,R.string.lose_not_good,R.string.lose_practice};
                     Random r=new Random();
                     message=r.nextInt(loseStringMessages.length);
-                    ((BoardActivity) activity).setInGameMessage(loseStringMessages[message],28);
+                    ((BoardActivity) activity).setInGameMessage(loseStringMessages[message],34);
                     popupAnim(view);
                 }
 

@@ -14,13 +14,7 @@ import java.util.concurrent.Callable;
 public class Validator implements Callable<Boolean> {
     private final long VALIDATOR_DELAY   = 700;
     private BoardChecker checker;
-//    private Context context;
-//    private View view;
 
-//    public Validator( View view) {
-//        this.context=view.getContext();
-//        this.view=view;
-//    }
 
     @Override
     public Boolean call() {
@@ -35,14 +29,12 @@ public class Validator implements Callable<Boolean> {
         {
             System.out.println("win");
             return true;
-            //start win animation
-            //move to next page
+
         }
         else{
             System.out.println("lose");
             return false;
-            //start lose animation
-            //move to next page
+
         }
 
     }
