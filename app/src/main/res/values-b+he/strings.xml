@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">012</string>
+    <string name="message">היי</string>
+    <string name="Choose_board_size">בחר גודל לוח:</string>
+    <string name="hint_board_full">הלוח מלא</string>
+    <string name="hint_3_color">אסור שיהיו שלושה אריחים באותו צבע ברצף</string>
+    <string name="hint_col_count">חייבת להיות כמות זהה של שני הצבעים בעמודה</string>
+    <string name="hint_row_count">חייבת להיות כמות זהה של שני הצבעים בשורה</string>
+    <string name="hint_unique_col">אסור שיהיו בלוח שתי עמודות זהות</string>
+    <string name="hint_unique_row">אסור שיהיו בלוח שתי שורות זהות</string>
+    <string name="hint_dead_end">אויי.. איזה בלאגן :(</string>
+    <string name="undo_stack_emp">עדיין לא ביצעת פעולה כלשהי בלוח</string>
+
+</resources>
