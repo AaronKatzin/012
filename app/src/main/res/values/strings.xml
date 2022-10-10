@@ -10,4 +10,14 @@
     <string name="hint_unique_row">No two rows are the same.</string>
     <string name="hint_dead_end">Pfff... what a mess :(</string>
     <string name="undo_stack_emp">You still didn’t make any move</string>
+    <string name="win_great">Great!</string>
+    <string name="win_good_job">Good Job!</string>
+    <string name="win_excellent">Excellent!</string>
+    <string name="win_amazing">Amazing!</string>
+    <string name="lose_next_time">Maybe next time..</string>
+    <string name="lose_not_good">Not good enough...</string>
+    <string name="lose_practice">Practice is the key</string>
 </resources>
+
+
+

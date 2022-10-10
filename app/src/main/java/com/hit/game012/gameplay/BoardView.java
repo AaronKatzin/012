@@ -54,6 +54,7 @@ public class BoardView extends Fragment {
 
     public void startGame() {
         timer.start();
+        
 
     }
 

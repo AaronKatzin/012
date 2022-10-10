@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 
@@ -25,7 +26,7 @@ public class BoardActivity extends AppCompatActivity {
     private int boardSize;
     private boolean fromServer;
     private TextView inGameMessageTextView;
-    private TextView inGameTimerTextView;
+    private Chronometer inGameTimerTextView;
     private BoardView boardView;
 
     @Override
@@ -42,7 +43,8 @@ public class BoardActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
 
-        boardView.startGame();
+//        boardView.startGame();
+        inGameTimerTextView.start();
     }
     private void init(){
         inGameMessageTextView = findViewById(R.id.in_game_message);
@@ -69,22 +71,23 @@ public class BoardActivity extends AppCompatActivity {
         finish();
     }
     public void getHint(View view){
-        String message = getResources().getString(boardView.requestHint());
-        inGameMessageTextView.setTextSize(28);
-        inGameMessageTextView.setText(message);
-
+        setInGameMessage(boardView.requestHint(),28);
     }
     public void undo(View view){
         if(!boardView.undo()){
-            String message = getResources().getString(R.string.undo_stack_emp);
-            inGameMessageTextView.setTextSize(28);
-            inGameMessageTextView.setText(message);
+            setInGameMessage(R.string.undo_stack_emp,28);
         }
     }
 
     public void resetInGameMessage(int boardSize){
         inGameMessageTextView.setTextSize(40);
         inGameMessageTextView.setText(boardSize+" X "+ boardSize);
+    }
+
+    public void setInGameMessage(int resID, int size){
+        String message = getResources().getString(resID);
+        inGameMessageTextView.setTextSize(size);
+        inGameMessageTextView.setText(message);
     }
 
 }
