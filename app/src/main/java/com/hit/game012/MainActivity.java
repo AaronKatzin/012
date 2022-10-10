@@ -29,14 +29,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.hit.game012.databinding.ActivityFirebaseLoginBinding;
+import com.hit.game012.databinding.ActivityMainBinding;
 import com.hit.game012.startupsequence.AnimatedImageView;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityFirebaseLoginBinding binding;
+    private ActivityMainBinding binding;
     private GoogleSignInClient mGoogleSigninClient;
     private FirebaseAuth mAuth;
 
@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void authOnCreate(){
-        binding = ActivityFirebaseLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        //setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_firebase_login);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
