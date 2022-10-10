@@ -25,7 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.hit.game012.databinding.ActivityMainBinding;
 import com.hit.game012.startupsequence.AnimatedImageView;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
@@ -34,20 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSigninClient;
     private FirebaseAuth mAuth;
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        FirebaseUser user = mAuth.getCurrentUser();
-//
-//        if(user != null){
-//
-//            Toast.makeText(MainActivity.this, "Already logged in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getApplicationContext(), logout.class);
-//            startActivity(intent);
-//
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
