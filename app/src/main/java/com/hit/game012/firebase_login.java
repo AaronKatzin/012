@@ -1,5 +1,6 @@
 package com.hit.game012;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -117,24 +122,29 @@ public class firebase_login extends AppCompatActivity {
     }
 
     private void signIn(){
-        Intent signInInten = mGoogleSigninClient.getSignInIntent();
-        startActivityForResult(signInInten, RC_SIGN_IN);
+        Intent signInIntent = mGoogleSigninClient.getSignInIntent();
+        getResult.launch(signInIntent);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try{
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e){
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    ActivityResultLauncher<Intent> getResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                        try{
+                            GoogleSignInAccount account = task.getResult(ApiException.class);
+                            firebaseAuthWithGoogle(account);
+                        } catch (ApiException e){
+                            Toast.makeText(firebase_login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         //Log.d("MainACtivity", "firebaseAuthWithGoogle:" + acct.getId());
