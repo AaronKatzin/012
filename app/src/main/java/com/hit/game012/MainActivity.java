@@ -35,8 +35,6 @@ import com.hit.game012.startupsequence.AnimatedTextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
     private GoogleSignInClient mGoogleSigninClient;
     private FirebaseAuth mAuth;
 
@@ -71,14 +69,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void authOnCreate(){
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-
-//        setSupportActionBar(binding.toolbar);
-//
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_firebase_login);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         mAuth = FirebaseAuth.getInstance();
 
