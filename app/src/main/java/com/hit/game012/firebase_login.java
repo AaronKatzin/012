@@ -41,14 +41,10 @@ import com.hit.game012.databinding.ActivityFirebaseLoginBinding;
 
 public class firebase_login extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 1;
     private AppBarConfiguration appBarConfiguration;
     private ActivityFirebaseLoginBinding binding;
-    private SignInClient oneTapClient;
-    private BeginSignInRequest signInRequest;
     private GoogleSignInClient mGoogleSigninClient;
 
-    Button verify;
     private FirebaseAuth mAuth;
 
     @Override
@@ -77,14 +73,6 @@ public class firebase_login extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         mAuth = FirebaseAuth.getInstance();
 
         createLoginRequest();
@@ -98,22 +86,6 @@ public class firebase_login extends AppCompatActivity {
     }
 
     private void createLoginRequest() {
-//        oneTapClient = Identity.getSignInClient(this);
-//        signInRequest = BeginSignInRequest.builder()
-//                .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
-//                        .setSupported(true)
-//                        .build())
-//                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-//                        .setSupported(true)
-//                        // Your server's client ID, not your Android client ID.
-//                        .setServerClientId(getString(R.string.default_web_client_id))
-//                        // Only show accounts previously used to sign in.
-//                        .setFilterByAuthorizedAccounts(true)
-//                        .build())
-//                // Don't automatically sign in when exactly one credential is retrieved. TODO change to true
-//                .setAutoSelectEnabled(false)
-//                .build();
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
