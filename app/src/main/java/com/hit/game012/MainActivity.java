@@ -11,6 +11,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -50,16 +54,30 @@ public class MainActivity extends AppCompatActivity {
         authOnCreate();
 
         FirebaseUser user = mAuth.getCurrentUser();
+
         if(user != null){
 
             Toast.makeText(MainActivity.this, "Already logged in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), logout.class);
             startActivity(intent);
 
+        } else {
+
+            animateSigninButtons();
+
         }
 
     }
 
+    private void animateSigninButtons(){
+        Animation fadein = new AlphaAnimation(0,1);
+        fadein.setInterpolator(new DecelerateInterpolator());
+        fadein.setDuration(2000);
+        fadein.setStartOffset(4000);
+        AnimationSet animation = new AnimationSet(false);
+        animation.addAnimation(fadein);
+        findViewById(R.id.SigninButtonLayout).setAnimation(animation);
+    }
     private void authOnCreate(){
 
 
