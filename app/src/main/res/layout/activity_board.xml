@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.hit.game012.startupsequence.AnimatedTextView
             android:id="@+id/in_game_message"
             android:layout_width="match_parent"
             android:layout_height="100dp"

@@ -51,6 +51,9 @@ public class GridAdapter extends BaseAdapter {
     private List<View> locked;
     private List<Index> highlightedTiles;
     private ThreadPoolExecutor threadPoolExecutor;
+    int threads = 0;
+    private Validator validator;
+    private boolean inGameMessageChanged = false;
 
     public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
         this.context = context;
@@ -63,6 +66,7 @@ public class GridAdapter extends BaseAdapter {
         this.activity = activity;
         threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        validator = new Validator(activity);
     }
 
     @Override
@@ -84,6 +88,10 @@ public class GridAdapter extends BaseAdapter {
         this.highlightedTiles = highlightedTiles;
     }
 
+    public void setInGameMessageChanged(boolean inGameMessageChanged) {
+        this.inGameMessageChanged = inGameMessageChanged;
+    }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ContextThemeWrapper ctx = new ContextThemeWrapper(context, R.style.Theme_012);
@@ -100,13 +108,16 @@ public class GridAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BoardActivity) activity).resetInGameMessage(board.getSize());
+                if (inGameMessageChanged)
+                    ((BoardActivity) activity).resetInGameMessage(board.getSize());
                 highlightedTiles.clear();
                 if (!board.isLocked(index)) {
                     Tile newMove = board.stepTile(index);
                     Move move = new Move(index, newMove.getSerialized());
                     BoardView.addToMoveStack(move);
-                    mGridView.invalidateViews();
+//                    notifyDataSetChanged();
+                    notifyDataSetInvalidated();
+//                    mGridView.invalidateViews();
                     validateBoard(v);
                 } else {
                     for (View lockedView : locked) {
@@ -155,40 +166,43 @@ public class GridAdapter extends BaseAdapter {
 
     private void validateBoard(View view){
         int message;
-
-        Boolean isSolved=false;
+        boolean isSolved=false;
         if(board.isFull()){
             // save the time?
-
+            long gameTime = ((BoardActivity) activity).getGameTime();
+            System.out.println("Game time" + gameTime);
             //validate in new thread
             if(threadPoolExecutor.getActiveCount()==0) {
+                if (threads > 0){
+//                    threadPoolExecutor.;
+                }
                 // TODO : fix condition to create only one thread!
-
+                threads++;
                 System.out.println("start validate");
                 try {
-                    isSolved= threadPoolExecutor.submit(new Validator()).get();
+                    isSolved= threadPoolExecutor.submit(validator).get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                if(isSolved){
-                    // TODO : stop timer
-                    int[] winStringMessages={R.string.win_great,R.string.win_good_job,R.string.win_excellent,R.string.win_amazing};
-                    Random r=new Random();
-                    message=r.nextInt(winStringMessages.length);
-                    ((BoardActivity) activity).setInGameMessage(winStringMessages[message],34);
-                    popupAnim(view);
-                }
-//                    threadPoolExecutor.execute(new ShowPopUp(view));
-                else{
-                    int[] loseStringMessages={R.string.lose_next_time,R.string.lose_not_good,R.string.lose_practice};
-                    Random r=new Random();
-                    message=r.nextInt(loseStringMessages.length);
-                    ((BoardActivity) activity).setInGameMessage(loseStringMessages[message],34);
-                    popupAnim(view);
-                }
+//                if(isSolved){
+//                    // TODO : stop timer
+//                    int[] winStringMessages={R.string.win_great,R.string.win_good_job,R.string.win_excellent,R.string.win_amazing};
+//                    Random r=new Random();
+//                    message=r.nextInt(winStringMessages.length);
+//                    ((BoardActivity) activity).setInGameMessage(winStringMessages[message],34);
+////                    popupAnim(view);
+//                }
+////                    threadPoolExecutor.execute(new ShowPopUp(view));
+//                else{
+//                    int[] loseStringMessages={R.string.lose_next_time,R.string.lose_not_good,R.string.lose_practice};
+//                    Random r=new Random();
+//                    message=r.nextInt(loseStringMessages.length);
+//                    ((BoardActivity) activity).setInGameMessage(loseStringMessages[message],34);
+////                    popupAnim(view);
+//                }
 
             }
 

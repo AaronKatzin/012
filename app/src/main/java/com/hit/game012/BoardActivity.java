@@ -2,17 +2,16 @@ package com.hit.game012;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Chronometer;
-import android.widget.TextView;
 
 
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GetBoardThreaded;
+import com.hit.game012.startupsequence.AnimatedTextView;
 
 
 import java.util.concurrent.ExecutionException;
@@ -25,8 +24,8 @@ public class BoardActivity extends AppCompatActivity {
     private Board board;
     private int boardSize;
     private boolean fromServer;
-    private TextView inGameMessageTextView;
-    private Chronometer inGameTimerTextView;
+    private AnimatedTextView inGameMessageView;
+    private Chronometer inGameTimerChronometer;
     private BoardView boardView;
 
     @Override
@@ -44,11 +43,11 @@ public class BoardActivity extends AppCompatActivity {
                 .commit();
 
 //        boardView.startGame();
-        inGameTimerTextView.start();
+        inGameTimerChronometer.start();
     }
     private void init(){
-        inGameMessageTextView = findViewById(R.id.in_game_message);
-        inGameTimerTextView = findViewById(R.id.timer_text);
+        inGameMessageView = findViewById(R.id.in_game_message);
+        inGameTimerChronometer = findViewById(R.id.timer_text);
         boardSize = (int) getIntent().getExtras().get("size");
         fromServer = (boolean) getIntent().getExtras().get("fromServer");
 
@@ -80,14 +79,19 @@ public class BoardActivity extends AppCompatActivity {
     }
 
     public void resetInGameMessage(int boardSize){
-        inGameMessageTextView.setTextSize(40);
-        inGameMessageTextView.setText(boardSize+" X "+ boardSize);
+        inGameMessageView.setTextSize(40);
+        inGameMessageView.setText(boardSize+" X "+ boardSize);
     }
 
     public void setInGameMessage(int resID, int size){
         String message = getResources().getString(resID);
-        inGameMessageTextView.setTextSize(size);
-        inGameMessageTextView.setText(message);
+        inGameMessageView.setTextSize(size);
+        inGameMessageView.setText(message);
+        inGameMessageView.initAnimation(800,100);
+    }
+    public long getGameTime(){
+        inGameTimerChronometer.stop();
+        return inGameTimerChronometer.getBase();
     }
 
 }
