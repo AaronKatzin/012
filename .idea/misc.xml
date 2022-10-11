@@ -14,7 +14,14 @@
         <entry key="..\:/Users/gonip/AndroidStudioProjects/012/app/src/main/res/layout/tile_holder.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/gonip/AndroidStudioProjects/012/app/src/main/res/layout/view_board.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/gonip/AndroidStudioProjects/012/app/src/main/res/layout/view_board_fragment.xml" value="0.2546875" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/drawable/ic_launcher_background.xml" value="0.101" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/drawable/tile_empty.xml" value="0.2545" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/drawable/tile_one.xml" value="0.1" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/drawable/tile_zero.xml" value="0.1" />
         <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/layout/activity_board.xml" value="0.1539855072463768" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/layout/activity_choose_board_size.xml" value="0.23777173913043478" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/layout/activity_menu.xml" value="0.22735507246376813" />
+        <entry key="..\:/Users/matan/AndroidStudioProjects/012/app/src/main/res/layout/activity_settings.xml" value="0.1" />
       </map>
     </option>
   </component>

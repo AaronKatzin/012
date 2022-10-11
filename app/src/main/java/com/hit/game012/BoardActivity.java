@@ -3,16 +3,9 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Chronometer;
-import android.widget.ImageView;
 
 
 //import com.bumptech.glide.Glide;
@@ -34,7 +27,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class BoardActivity extends AppCompatActivity {
     private Board board;
     private int boardSize;
-    private boolean fromServer;
+    private boolean isDailyGame;
     private AnimatedTextView inGameMessageView;
     private GifImageView endGameGif;
     private Chronometer inGameTimerChronometer;
@@ -66,7 +59,7 @@ public class BoardActivity extends AppCompatActivity {
 //        endGameGif.setImageResource(R.drawable.lose1);
 
         boardSize = (int) getIntent().getExtras().get("size");
-        fromServer = (boolean) getIntent().getExtras().get("fromServer");
+        isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
 
     }
     private void getBoard(){
@@ -74,7 +67,7 @@ public class BoardActivity extends AppCompatActivity {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         try {
-            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize, fromServer)).get();
+            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize, isDailyGame)).get();
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -117,12 +110,12 @@ public class BoardActivity extends AppCompatActivity {
         Random r = new Random();
         if (validatorResult){
             // Win
-            int[] winGifOptions = {R.drawable.win1, R.drawable.win2};
+            int[] winGifOptions = {R.drawable.win1, R.drawable.win2, R.drawable.win3, R.drawable.win4};
             resourceID = winGifOptions[r.nextInt(winGifOptions.length)];
         }
         else{
             // Lose
-            int[] loseGifOptions = {R.drawable.lose1, R.drawable.lose2};
+            int[] loseGifOptions = {R.drawable.lose1, R.drawable.lose2, R.drawable.lose3};
             resourceID = loseGifOptions[r.nextInt(loseGifOptions.length)];
         }
         endGameGif.setImageResource(resourceID);

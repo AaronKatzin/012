@@ -3,6 +3,7 @@ package com.hit.game012;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
 
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
@@ -26,8 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void init(){
+        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
+        Config.setGridThemeID(sharedPref.getInt("colorTheme", R.id.settings_color_theme_1));
+        setTheme(Config.gridThemeID);
+    }
     public void startGame(View view){
-        Intent intent = new Intent(this, ChooseBoardSize.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 }

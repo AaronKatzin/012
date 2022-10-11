@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/options_menu"
+    android:orientation="vertical"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="get notification"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/settings_notifications_enabled"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="50dp"
+        android:textSize="25sp"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sound"
+        android:id="@+id/settings_sound_enabled"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="10dp"
+        android:textSize="25sp"/>
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:spinnerMode="dropdown"-->
+<!--        android:layout_marginHorizontal="50dp"-->
+<!--        android:layout_marginVertical="10dp"-->
+<!--        />-->
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radio_group_language"
+        >
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/settings_lang_hebrew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hebrew"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/settings_lang_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"/>
+    </RadioGroup>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radio_group_color_theme"
+        android:onClick="changeGridColor"
+    >
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/settings_color_theme_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="colorTheme1"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/settings_color_theme_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="colorTheme2"/>
+    </RadioGroup>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Back"
+    android:onClick="exitSettings"
+    android:textAlignment="center"
+    android:textSize="25sp"/>
+
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
