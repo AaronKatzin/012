@@ -44,21 +44,21 @@ import java.util.concurrent.TimeUnit;
 public class GridAdapter extends BaseAdapter {
     private int tileSize;
     private Board board;
-    private GridView mGridView;
+    //    private GridView mGridView;
     private Context context;
     private LayoutInflater inflater;
     private FragmentActivity activity;
     private List<View> locked;
     private List<Index> highlightedTiles;
     private ThreadPoolExecutor threadPoolExecutor;
-    int threads = 0;
     private Validator validator;
     private boolean inGameMessageChanged = false;
+    private boolean isValidating = false;
 
     public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
         this.context = context;
         this.board = board;
-        mGridView = grid;
+//        mGridView = grid;
         tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100) / board.getSize();
         inflater = LayoutInflater.from(context.getApplicationContext());
         locked = new ArrayList<>();
@@ -66,7 +66,7 @@ public class GridAdapter extends BaseAdapter {
         this.activity = activity;
         threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-        validator = new Validator(activity);
+        validator = new Validator(activity, activity.getCurrentFocus());
     }
 
     @Override
@@ -118,7 +118,7 @@ public class GridAdapter extends BaseAdapter {
 //                    notifyDataSetChanged();
                     notifyDataSetInvalidated();
 //                    mGridView.invalidateViews();
-                    validateBoard(v);
+                    validateBoard();
                 } else {
                     for (View lockedView : locked) {
                         AnimatedImageView padlock = lockedView.findViewById(R.id.lock_icon);
@@ -130,7 +130,7 @@ public class GridAdapter extends BaseAdapter {
 //
             }
         });
-        if(highlightedTiles.contains(index)){
+        if (highlightedTiles.contains(index)) {
             highlightView.setVisibility(VISIBLE);
         }
 
@@ -164,55 +164,31 @@ public class GridAdapter extends BaseAdapter {
 
     }
 
-    private void validateBoard(View view){
-        int message;
-        boolean isSolved=false;
-        if(board.isFull()){
+    private void validateBoard() {
+
+        if (board.isFull() && !isValidating) {
+
             // save the time?
             long gameTime = ((BoardActivity) activity).getGameTime();
-            System.out.println("Game time" + gameTime);
+            System.out.println("Game time stopped " + gameTime);
             //validate in new thread
-            if(threadPoolExecutor.getActiveCount()==0) {
-                if (threads > 0){
-//                    threadPoolExecutor.;
-                }
-                // TODO : fix condition to create only one thread!
-                threads++;
-                System.out.println("start validate");
-                try {
-                    isSolved= threadPoolExecutor.submit(validator).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            isValidating = true;
 
-//                if(isSolved){
-//                    // TODO : stop timer
-//                    int[] winStringMessages={R.string.win_great,R.string.win_good_job,R.string.win_excellent,R.string.win_amazing};
-//                    Random r=new Random();
-//                    message=r.nextInt(winStringMessages.length);
-//                    ((BoardActivity) activity).setInGameMessage(winStringMessages[message],34);
-////                    popupAnim(view);
-//                }
-////                    threadPoolExecutor.execute(new ShowPopUp(view));
-//                else{
-//                    int[] loseStringMessages={R.string.lose_next_time,R.string.lose_not_good,R.string.lose_practice};
-//                    Random r=new Random();
-//                    message=r.nextInt(loseStringMessages.length);
-//                    ((BoardActivity) activity).setInGameMessage(loseStringMessages[message],34);
-////                    popupAnim(view);
-//                }
+            System.out.println("start validate");
+            threadPoolExecutor.submit(validator);
 
-            }
+//            if
+//            ((BoardActivity) activity).setEndGameGif(validatorResult);
+
 
         }
 
 
     }
-    public void popupAnim(View view){
+
+    public void popupAnim(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
-        final View layout=LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win,null);
+        final View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win, null);
         alertDialogBuilder.setView(layout);
 //        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
 //        alertDialogBuilder.setTitle("Connection Failed");
@@ -220,7 +196,7 @@ public class GridAdapter extends BaseAdapter {
 
 //            @Override
 //            public void onClick(DialogInterface dialogInterface, int i) {
-                // add these two lines, if you wish to close the app:
+        // add these two lines, if you wish to close the app:
 //                finishAffinity();
 //                System.exit(0);
 //            }

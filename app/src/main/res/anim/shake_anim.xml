@@ -7,5 +7,4 @@
     android:repeatCount="5"
     android:repeatMode="reverse"
     android:toDegrees="5" >
-
 </rotate>

@@ -1,9 +1,12 @@
 package com.hit.game012.gameplay;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -17,49 +20,79 @@ import com.hit.game012.gamelogic.game.Board;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
-public class Validator implements Callable<Boolean> {
-    private final long VALIDATOR_DELAY = 700;
+public class Validator implements Runnable {
+    private final long VALIDATOR_DELAY = 1000;
     private BoardChecker checker;
     private FragmentActivity activity;
+    private Random r = new Random();
+    private View view;
 
-    public Validator(FragmentActivity activity) {
+    public Validator(FragmentActivity activity, View view) {
         this.activity = activity;
+        this.view = view;
     }
 
     @Override
-    public Boolean call() {
-
+    public void run() {
         try {
             Thread.sleep(VALIDATOR_DELAY); //1 second
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         Board board = BoardView.getBoard();
-        synchronized (board){
+        synchronized (board) {
             checker = new BoardChecker(board);
-            System.out.println(board);
-
         }
+
         if (checker.isSolvedBoolean()) //win
         {
             System.out.println("win");
-            int[] winStringMessages={R.string.win_great,R.string.win_good_job,R.string.win_excellent,R.string.win_amazing};
-            Random r=new Random();
-            int message=r.nextInt(winStringMessages.length);
-            ((BoardActivity) activity).setInGameMessage(winStringMessages[message],40);
-            return true;
+            ((BoardActivity) activity).setInGameMessage(getWinMessage(), 40);
+            ((BoardActivity) activity).setEndGameGif(true);
+//            popupAnim(view);
+//            return true;
 
         } else {
             System.out.println("lose");
-            int[] loseStringMessages={R.string.lose_next_time,R.string.lose_not_good,R.string.lose_practice};
-            Random r=new Random();
-            int message=r.nextInt(loseStringMessages.length);
-            ((BoardActivity) activity).setInGameMessage(loseStringMessages[message],40);
-            return false;
+            ((BoardActivity) activity).setInGameMessage(getLoseMessage(), 40);
+            ((BoardActivity) activity).setEndGameGif(false);
+//            return false;
 
         }
 
+    }
+
+    private int getWinMessage() {
+        int[] winStringMessages = {R.string.win_great, R.string.win_good_job, R.string.win_excellent, R.string.win_amazing};
+        int messageId = r.nextInt(winStringMessages.length);
+        return winStringMessages[messageId];
+    }
+    private int getLoseMessage() {
+        int[] loseStringMessages = {R.string.lose_next_time, R.string.lose_not_good, R.string.lose_practice};
+        int messageId = r.nextInt(loseStringMessages.length);
+        return loseStringMessages[messageId];
+    }
+//    public void popupAnim(View view){
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+//        final View layout=LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win,null);
+//        alertDialogBuilder.setView(layout);
+////        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
+////        alertDialogBuilder.setTitle("Connection Failed");
+////        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+//
+////            @Override
+////            public void onClick(DialogInterface dialogInterface, int i) {
+//        // add these two lines, if you wish to close the app:
+////                finishAffinity();
+////                System.exit(0);
+////            }
+////        });
+//        AlertDialog alertDialog = alertDialogBuilder.create();
+//        alertDialog.show();
+//    }
+    private void winAnimation(){
+        Animation animation = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.zoom_animation);
+//        imageView.startAnimation(animation);
     }
 
 }
