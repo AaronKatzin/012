@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSigninClient;
     private FirebaseAuth mAuth;
-
+    private static final String GOOGLE_SERVER_CLIENT_ID = "778865611995-44u44113jejfrehf0im3o7at69c8k6l0.apps.googleusercontent.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createLoginRequest() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(GOOGLE_SERVER_CLIENT_ID)
                 .requestEmail()
                 .build();
         mGoogleSigninClient = GoogleSignIn.getClient(this, gso);
