@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
+//        init();
 
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void startGame(View view){
+    public void continueToMenu(View view){
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
