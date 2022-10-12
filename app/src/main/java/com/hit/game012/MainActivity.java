@@ -1,5 +1,7 @@
 package com.hit.game012;
 
+import static com.hit.game012.Config.GOOGLE_SERVER_CLIENT_ID;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSigninClient;
     private FirebaseAuth mAuth;
-    private static final String GOOGLE_SERVER_CLIENT_ID = "778865611995-44u44113jejfrehf0im3o7at69c8k6l0.apps.googleusercontent.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
