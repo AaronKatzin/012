@@ -28,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:onClick="continueToMenu"
         app:layout_constraintBottom_toTopOf="@id/copyright"
         app:layout_constraintTop_toBottomOf="@id/startup_text">
 
