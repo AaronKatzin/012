@@ -34,7 +34,6 @@ public class BoardView extends Fragment {
     private Set<Index> highlightedIndexes;
     private GridView mGridView;
     private GridAdapter adapter;
-    List<View> allTileView;
 
 
     public static Board getBoard() {
@@ -54,6 +53,7 @@ public class BoardView extends Fragment {
 
     public void startGame() {
         timer.start();
+        
 
     }
 
@@ -67,6 +67,7 @@ public class BoardView extends Fragment {
             System.out.println("Highlighted indexes: " + highlightedIndexes);
         }
         highlightHintTiles(involvedTiles);
+        adapter.setInGameMessageChanged(true);
         return hint.getMessage();
     }
 
@@ -136,6 +137,7 @@ public class BoardView extends Fragment {
 
     public boolean undo(){
         if (moves.empty()){
+            adapter.setInGameMessageChanged(true);
             return false;
         }
         char color;

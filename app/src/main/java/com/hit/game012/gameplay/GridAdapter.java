@@ -3,15 +3,22 @@ package com.hit.game012.gameplay;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.RenderNode;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -26,27 +33,40 @@ import com.hit.game012.gamelogic.game.Tile;
 import com.hit.game012.startupsequence.AnimatedImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GridAdapter extends BaseAdapter {
-    int tileSize;
-    Board board;
-    GridView mGridView;
-    Context context;
-    LayoutInflater inflater;
-    FragmentActivity activity;
-    List<View> locked;
-    List<Index> highlightedTiles;
+    private int tileSize;
+    private Board board;
+    //    private GridView mGridView;
+    private Context context;
+    private LayoutInflater inflater;
+    private FragmentActivity activity;
+    private List<View> locked;
+    private List<Index> highlightedTiles;
+    private ThreadPoolExecutor threadPoolExecutor;
+    private Validator validator;
+    private boolean inGameMessageChanged = false;
+    private boolean isValidating = false;
 
     public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
         this.context = context;
         this.board = board;
-        mGridView = grid;
+//        mGridView = grid;
         tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100) / board.getSize();
         inflater = LayoutInflater.from(context.getApplicationContext());
         locked = new ArrayList<>();
         highlightedTiles = new ArrayList<>();
         this.activity = activity;
+        threadPoolExecutor = new ThreadPoolExecutor(1, 2,
+                1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        validator = new Validator(activity, activity.getCurrentFocus());
     }
 
     @Override
@@ -68,6 +88,10 @@ public class GridAdapter extends BaseAdapter {
         this.highlightedTiles = highlightedTiles;
     }
 
+    public void setInGameMessageChanged(boolean inGameMessageChanged) {
+        this.inGameMessageChanged = inGameMessageChanged;
+    }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ContextThemeWrapper ctx = new ContextThemeWrapper(context, R.style.Theme_012);
@@ -84,13 +108,17 @@ public class GridAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BoardActivity) activity).resetInGameMessage(board.getSize());
+                if (inGameMessageChanged)
+                    ((BoardActivity) activity).resetInGameMessage(board.getSize());
                 highlightedTiles.clear();
                 if (!board.isLocked(index)) {
                     Tile newMove = board.stepTile(index);
                     Move move = new Move(index, newMove.getSerialized());
                     BoardView.addToMoveStack(move);
-                    mGridView.invalidateViews();
+//                    notifyDataSetChanged();
+                    notifyDataSetInvalidated();
+//                    mGridView.invalidateViews();
+                    validateBoard();
                 } else {
                     for (View lockedView : locked) {
                         AnimatedImageView padlock = lockedView.findViewById(R.id.lock_icon);
@@ -102,7 +130,7 @@ public class GridAdapter extends BaseAdapter {
 //
             }
         });
-        if(highlightedTiles.contains(index)){
+        if (highlightedTiles.contains(index)) {
             highlightView.setVisibility(VISIBLE);
         }
 
@@ -135,4 +163,46 @@ public class GridAdapter extends BaseAdapter {
         tileView.setBackground(view.getResources().getDrawable(tileDrawable, view.getContext().getTheme()));
 
     }
+
+    private void validateBoard() {
+
+        if (board.isFull() && !isValidating) {
+
+            // save the time?
+            long gameTime = ((BoardActivity) activity).getGameTime();
+            System.out.println("Game time stopped " + gameTime);
+            //validate in new thread
+            isValidating = true;
+
+            System.out.println("start validate");
+            threadPoolExecutor.submit(validator);
+
+//            if
+//            ((BoardActivity) activity).setEndGameGif(validatorResult);
+
+
+        }
+
+
+    }
+
+    public void popupAnim(View view) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+        final View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win, null);
+        alertDialogBuilder.setView(layout);
+//        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
+//        alertDialogBuilder.setTitle("Connection Failed");
+//        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+        // add these two lines, if you wish to close the app:
+//                finishAffinity();
+//                System.exit(0);
+//            }
+//        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
 }

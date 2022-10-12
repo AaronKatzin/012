@@ -7,9 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="tileEmpty">#FF000000</color>
-    <color name="tileOne">#f26e24</color>
-    <color name="tileZero">#FFBB86FC</color>
+
+    <color name="tileEmpty">#81000000</color>
+    <color name="theme_1_tileOne">#f26e24</color>
+    <color name="theme_1_tileZero">#FFBB86FC</color>
+    <color name="theme_2_tileOne">#d5fe21</color>
+    <color name="theme_2_tileZero">#4fb4ff</color>
 
     <color name="background">#353535</color>
 </resources>

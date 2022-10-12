@@ -11,5 +11,13 @@
     <string name="hint_unique_row">אסור שיהיו בלוח שתי שורות זהות</string>
     <string name="hint_dead_end">אויי.. איזה בלאגן :(</string>
     <string name="undo_stack_emp">עדיין לא ביצעת פעולה כלשהי בלוח</string>
-
+    <string name="choose_size_free_play">משחק חופשי</string>
+    <string name="choose_size_daily_play">משחק יומי</string>
+    <string name="win_great">פצצה!</string>
+    <string name="win_good_job">עבודה טובה!</string>
+    <string name="win_excellent">מעולה!</string>
+    <string name="win_amazing">מדהים!</string>
+    <string name="lose_next_time">אולי בפעם הבאה..</string>
+    <string name="lose_not_good">לא מספיק טוב</string>
+    <string name="lose_practice">אימון זה המפתח להצלחה</string>
 </resources>

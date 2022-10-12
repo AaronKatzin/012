@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
 
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGame(View view){
-        Intent intent = new Intent(this, ChooseBoardSize.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 }
