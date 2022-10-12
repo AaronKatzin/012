@@ -18,6 +18,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -60,12 +62,23 @@ public class MainActivity extends AppCompatActivity {
 
         if(user != null){
 
-            Toast.makeText(MainActivity.this, "Already logged in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), logout.class);
-            startActivity(intent);
+            LinearLayout enterLayout = findViewById(R.id.enterLayout);
+            Button enterButton = findViewById(R.id.enterButton);
+
+            enterButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            enterButton.setText("Welcome " + user.getDisplayName() + "! Enter");
+            enterLayout.setVisibility(View.VISIBLE);
 
         } else {
-
+            LinearLayout signinButtons = findViewById(R.id.SigninButtonLayout);
+            signinButtons.setVisibility(View.VISIBLE);
             animateSigninButtons();
 
         }
