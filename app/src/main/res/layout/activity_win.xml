@@ -6,24 +6,96 @@
     android:layout_height="match_parent"
     tools:context=".Win">
 
+    <ScrollView
+        android:id="@+id/multiplayerHighScoreTable"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toTopOf="@id/newGameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scoreText"
+        app:layout_constraintVertical_bias="0.498">
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@android:color/darker_gray" >-->
+
+<!--            <TableLayout-->
+<!--                android:id="@+id/tableLayout1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1000dp" >-->
+
+<!--                <TableRow-->
+<!--                    android:id="@+id/tr3a"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/theme_1_tileOne"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="2.5dp" >-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/lab_bookname"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="color/theme_1_tileTwo" />-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/lab_bookname"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="color/theme_1_tileTwo" />-->
+
+<!--                </TableRow>-->
+
+<!--                <TableRow-->
+<!--                    android:id="@+id/tr3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="color/theme_1_tileOne"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="2.5dp" >-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/lab_printname"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="text 1" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/printname"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="text 2" />-->
+<!--                </TableRow>-->
+<!--            </TableLayout>-->
+<!--        </LinearLayout>-->
+    </ScrollView>
+
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/multiplayerHighScoreTable"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516" />
 
     <Button
         android:id="@+id/newGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/new_game"
         android:onClick="newGame"
+        android:text="@string/new_game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreText" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreText"
+        app:layout_constraintVertical_bias="0.9" />
 </androidx.constraintlayout.widget.ConstraintLayout>
