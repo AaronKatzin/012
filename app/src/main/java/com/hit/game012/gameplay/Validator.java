@@ -96,6 +96,16 @@ public class Validator implements Runnable {
     private void winAnimation(){
         Animation animation = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.zoom_animation);
 //        imageView.startAnimation(animation);
+
+//        goToWinScreen();
     }
+
+//    public void goToWinScreen(){
+//        Intent intent = new Intent(super(context), Win.class);
+//        intent.putExtra("gameTime", getGameTime());
+//        intent.putExtra("hintCounter", hintCounter);
+//        startActivity(intent);
+//        finish();
+//    }
 
 }
