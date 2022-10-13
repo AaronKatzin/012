@@ -50,7 +50,6 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 //    public static void main(String[] args) {
 //        Client c = new Client();

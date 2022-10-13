@@ -10,8 +10,11 @@ public class GetBoardThreaded implements Callable<Board> {
     private int size;
     private boolean fromServer;
     private BoardGenerator boardGenerator;
-    private final String SERVERIP = "172.105.68.139";
+
+//    private final String SERVERIP = "172.105.68.139";
+    private final String SERVERIP = "192.168.1.42";
     private final int PORT = 5234;
+
 
     public GetBoardThreaded(int size, boolean fromServer) {
         this.size = size;

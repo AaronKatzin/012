@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class ChooseBoardSize extends AppCompatActivity {
     private TextView header;
     private boolean isDailyGame;
+    private boolean[] dailyBoardPlayed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class ChooseBoardSize extends AppCompatActivity {
         header = findViewById(R.id.choose_size_header);
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
         if (isDailyGame) header.setText(R.string.choose_size_daily_play);
-        else header.setText(R.string.choose_size_daily_play);
+        else header.setText(R.string.choose_size_free_play);
 
     }
 
@@ -41,6 +42,12 @@ public class ChooseBoardSize extends AppCompatActivity {
         intent.putExtra("size", size);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
+    }
+    private void loadFromMem(){
+
+    }
+    private void saveToMem(){
+
     }
     public void backToMenu(View view){
         finish();

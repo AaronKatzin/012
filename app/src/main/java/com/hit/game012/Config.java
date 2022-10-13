@@ -13,6 +13,7 @@ public class Config {
     public static int gridThemeID;
     public static final String GOOGLE_SERVER_CLIENT_ID = "778865611995-44u44113jejfrehf0im3o7at69c8k6l0.apps.googleusercontent.com";
 
+    public static boolean[] dailyBoardPlayed;
     public static void setGridThemeID(int gridThemeID) {
         Config.gridThemeID = gridThemeID;
 

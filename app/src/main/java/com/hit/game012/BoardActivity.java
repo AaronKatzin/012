@@ -48,16 +48,12 @@ public class BoardActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
 
-//        boardView.startGame();
         inGameTimerChronometer.start();
     }
     private void init(){
         inGameMessageView = findViewById(R.id.in_game_message);
         inGameTimerChronometer = findViewById(R.id.timer_text);
         endGameGif = findViewById(R.id.end_game_gif);
-
-//        endGameGif.setImageResource(R.drawable.lose1);
-
         boardSize = (int) getIntent().getExtras().get("size");
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
 
@@ -120,8 +116,6 @@ public class BoardActivity extends AppCompatActivity {
         }
         endGameGif.setImageResource(resourceID);
 
-//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.zoom_animation);
-//        endGameGif.startAnimation(animation);
 
     }
 
