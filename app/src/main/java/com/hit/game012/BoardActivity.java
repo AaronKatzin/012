@@ -9,9 +9,11 @@ import android.widget.Chronometer;
 
 
 //import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GetBoardThreaded;
+import com.hit.game012.net.Client;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
 
@@ -32,6 +34,7 @@ public class BoardActivity extends AppCompatActivity {
     private GifImageView endGameGif;
     private Chronometer inGameTimerChronometer;
     private BoardView boardView;
+    private Client client;
     private int hintCounter = 0;
 
     @Override
@@ -62,8 +65,10 @@ public class BoardActivity extends AppCompatActivity {
         // Get board threaded
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
         try {
-            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize, isDailyGame)).get();
+            board = threadPoolExecutor.submit(new GetBoardThreaded(boardSize, isDailyGame, userID)).get();
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -115,6 +120,7 @@ public class BoardActivity extends AppCompatActivity {
             resourceID = loseGifOptions[r.nextInt(loseGifOptions.length)];
         }
         endGameGif.setImageResource(resourceID);
+
 
 
     }

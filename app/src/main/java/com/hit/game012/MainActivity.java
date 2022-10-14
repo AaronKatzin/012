@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
             enterButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                    startActivity(intent);
+                    continueToMenu(view);
                 }
             });
 
@@ -160,9 +159,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(MainActivity.this, "Login Succeeded!", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                            startActivity(intent);
+                            continueToMenu(getCurrentFocus());
 
                         }else{
                             Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
@@ -174,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void continueToMenu(View view){
         Intent intent = new Intent(this, MenuActivity.class);
+//        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
     }
 }

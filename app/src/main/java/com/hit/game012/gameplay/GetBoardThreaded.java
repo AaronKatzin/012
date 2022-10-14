@@ -10,22 +10,25 @@ public class GetBoardThreaded implements Callable<Board> {
     private int size;
     private boolean fromServer;
     private BoardGenerator boardGenerator;
+    private String userID;
 
-//    private final String SERVERIP = "172.105.68.139";
-    private final String SERVERIP = "192.168.1.42";
+    private final String SERVERIP = "172.105.68.139";
+//    private final String SERVERIP = "192.168.1.42";
     private final int PORT = 5234;
 
 
-    public GetBoardThreaded(int size, boolean fromServer) {
+    public GetBoardThreaded(int size, boolean fromServer, String userID) {
         this.size = size;
         this.fromServer = fromServer;
         boardGenerator = new BoardGenerator();
+        this.userID = userID;
     }
 
     private Board getBoardFromServer(){
-        Client client = new Client();
+        Client client = new Client(userID);
         client.startConnection(SERVERIP, PORT);
         Board board = client.getBoard(size);
+        System.out.println(client.getHighScoreList());
         client.stopConnection();
         return board;
     }

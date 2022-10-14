@@ -11,11 +11,13 @@ public class MenuActivity extends AppCompatActivity {
     private TextView btnFreeGame;
     private TextView btnDailyGame;
     private TextView btnOptions;
+//    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+//        userID = getIntent().getStringExtra("userID");
         btnHowToPlay = findViewById(R.id.menu_btn_how_to_play);
         btnFreeGame = findViewById(R.id.menu_btn_free_game);
         btnDailyGame = findViewById(R.id.menu_btn_daily_game);
@@ -42,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void chooseBoardSize(boolean isDailyGame){
         Intent intent = new Intent(this, ChooseBoardSize.class);
+//        intent.putExtra("userID", userID);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
     }

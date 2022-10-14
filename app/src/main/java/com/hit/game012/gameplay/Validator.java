@@ -72,27 +72,6 @@ public class Validator implements Runnable {
         int messageId = r.nextInt(loseStringMessages.length);
         return loseStringMessages[messageId];
     }
-//    public void popupAnim(View view){
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
-//        final View layout=LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win,null);
-//        alertDialogBuilder.setView(layout);
-////        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
-////        alertDialogBuilder.setTitle("Connection Failed");
-////        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
-//
-////            @Override
-////            public void onClick(DialogInterface dialogInterface, int i) {
-//        // add these two lines, if you wish to close the app:
-////                finishAffinity();
-////                System.exit(0);
-////            }
-////        });
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.show();
-//    }
-    private void winAnimation(){
-        Animation animation = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.zoom_animation);
-//        imageView.startAnimation(animation);
-    }
+
 
 }

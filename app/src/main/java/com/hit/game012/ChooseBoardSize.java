@@ -27,10 +27,7 @@ public class ChooseBoardSize extends AppCompatActivity {
         dailyBoardPlayed = new Boolean[4];
         header = findViewById(R.id.choose_size_header);
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
-        if (isDailyGame) {
-            header.setText(R.string.choose_size_daily_play);
-            loadFromMem();
-        }
+        if (isDailyGame) dailyGameInit();
         else header.setText(R.string.choose_size_free_play);
 
     }
@@ -43,25 +40,53 @@ public class ChooseBoardSize extends AppCompatActivity {
         }
     }
 
-    public void game4 (View view){playGame(4);}
-    public void game6 (View view){
+    private void dailyGameInit() {
+        header.setText(R.string.choose_size_daily_play);
+        loadFromMem();
+        String today = String.valueOf(LocalDate.now());
+
+        if (!today.equals(dailyBoardDay)) {
+            dailyBoardDay = today;
+            Arrays.fill(dailyBoardPlayed, false);
+        }
+
+        int[] boardPlayed = {
+                R.id.board_checked_0,
+                R.id.board_checked_1,
+                R.id.board_checked_2,
+                R.id.board_checked_3
+        };
+
+        for (int i = 0; i < dailyBoardPlayed.length; i++) {
+            if (dailyBoardPlayed[i])
+                findViewById(boardPlayed[i]).setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void game4(View view) {
+        playGame(4);
+    }
+
+    public void game6(View view) {
         playGame(6);
     }
-    public void game8 (View view){ playGame(8);  }
-    public void game10 (View view){
+
+    public void game8(View view) {
+        playGame(8);
+    }
+
+    public void game10(View view) {
         playGame(10);
     }
 
 
-
-    private void playGame(int size){
-        if (isDailyGame && String.valueOf(LocalDate.now()).equals(dailyBoardDay)){
-            if(dailyBoardPlayed[(size/2)-2]){
+    private void playGame(int size) {
+        if (isDailyGame && String.valueOf(LocalDate.now()).equals(dailyBoardDay)) {
+            if (dailyBoardPlayed[(size / 2) - 2]) {
                 Toast.makeText(this, "You can play the daily challenge only once!", Toast.LENGTH_SHORT).show();
                 return;
-            }
-            else{
-                dailyBoardPlayed[(size/2)-2] = true;
+            } else {
+                dailyBoardPlayed[(size / 2) - 2] = true;
             }
         }
 
@@ -70,26 +95,30 @@ public class ChooseBoardSize extends AppCompatActivity {
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
     }
-    private void loadFromMem(){
+
+    private void loadFromMem() {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
-        for (int i=0; i<4;i++){
+        for (int i = 0; i < 4; i++) {
             dailyBoardPlayed[i] = sharedPref.getBoolean("isPlayed" + i, false);
         }
         dailyBoardDay = sharedPref.getString("dailyBoardDay", String.valueOf(LocalDate.now()));
         System.out.println("Loaded from mem: " + Arrays.toString(dailyBoardPlayed));
+        System.out.println("Loaded from mem: " + dailyBoardDay);
     }
-    private void saveToMem(){
+
+    private void saveToMem() {
 
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        for (int i=0; i<4;i++){
+        for (int i = 0; i < 4; i++) {
             editor.putBoolean("isPlayed" + i, dailyBoardPlayed[i]);
         }
         editor.putString("dailyBoardDay", dailyBoardDay);
         editor.apply();
         System.out.println("Saved to mem: " + Arrays.toString(dailyBoardPlayed));
     }
-    public void backToMenu(View view){
+
+    public void backToMenu(View view) {
         finish();
     }
 }
