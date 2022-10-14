@@ -18,14 +18,23 @@
         app:layout_constraintTop_toBottomOf="@id/scoreText"
         app:layout_constraintVertical_bias="0.498">
 
-        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/DynamicListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="2dp"
-            >
-        </ListView>
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/fab_margin"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:paddingTop="@dimen/fab_margin"
+            tools:context="com.example.test.listviewwithimage.MainActivity">
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp">
+            </ListView>
+        </RelativeLayout>
     </ScrollView>
 
     <TextView

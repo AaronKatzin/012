@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -13,10 +14,41 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hit.game012.ui.MyListAdapter;
 
 import java.util.Random;
 
 public class Win extends AppCompatActivity {
+    ListView list;
+
+    String[] maintitle ={
+            "Title 1","Title 2",
+            "Title 3","Title 4",
+            "Title 5",
+            "Title 1","Title 2",
+            "Title 3","Title 4",
+            "Title 5",
+    };
+
+    String[] subtitle ={
+            "Sub Title 1","Sub Title 2",
+            "Sub Title 3","Sub Title 4",
+            "Sub Title 5",
+            "Sub Title 1","Sub Title 2",
+            "Sub Title 3","Sub Title 4",
+            "Sub Title 5",
+    };
+
+    Integer[] imgid={
+            R.drawable.padlock,R.drawable.padlock,
+            R.drawable.padlock,R.drawable.padlock,
+            R.drawable.padlock,
+            R.drawable.padlock,R.drawable.padlock,
+            R.drawable.padlock,R.drawable.padlock,
+            R.drawable.padlock,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +72,42 @@ public class Win extends AppCompatActivity {
         TextView scoreText = findViewById(R.id.scoreText);
         scoreText.setText("gameTime: " + gameTime + "\n hintCounter: " + hintCounter+ "\n score: " + score);
 
-        createTable(5,2);
+        MyListAdapter adapter=new MyListAdapter(this, maintitle, subtitle,imgid);
+        list=(ListView)findViewById(R.id.list);
+        list.setAdapter(adapter);
+        list.setItemsCanFocus(false);
+
+//
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+//                // TODO Auto-generated method stub
+//                if(position == 0) {
+//                    //code specific to first list item
+//                    Toast.makeText(getApplicationContext(),"Place Your First Option Code",Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else if(position == 1) {
+//                    //code specific to 2nd list item
+//                    Toast.makeText(getApplicationContext(),"Place Your Second Option Code",Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else if(position == 2) {
+//
+//                    Toast.makeText(getApplicationContext(),"Place Your Third Option Code",Toast.LENGTH_SHORT).show();
+//                }
+//                else if(position == 3) {
+//
+//                    Toast.makeText(getApplicationContext(),"Place Your Forth Option Code",Toast.LENGTH_SHORT).show();
+//                }
+//                else if(position == 4) {
+//
+//                    Toast.makeText(getApplicationContext(),"Place Your Fifth Option Code",Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
     }
 
     public void newGame(View view){
@@ -48,75 +115,4 @@ public class Win extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void createTable(int rows, int columns){
-
-        ScrollView sv = findViewById(R.id.multiplayerHighScoreTable); // TODO type
-
-        //ListView DynamicListView = new ListView(this);
-        ListView DynamicListView = findViewById(R.id.DynamicListView);
-//        DynamicListView.LayoutParams(new ViewGroup.LayoutParams(100,100));
-
-        final String[] DynamicListElements = new String[] {
-                "Android",
-                "PHP",
-                "Android Studio",
-                "PhpMyAdmin",
-                "Android",
-                "PHP",
-                "Android Studio",
-                "PhpMyAdmin",
-                "Android",
-                "PHP",
-                "Android Studio",
-                "PhpMyAdmin",
-                "Android",
-                "PHP",
-                "Android Studio",
-                "PhpMyAdmin",
-                "Android",
-                "PHP",
-                "Android Studio",
-                "PhpMyAdmin",
-        };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (Win.this, android.R.layout.simple_list_item_1, DynamicListElements);
-
-        DynamicListView.setAdapter(adapter);
-
-//        DynamicListView.setLayoutParams(new ListView.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT, 300));
-//        ListView.LayoutParams params= (ListView.LayoutParams) DynamicListView.getLayoutParams();
-//        params.width=300;
-//        params.height=600;
-//        DynamicListView.setLayoutParams(params);
-        DynamicListView.setHeaderDividersEnabled(true);
-        DynamicListView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-        //sv.addView(DynamicListView);
-
-//        linearLayout.removeAllViews();
-//        this.setContentView(linearLayout, new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-//        TableLayout table = new TableLayout(this);
-//        table.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//        table.setShrinkAllColumns(true);
-//        table.setStretchAllColumns(true);
-        
-//        Random random = new Random();
-//
-//        for (int i=0; i < rows; i++) {
-//            TableRow row = new TableRow(Win.this);
-//            for (int j=0; j < columns; j++) {
-//                int value = random.nextInt(100) + 1;
-//                TextView tv = new TextView(Win.this);
-//                tv.setText(String.valueOf(value));
-//                row.addView(tv);
-//            }
-//            table.addView(row);
-//        }
-//
-//        ScrollView tableScroller = findViewById(R.id.multiplayerHighScoreTable);
-//        tableScroller.addView(table);
-    }
 }
