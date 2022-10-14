@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -36,6 +37,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.hit.game012.startupsequence.AnimatedImageView;
 import com.hit.game012.startupsequence.AnimatedTextView;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -182,5 +185,17 @@ public class MainActivity extends AppCompatActivity {
         else{
             Config.setGridThemeID(2);
         }
+        String lang=sharedPref.getString(Config.SELECTED_LANGUAGE,"en");
+        Config.setLanguage(lang);
+
+        String languageToLoad  =Config.language; // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+//        ((SettingsActivity)getApplicationContext()).changeLanguage();
+//        Config.setLocale(this,lang);
     }
 }

@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Free game"
+            android:text="@string/menu_free_game"
             android:textAlignment="center"
             android:textSize="30sp"
             android:id="@+id/menu_btn_free_game"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daily game"
+            android:text="@string/menu_daily_game"
             android:textAlignment="center"
             android:textSize="30sp"
             android:id="@+id/menu_btn_daily_game"

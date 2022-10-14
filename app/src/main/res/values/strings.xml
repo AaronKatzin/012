@@ -41,6 +41,9 @@ No two rows and no two columns are the same.
     <string name="lose_not_good">Not good enough…</string>
     <string name="lose_practice">Practice is the key</string>
 
+
+    <string name="menu_free_game">Free Game</string>
+    <string name="menu_daily_game">Daily Challenge</string>
 </resources>
 
 

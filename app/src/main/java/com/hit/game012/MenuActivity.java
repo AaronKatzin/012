@@ -1,5 +1,6 @@
 package com.hit.game012;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,12 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        refreshActivity();
+//    }
+
     public void howToPlay(View view){
 
     }
@@ -47,6 +54,11 @@ public class MenuActivity extends AppCompatActivity {
 //        intent.putExtra("userID", userID);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
+    }
+
+    public void refreshActivity(){
+        finish();
+        startActivity(getIntent());
     }
 
 }
