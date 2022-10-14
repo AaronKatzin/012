@@ -24,30 +24,30 @@ public class Win extends AppCompatActivity {
     ListView list;
 
     String[] maintitle ={
-            "Title 1","Title 2",
-            "Title 3","Title 4",
-            "Title 5",
-            "Title 1","Title 2",
-            "Title 3","Title 4",
-            "Title 5",
+            "User Name","User Name",
+            "User Name","User Name",
+            "User Name",
+            "User Name","User Name",
+            "User Name","User Name",
+            "User Name",
     };
 
     String[] subtitle ={
-            "Sub Title 1","Sub Title 2",
-            "Sub Title 3","Sub Title 4",
-            "Sub Title 5",
-            "Sub Title 1","Sub Title 2",
-            "Sub Title 3","Sub Title 4",
-            "Sub Title 5",
+            "Score","Score",
+            "Score","Score",
+            "Score",
+            "Score","Score",
+            "Score","Score",
+            "Score",
     };
 
     Integer[] imgid={
-            R.drawable.padlock,R.drawable.padlock,
-            R.drawable.padlock,R.drawable.padlock,
-            R.drawable.padlock,
-            R.drawable.padlock,R.drawable.padlock,
-            R.drawable.padlock,R.drawable.padlock,
-            R.drawable.padlock,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
     };
 
     @Override
