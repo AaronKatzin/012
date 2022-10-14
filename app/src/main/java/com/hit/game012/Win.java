@@ -60,7 +60,23 @@ public class Win extends AppCompatActivity {
                 "Android",
                 "PHP",
                 "Android Studio",
-                "PhpMyAdmin"
+                "PhpMyAdmin",
+                "Android",
+                "PHP",
+                "Android Studio",
+                "PhpMyAdmin",
+                "Android",
+                "PHP",
+                "Android Studio",
+                "PhpMyAdmin",
+                "Android",
+                "PHP",
+                "Android Studio",
+                "PhpMyAdmin",
+                "Android",
+                "PHP",
+                "Android Studio",
+                "PhpMyAdmin",
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
