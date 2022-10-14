@@ -55,10 +55,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/game4"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/tile_one"
                     android:onClick="game4"
                     android:text="4"
                     android:textAlignment="center"
@@ -91,10 +91,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/game6"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/tile_zero"
                     android:onClick="game6"
                     android:text="6"
                     android:textAlignment="center"
@@ -118,10 +118,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/game8"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/tile_one"
                     android:onClick="game8"
                     android:text="8"
                     android:textAlignment="center"
@@ -145,10 +145,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/game10"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/tile_zero"
                     android:onClick="game10"
                     android:text="10"
                     android:textAlignment="center"

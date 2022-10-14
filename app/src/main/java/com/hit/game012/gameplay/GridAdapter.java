@@ -5,27 +5,21 @@ import static android.view.View.VISIBLE;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.graphics.RenderNode;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.hit.game012.BoardActivity;
+import com.hit.game012.Config;
 import com.hit.game012.R;
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gamelogic.game.Index;
@@ -33,10 +27,7 @@ import com.hit.game012.gamelogic.game.Tile;
 import com.hit.game012.startupsequence.AnimatedImageView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -150,16 +141,42 @@ public class GridAdapter extends BaseAdapter {
         Tile tile = (Tile) getItem(position);
         int tileDrawable;
 
-        switch (tile) {
+        switch (tile){
             case COLOR1:
-                tileDrawable = R.drawable.tile_zero;
+                tileDrawable = Config.COLOR_TILE_ZERO;
                 break;
             case COLOR2:
-                tileDrawable = R.drawable.tile_one;
+                tileDrawable = Config.COLOR_TILE_ONE;
                 break;
             default:
                 tileDrawable = R.drawable.tile_empty;
         }
+
+//        if(Config.gridThemeID==1){
+//            switch (tile) {
+//                case COLOR1:
+//                    tileDrawable = R.drawable.tile_zero_theme_1;
+//                    break;
+//                case COLOR2:
+//                    tileDrawable = R.drawable.tile_one_theme_1;
+//                    break;
+//                default:
+//                    tileDrawable = R.drawable.tile_empty;
+//            }
+//        }
+//
+//        else{
+//            switch (tile) {
+//                case COLOR1:
+//                    tileDrawable = R.drawable.tile_zero_theme_2;
+//                    break;
+//                case COLOR2:
+//                    tileDrawable = R.drawable.tile_one_theme_2;
+//                    break;
+//                default:
+//                    tileDrawable = R.drawable.tile_empty;
+//            }
+//        }
         tileView.setBackground(view.getResources().getDrawable(tileDrawable, view.getContext().getTheme()));
 
     }
@@ -186,23 +203,23 @@ public class GridAdapter extends BaseAdapter {
 
     }
 
-    public void popupAnim(View view) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
-        final View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win, null);
-        alertDialogBuilder.setView(layout);
-//        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
-//        alertDialogBuilder.setTitle("Connection Failed");
-//        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
-
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-        // add these two lines, if you wish to close the app:
-//                finishAffinity();
-//                System.exit(0);
-//            }
-//        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
+//    public void popupAnim(View view) {
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+//        final View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win, null);
+//        alertDialogBuilder.setView(layout);
+////        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
+////        alertDialogBuilder.setTitle("Connection Failed");
+////        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+//
+////            @Override
+////            public void onClick(DialogInterface dialogInterface, int i) {
+//        // add these two lines, if you wish to close the app:
+////                finishAffinity();
+////                System.exit(0);
+////            }
+////        });
+//        AlertDialog alertDialog = alertDialogBuilder.create();
+//        alertDialog.show();
+//    }
 
 }

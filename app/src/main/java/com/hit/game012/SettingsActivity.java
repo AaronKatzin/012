@@ -59,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putInt("language", language.getCheckedRadioButtonId());
         editor.putInt("colorTheme", colorTheme.getCheckedRadioButtonId());
         editor.apply();
+        changeGridColor();
 
 
     }
@@ -76,12 +77,14 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void changeGridColor(View view) {
+    public void changeGridColor() {
         if (colorTheme.getCheckedRadioButtonId() == R.id.settings_color_theme_1)
-            Config.setGridThemeID(R.style.Theme_012_GridColorTheme1);
+           Config.setGridThemeID(1);
         else
-            Config.setGridThemeID(R.style.Theme_012_GridColorTheme2);
-        setTheme(Config.gridThemeID);
+            Config.setGridThemeID(2);
     }
 
 }
+
+
+

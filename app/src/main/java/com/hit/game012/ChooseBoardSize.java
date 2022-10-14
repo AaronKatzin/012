@@ -19,17 +19,27 @@ public class ChooseBoardSize extends AppCompatActivity {
     private boolean isDailyGame;
     private Boolean[] dailyBoardPlayed;
     private String dailyBoardDay;
+    private int[] boardPlayed = {
+            R.id.board_checked_0,
+            R.id.board_checked_1,
+            R.id.board_checked_2,
+            R.id.board_checked_3
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_board_size);
+        findViewById(R.id.game4).setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
+        findViewById(R.id.game6).setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
+        findViewById(R.id.game8).setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
+        findViewById(R.id.game10).setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
+
         dailyBoardPlayed = new Boolean[4];
         header = findViewById(R.id.choose_size_header);
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
         if (isDailyGame) dailyGameInit();
         else header.setText(R.string.choose_size_free_play);
-
     }
 
     @Override
@@ -43,24 +53,15 @@ public class ChooseBoardSize extends AppCompatActivity {
     private void dailyGameInit() {
         header.setText(R.string.choose_size_daily_play);
         loadFromMem();
+//        System.out.println(Arrays.asList(dailyBoardPlayed));
+//        Arrays.fill(dailyBoardPlayed, false);
+        System.out.println(Arrays.asList(dailyBoardPlayed));
         String today = String.valueOf(LocalDate.now());
-
         if (!today.equals(dailyBoardDay)) {
             dailyBoardDay = today;
             Arrays.fill(dailyBoardPlayed, false);
         }
-
-        int[] boardPlayed = {
-                R.id.board_checked_0,
-                R.id.board_checked_1,
-                R.id.board_checked_2,
-                R.id.board_checked_3
-        };
-
-        for (int i = 0; i < dailyBoardPlayed.length; i++) {
-            if (dailyBoardPlayed[i])
-                findViewById(boardPlayed[i]).setVisibility(View.VISIBLE);
-        }
+        updateCheckDailyGame();
     }
 
     public void game4(View view) {
@@ -79,7 +80,6 @@ public class ChooseBoardSize extends AppCompatActivity {
         playGame(10);
     }
 
-
     private void playGame(int size) {
         if (isDailyGame && String.valueOf(LocalDate.now()).equals(dailyBoardDay)) {
             if (dailyBoardPlayed[(size / 2) - 2]) {
@@ -89,11 +89,11 @@ public class ChooseBoardSize extends AppCompatActivity {
                 dailyBoardPlayed[(size / 2) - 2] = true;
             }
         }
-
         Intent intent = new Intent(this, BoardActivity.class);
         intent.putExtra("size", size);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
+
     }
 
     private void loadFromMem() {
@@ -121,4 +121,20 @@ public class ChooseBoardSize extends AppCompatActivity {
     public void backToMenu(View view) {
         finish();
     }
+
+    public void updateCheckDailyGame() {
+        for(int i=0;i<dailyBoardPlayed.length;i++){
+            if (dailyBoardPlayed[i])
+                findViewById(boardPlayed[i]).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(isDailyGame)
+            updateCheckDailyGame();
+        super.onWindowFocusChanged(hasFocus);
+
+    }
 }
+

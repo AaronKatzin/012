@@ -35,7 +35,7 @@
             android:id="@+id/left_tile"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@drawable/tile_one" />
+             />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:id="@+id/right_tile"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@drawable/tile_zero" />
+             />
 
     </LinearLayout>
     <com.hit.game012.startupsequence.AnimatedTextView

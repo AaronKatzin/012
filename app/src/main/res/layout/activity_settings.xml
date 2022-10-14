@@ -63,7 +63,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/radio_group_color_theme"
-        android:onClick="changeGridColor"
     >
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/settings_color_theme_1"

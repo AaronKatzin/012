@@ -81,15 +81,16 @@ public class Board {
         checkIndexInRange(index);
         board[index.getRow()].setLocked(index.getCol(), locked);
     }
-    public void setAllLocks(boolean locked){
-        Arrays.stream(board).forEach(row -> row.setAllLocks(locked));
-    }
+
     public static Board boardFromString(int size, String serializedBoard) {
         Board board = new Board(size);
+        Index index;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 char ch = serializedBoard.charAt(0);
-                board.setTile(new Index(i,j), Tile.deserialize(ch));
+                index=new Index(i,j);
+                board.setTile(index,Tile.deserialize(ch));
+                board.setLocked(index,ch!='e');
                 serializedBoard = serializedBoard.substring(1);
             }
         }

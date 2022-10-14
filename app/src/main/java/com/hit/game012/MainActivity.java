@@ -47,17 +47,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        init();
-
+        loadMemSettings();
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
+        left.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
+        right.setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
         AnimatedTextView gameName = findViewById(R.id.app_name_startup);
-
         left.initStartupAnimation(1500,1000);
         right.initStartupAnimation(1500, 2000);
         gameName.initAnimation(2000, 3000);
-
         authOnCreate();
-
         FirebaseUser user = mAuth.getCurrentUser();
 
         if(user != null){
@@ -173,5 +172,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
 //        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
+    }
+
+    public void loadMemSettings(){
+        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
+        int theme=sharedPref.getInt("colorTheme", R.id.settings_color_theme_1);
+        if(theme== R.id.settings_color_theme_1)
+            Config.setGridThemeID(1);
+        else{
+            Config.setGridThemeID(2);
+        }
     }
 }
