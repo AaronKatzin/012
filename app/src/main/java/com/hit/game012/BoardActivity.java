@@ -3,6 +3,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Chronometer;
@@ -126,6 +127,14 @@ public class BoardActivity extends AppCompatActivity {
         }
         endGameGif.setImageResource(resourceID);
 
+    }
+
+    public void goToWinScreen(View view){
+        Intent intent = new Intent(this, Win.class);
+        intent.putExtra("gameTime", getGameTime());
+        intent.putExtra("hintCounter", hintCounter);
+        intent.putExtra("boardSize", boardSize);
+        startActivity(intent);
     }
 
 }
