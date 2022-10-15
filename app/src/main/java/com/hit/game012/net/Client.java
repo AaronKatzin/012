@@ -63,7 +63,9 @@ public class Client {
 
     public Map<String, Integer> getMyHighScore() {
         String scoreString = parseSendReceiveMessage("GET_MY_HIGHSCORE", " ");
-        return getScoreResult(scoreString);
+        if (!scoreString.equals("null"))
+            return getScoreResult(scoreString);
+        return null;
     }
 
     public void sentGameResult(int boardSize, int score) {
@@ -73,8 +75,8 @@ public class Client {
     public TreeMap<String, String> getHighScoreList() {
         String jsonList = parseSendReceiveMessage("GET_HIGHSCORE_LIST", " ");
         Gson gson = new Gson();
-        TreeMap<String, String> deserializedHighScoreList = gson.fromJson(jsonList, TreeMap.class);
-        return deserializedHighScoreList;
+        return gson.fromJson(jsonList, TreeMap.class);
+
     }
 
     public static String buildScoreString(int boardSize, int score) {

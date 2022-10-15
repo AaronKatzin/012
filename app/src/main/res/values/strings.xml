@@ -54,6 +54,7 @@ No two rows and no two columns are the same.
     <string name="settings_save">Save</string>
     <string name="back">Back</string>
     <string name="about_us">About us</string>
+    <string name="in_game_timer">In-game Timer</string>
 </resources>
 
 

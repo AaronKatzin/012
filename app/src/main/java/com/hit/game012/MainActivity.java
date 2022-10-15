@@ -176,13 +176,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadMemSettings() {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
-        int theme = sharedPref.getInt("colorTheme", 1);
-        Config.setGridThemeID(theme);
-
         String lang = sharedPref.getString(Config.SELECTED_LANGUAGE, "en");
         Config.setLanguage(lang);
 
-//        saveMem();
+
+        int theme = sharedPref.getInt("colorTheme", 1);
+        Config.setGridThemeID(theme);
 
         String languageToLoad = Config.language;
         Locale locale = new Locale(languageToLoad);
@@ -192,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
 
+        boolean inGameTimerEnabled = sharedPref.getBoolean("enableInGameTimer", true);
+        Config.setInGameTimerEnabled(inGameTimerEnabled);
     }
 
 //    public void saveMem() {

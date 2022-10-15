@@ -2,11 +2,9 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     SwitchMaterial notifications;
     SwitchMaterial sound;
+    SwitchMaterial enableInGameTimer;
     RadioGroup languageRadioGroup;
     RadioGroup colorThemeRadioGroup;
     Button logout;
@@ -33,8 +32,10 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         notifications = findViewById(R.id.settings_notifications_enabled);
         sound = findViewById(R.id.settings_sound_enabled);
+        enableInGameTimer = findViewById(R.id.settings_timer_visible);
         languageRadioGroup = findViewById(R.id.radio_group_language);
         colorThemeRadioGroup = findViewById(R.id.radio_group_color_theme);
+
         logout = findViewById(R.id.logout);
         loadSettings();
 
@@ -52,15 +53,20 @@ public class SettingsActivity extends AppCompatActivity {
                 refreshActivity();
             });
     }
-
+    private void updateInGameTimerVisibility(){
+        Config.setInGameTimerEnabled(enableInGameTimer.isChecked());
+    }
     public void saveSettings() {
         int theme = changeGridColor();
         changeLanguage();
+        updateInGameTimerVisibility();
 
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
         editor.putBoolean("notificationsEnabled", notifications.isChecked());
         editor.putBoolean("soundEnabled", sound.isChecked());
+        editor.putBoolean("enableInGameTimer", enableInGameTimer.isChecked());
         editor.putInt("colorTheme", theme);
         editor.putString(Config.SELECTED_LANGUAGE, Config.language);
         editor.apply();
@@ -70,6 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         notifications.setChecked(sharedPref.getBoolean("notificationsEnabled", true));
         sound.setChecked(sharedPref.getBoolean("soundEnabled", true));
+        enableInGameTimer.setChecked(sharedPref.getBoolean("enableInGameTimer", true));
 
         String lang = sharedPref.getString(Config.SELECTED_LANGUAGE, "en");
         if (Objects.equals(lang, "en"))

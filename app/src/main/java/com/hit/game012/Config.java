@@ -19,7 +19,13 @@ public class Config {
     public static int COLOR_TILE_ONE;
     public static int COLOR_TILE_ZERO;
     public static String language;
+    public static boolean inGameTimerEnabled;
     public static final String SELECTED_LANGUAGE = "Selected.Language";
+
+
+    public static void setInGameTimerEnabled(boolean inGameTimerEnabled) {
+        Config.inGameTimerEnabled = inGameTimerEnabled;
+    }
 
 
     public static void setLanguage(String language) {

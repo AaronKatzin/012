@@ -53,15 +53,18 @@ public class BoardActivity extends AppCompatActivity {
 
         inGameTimerChronometer.start();
     }
-    private void init(){
+
+    private void init() {
         inGameMessageView = findViewById(R.id.in_game_message);
-        inGameTimerChronometer = findViewById(R.id.timer_text);
         endGameGif = findViewById(R.id.end_game_gif);
+        inGameTimerChronometer = findViewById(R.id.timer_text);
+        inGameTimerChronometer.setVisibility((Config.inGameTimerEnabled) ? View.VISIBLE : View.INVISIBLE);
         boardSize = (int) getIntent().getExtras().get("size");
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
 
     }
-    private void getBoard(){
+
+    private void getBoard() {
         // Get board threaded
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -77,46 +80,48 @@ public class BoardActivity extends AppCompatActivity {
         }
     }
 
-    public void backToMenu(View view){
+    public void backToMenu(View view) {
         finish();
     }
-    public void getHint(View view){
+
+    public void getHint(View view) {
         hintCounter++;
-        setInGameMessage(boardView.requestHint(),28);
+        setInGameMessage(boardView.requestHint(), 28);
     }
 
-    public void undo(View view){
-        if(!boardView.undo()){
-            setInGameMessage(R.string.undo_stack_emp,28);
+    public void undo(View view) {
+        if (!boardView.undo()) {
+            setInGameMessage(R.string.undo_stack_emp, 28);
         }
     }
 
-    public void resetInGameMessage(int boardSize){
+    public void resetInGameMessage(int boardSize) {
         inGameMessageView.setTextSize(40);
-        inGameMessageView.setText(boardSize+" X "+ boardSize);
+        inGameMessageView.setText(boardSize + " X " + boardSize);
     }
 
-    public void setInGameMessage(int resID, int size){
+    public void setInGameMessage(int resID, int size) {
         String message = getResources().getString(resID);
         inGameMessageView.setTextSize(size);
         inGameMessageView.setText(message);
-        inGameMessageView.initAnimation(800,100);
+        inGameMessageView.initAnimation(800, 100);
     }
-    public long getGameTime(){
+
+    public long getGameTime() {
         inGameTimerChronometer.stop();
         return inGameTimerChronometer.getBase();
     }
-    public void setEndGameGif(boolean validatorResult){
+
+    public void setEndGameGif(boolean validatorResult) {
         int resourceID;
         Random r = new Random();
-        if (validatorResult){
+        if (validatorResult) {
             // Win
             int[] winGifOptions = {R.drawable.win1, R.drawable.win2, R.drawable.win3, R.drawable.win6, R.drawable.win10, R.drawable.win12,};
             resourceID = winGifOptions[r.nextInt(winGifOptions.length)];
-        }
-        else{
+        } else {
             // Lose
-            int[] loseGifOptions = {R.drawable.lose11, R.drawable.lose2, R.drawable.lose3,R.drawable.lose6,R.drawable.lose8};
+            int[] loseGifOptions = {R.drawable.lose11, R.drawable.lose2, R.drawable.lose3, R.drawable.lose6, R.drawable.lose8};
             resourceID = loseGifOptions[r.nextInt(loseGifOptions.length)];
         }
         endGameGif.setImageResource(resourceID);

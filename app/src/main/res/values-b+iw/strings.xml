@@ -35,6 +35,7 @@
     <string name="back">חזרה</string>
     <string name="about_us">עלינו</string>
     <string name="how_to_play_reminder_title">איך משחקים</string>
+    <string name="in_game_timer">הצגת זמן משחק</string>
 
 
 </resources>
