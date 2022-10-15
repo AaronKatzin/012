@@ -31,16 +31,15 @@ public class Config {
         System.out.println(Config.gridThemeID);
         Config.gridThemeID = gridThemeID;
         System.out.println(Config.gridThemeID);
-        if(gridThemeID==1){
-            COLOR_TILE_ONE=R.drawable.tile_one_theme_1;
-            COLOR_TILE_ZERO=R.drawable.tile_zero_theme_1;
-        }
-        else{
-            COLOR_TILE_ONE=R.drawable.tile_one_theme_2;
-            COLOR_TILE_ZERO=R.drawable.tile_zero_theme_2;
+
+        if (gridThemeID == 1) {
+            COLOR_TILE_ONE = R.drawable.tile_one_theme_1;
+            COLOR_TILE_ZERO = R.drawable.tile_zero_theme_1;
+        } else {
+            COLOR_TILE_ONE = R.drawable.tile_one_theme_2;
+            COLOR_TILE_ZERO = R.drawable.tile_zero_theme_2;
         }
     }
-
 
 
 }

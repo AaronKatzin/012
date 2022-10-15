@@ -16,6 +16,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -37,47 +38,55 @@ public class SettingsActivity extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         loadSettings();
 
-        logout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
+        logout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
         });
+
+        int[] langRadioButtons = {R.id.settings_lang_english, R.id.settings_lang_hebrew};
+        for (int id : langRadioButtons)
+            findViewById(id).setOnClickListener(v -> {
+                changeLanguage();
+                refreshActivity();
+            });
     }
 
     public void saveSettings() {
+        changeGridColor();
+        changeLanguage();
+
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("notificationsEnabled", notifications.isChecked());
         editor.putBoolean("soundEnabled", sound.isChecked());
         editor.putInt("colorTheme", colorThemeRadioGroup.getCheckedRadioButtonId());
-        if (languageRadioGroup.getCheckedRadioButtonId() == R.id.settings_lang_english)
-            Config.setLanguage("en");
-        else
-            Config.setLanguage("iw");
         editor.putString(Config.SELECTED_LANGUAGE, Config.language);
         editor.apply();
-        changeGridColor();
-        changeLanguage();
-
-
     }
 
     public void loadSettings() {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         notifications.setChecked(sharedPref.getBoolean("notificationsEnabled", true));
         sound.setChecked(sharedPref.getBoolean("soundEnabled", true));
+
         String lang = sharedPref.getString(Config.SELECTED_LANGUAGE, "en");
-        if (lang == "en")
+        if (Objects.equals(lang, "en"))
             languageRadioGroup.check(R.id.settings_lang_english);
         else
             languageRadioGroup.check(R.id.settings_lang_hebrew);
-//        languageRadioGroup.check(sharedPref.getInt("language", R.id.settings_lang_english));
-        colorThemeRadioGroup.check(sharedPref.getInt("colorTheme", R.id.settings_color_theme_1));
+
+        int colorTheme = sharedPref.getInt("colorTheme", 1);
+        if (colorTheme == 1)
+            colorThemeRadioGroup.check(R.id.settings_color_theme_1);
+        else
+            colorThemeRadioGroup.check(R.id.settings_color_theme_2);
+
+    }
+
+    private void refreshActivity() {
+        recreate();
     }
 
     public void exitSettings(View view) {
@@ -87,19 +96,25 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void changeGridColor() {
         if (colorThemeRadioGroup.getCheckedRadioButtonId() == R.id.settings_color_theme_1)
-           Config.setGridThemeID(1);
+            Config.setGridThemeID(1);
         else
             Config.setGridThemeID(2);
     }
 
-    public void changeLanguage(){
-        String languageToLoad  =Config.language; // your language
-        Locale locale = new Locale(languageToLoad);
+    public void changeLanguage() {
+        String lang;
+        lang = (languageRadioGroup.getCheckedRadioButtonId() == R.id.settings_lang_english) ? "en" : "iw";
+
+        if (Objects.equals(lang, Config.language))
+            return;
+
+        Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
+        Config.setLanguage(lang);
 
     }
 

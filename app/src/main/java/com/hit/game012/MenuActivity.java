@@ -26,11 +26,11 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        refreshActivity();
-//    }
+    @Override
+    protected void onRestart() {
+        recreate();
+        super.onRestart();
+    }
 
     public void howToPlay(View view){
 
