@@ -30,10 +30,21 @@ public class ChooseBoardSize extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_board_size);
-        findViewById(R.id.game4).setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
-        findViewById(R.id.game6).setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
-        findViewById(R.id.game8).setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
-        findViewById(R.id.game10).setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
+        TextView game4 = findViewById(R.id.game4);
+        TextView game6 = findViewById(R.id.game6);
+        TextView game8 = findViewById(R.id.game8);
+        TextView game10 = findViewById(R.id.game10);
+
+        game4.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
+        game6.setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
+        game8.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
+        game10.setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
+        if(isDailyGame){
+            game4.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
+            game6.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
+            game8.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
+            game10.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
+        }
 
         dailyBoardPlayed = new Boolean[4];
         header = findViewById(R.id.choose_size_header);

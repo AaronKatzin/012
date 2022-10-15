@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="How to play"
+            android:text="@string/how_to_play_reminder_title"
             android:textAlignment="center"
             android:textSize="30sp"
             android:id="@+id/menu_btn_how_to_play"
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Free game"
+            android:text="@string/menu_free_game"
             android:textAlignment="center"
             android:textSize="30sp"
             android:id="@+id/menu_btn_free_game"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daily game"
+            android:text="@string/menu_daily_game"
             android:textAlignment="center"
             android:textSize="30sp"
             android:id="@+id/menu_btn_daily_game"
@@ -46,11 +46,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Options"
+            android:text="@string/settings_header"
             android:onClick="options"
             android:textAlignment="center"
             android:textSize="30sp"
             android:id="@+id/menu_btn_options"
+            android:layout_marginVertical="20dp"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_us"
+            android:onClick="aboutUs"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:id="@+id/menu_btn_about_us"
             android:layout_marginVertical="20dp"
 
             />

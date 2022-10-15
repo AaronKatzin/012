@@ -1,5 +1,6 @@
 package com.hit.game012;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,12 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        recreate();
+        super.onRestart();
+    }
+
     public void howToPlay(View view){
 
     }
@@ -41,12 +48,20 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+    public void aboutUs(View view){
+
+    }
 
     public void chooseBoardSize(boolean isDailyGame){
         Intent intent = new Intent(this, ChooseBoardSize.class);
 //        intent.putExtra("userID", userID);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
+    }
+
+    public void refreshActivity(){
+        finish();
+        startActivity(getIntent());
     }
 
 }
