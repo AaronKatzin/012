@@ -193,6 +193,7 @@ public class GridAdapter extends BaseAdapter {
 
             System.out.println("start validate");
             threadPoolExecutor.submit(validator);
+            ((BoardActivity) activity).findViewById(R.id.end_game_gif).setVisibility(VISIBLE);
 
 //            if
 //            ((BoardActivity) activity).setEndGameGif(validatorResult);

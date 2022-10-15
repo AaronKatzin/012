@@ -129,4 +129,9 @@ public class BoardActivity extends AppCompatActivity {
 
     }
 
+    public void goToWinScreen(View view){
+        Intent intent = new Intent(this, Win.class);
+        startActivity(intent);
+    }
+
 }
