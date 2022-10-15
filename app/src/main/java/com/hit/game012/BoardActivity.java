@@ -131,6 +131,9 @@ public class BoardActivity extends AppCompatActivity {
 
     public void goToWinScreen(View view){
         Intent intent = new Intent(this, Win.class);
+        intent.putExtra("gameTime", getGameTime());
+        intent.putExtra("hintCounter", hintCounter);
+        intent.putExtra("boardSize", boardSize);
         startActivity(intent);
     }
 

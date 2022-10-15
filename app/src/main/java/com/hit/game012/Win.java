@@ -63,16 +63,10 @@ public class Win extends AppCompatActivity {
 
 
         // calculate current score
-        if(false) {
-            gameTime = (long) getIntent().getExtras().get("gameTime");
-            hintCounter = (int) getIntent().getExtras().get("hintCounter");
-            boardSize = (int) getIntent().getExtras().get("boardSize");
-        }
-        else{
-            gameTime = 0;
-            hintCounter = 0;
-            boardSize = 0;
-        }
+        gameTime = (long) getIntent().getExtras().get("gameTime");
+        hintCounter = (int) getIntent().getExtras().get("hintCounter");
+        boardSize = (int) getIntent().getExtras().get("boardSize");
+
 
         score = (int)gameTime + hintCounter;
 
