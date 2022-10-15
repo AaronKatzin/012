@@ -6,14 +6,11 @@ import com.hit.game012.net.Client;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
-public class GetHighScoreThreaded implements Callable<TreeMap<String, String>> {
-    private int size;
-    private boolean fromServer;
-    private BoardGenerator boardGenerator;
+public class GetHighScoreListThreaded implements Callable<TreeMap<String, String>> {
     private String userID;
 
 
-    public GetHighScoreThreaded(String userID) {
+    public GetHighScoreListThreaded(String userID) {
         this.userID = userID;
     }
 

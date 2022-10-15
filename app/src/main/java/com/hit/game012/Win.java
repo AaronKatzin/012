@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.hit.game012.gameplay.GetHighScoreThreaded;
+import com.hit.game012.gameplay.GetHighScoreListThreaded;
 import com.hit.game012.ui.MyListAdapter;
 
 import java.util.TreeMap;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Win extends AppCompatActivity {
 
-    TreeMap<String, String> HighScoreExample = new TreeMap<>();
+    TreeMap<String, String> highScoreTreeMap = new TreeMap<>();
     ListView list;
 
     String[] maintitle ={
@@ -50,31 +50,24 @@ public class Win extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
-
-        HighScoreExample.put("python", ".py");
-        HighScoreExample.put("c++", ".cpp");
-        HighScoreExample.put("kotlin", ".kt");
-        HighScoreExample.put("golang", ".go");
-        HighScoreExample.put("java", ".java");
-        HighScoreExample.put("python1", ".py");
-        HighScoreExample.put("c++1", ".cpp");
-        HighScoreExample.put("kotlin1", ".kt");
-        HighScoreExample.put("golang1", ".go");
-        HighScoreExample.put("java1", ".java");
-        HighScoreExample.put("python2", ".py");
-        HighScoreExample.put("c++2", ".cpp");
-        HighScoreExample.put("kotlin2", ".kt");
-        HighScoreExample.put("golang2", ".go");
-        HighScoreExample.put("java2", ".java");
-
-        System.out.println("HighScoreExample: ");
-        System.out.println(HighScoreExample);
-
-
-        System.out.println("Printed.");
-
         long gameTime;
         int hintCounter;
+
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
+                1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
+
+        try {
+            highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
+            System.out.println("highScoreTreeMap: ");
+
+            System.out.println(highScoreTreeMap);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if(false) {
             gameTime = (long) getIntent().getExtras().get("gameTime");
@@ -88,15 +81,11 @@ public class Win extends AppCompatActivity {
         long score = gameTime + hintCounter;
 
         TextView scoreText = findViewById(R.id.scoreText);
-        scoreText.setText("gameTime: " + gameTime + "\n hintCounter: " + hintCounter+ "\n score: " + score);
+        scoreText.setText(getResources().getString(R.string.score) + score + "\n" + getResources().getString(R.string.high_score));
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userID = mAuth.getCurrentUser().getUid();
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
-                1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-        TreeMap<String, String> highScoreTreeMap;
+
         try {
-            highScoreTreeMap= threadPoolExecutor.submit(new GetHighScoreThreaded(userID)).get();
+            highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
             System.out.println("highScoreTreeMap: ");
 
             System.out.println(highScoreTreeMap);
@@ -105,7 +94,8 @@ public class Win extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        MyListAdapter adapter=new MyListAdapter(this, HighScoreExample,imgid);
+
+        MyListAdapter adapter=new MyListAdapter(this, highScoreTreeMap,imgid);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
     }
