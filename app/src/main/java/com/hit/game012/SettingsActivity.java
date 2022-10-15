@@ -54,14 +54,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void saveSettings() {
-        changeGridColor();
+        int theme = changeGridColor();
         changeLanguage();
 
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("notificationsEnabled", notifications.isChecked());
         editor.putBoolean("soundEnabled", sound.isChecked());
-        editor.putInt("colorTheme", colorThemeRadioGroup.getCheckedRadioButtonId());
+        editor.putInt("colorTheme", theme);
         editor.putString(Config.SELECTED_LANGUAGE, Config.language);
         editor.apply();
     }
@@ -94,11 +94,16 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void changeGridColor() {
+    public int changeGridColor() {
+        int theme;
+
         if (colorThemeRadioGroup.getCheckedRadioButtonId() == R.id.settings_color_theme_1)
-            Config.setGridThemeID(1);
+            theme = 1;
         else
-            Config.setGridThemeID(2);
+            theme = 2;
+
+        Config.setGridThemeID(theme);
+        return theme;
     }
 
     public void changeLanguage() {

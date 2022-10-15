@@ -56,20 +56,20 @@ public class MainActivity extends AppCompatActivity {
         left.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
         right.setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
         AnimatedTextView gameName = findViewById(R.id.app_name_startup);
-        left.initStartupAnimation(1500,1000);
+        left.initStartupAnimation(1500, 1000);
         right.initStartupAnimation(1500, 2000);
         gameName.initAnimation(2000, 3000);
         authOnCreate();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if(user != null){
+        if (user != null) {
 
             LinearLayout enterLayout = findViewById(R.id.enterLayout);
             Button enterButton = findViewById(R.id.enterButton);
 
-            enterButton.setOnClickListener(new View.OnClickListener(){
+            enterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view){
+                public void onClick(View view) {
                     continueToMenu(view);
                 }
             });
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void animateSigninButtons(){
-        Animation fadein = new AlphaAnimation(0,1);
+    private void animateSigninButtons() {
+        Animation fadein = new AlphaAnimation(0, 1);
         fadein.setInterpolator(new DecelerateInterpolator());
         fadein.setDuration(2000);
         fadein.setStartOffset(4000);
@@ -96,12 +96,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.SigninButtonLayout).setAnimation(animation);
     }
 
-    private void authOnCreate(){
+    private void authOnCreate() {
         mAuth = FirebaseAuth.getInstance();
         createLoginRequest();
-        findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 signIn();
             }
         });
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSigninClient = GoogleSignIn.getClient(this, gso);
     }
 
-    private void signIn(){
+    private void signIn() {
         Intent signInIntent = mGoogleSigninClient.getSignInIntent();
         getResult.launch(signInIntent);
     }
@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity {
                         // There are no request codes
                         Intent data = result.getData();
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                        try{
+                        try {
                             GoogleSignInAccount account = task.getResult(ApiException.class);
                             firebaseAuthWithGoogle(account);
-                        } catch (ApiException e){
+                        } catch (ApiException e) {
                             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Login Succeeded!", Toast.LENGTH_SHORT).show();
                             continueToMenu(getCurrentFocus());
 
-                        }else{
+                        } else {
                             Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -168,24 +168,23 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void continueToMenu(View view){
+    public void continueToMenu(View view) {
         Intent intent = new Intent(this, MenuActivity.class);
 //        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
     }
 
-    public void loadMemSettings(){
+    public void loadMemSettings() {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
-        int theme=sharedPref.getInt("colorTheme", R.id.settings_color_theme_1);
-        if(theme== R.id.settings_color_theme_1)
-            Config.setGridThemeID(1);
-        else{
-            Config.setGridThemeID(2);
-        }
-        String lang=sharedPref.getString(Config.SELECTED_LANGUAGE,"en");
+        int theme = sharedPref.getInt("colorTheme", 1);
+        Config.setGridThemeID(theme);
+
+        String lang = sharedPref.getString(Config.SELECTED_LANGUAGE, "en");
         Config.setLanguage(lang);
-        saveMem();
-        String languageToLoad  = Config.language; // your language
+
+//        saveMem();
+
+        String languageToLoad = Config.language;
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -194,11 +193,12 @@ public class MainActivity extends AppCompatActivity {
                 getBaseContext().getResources().getDisplayMetrics());
 
     }
-    public void saveMem(){
-        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("language", Config.language);
-        editor.putInt("colorTheme", Config.gridThemeID);
-        editor.apply();
-    }
+
+//    public void saveMem() {
+//        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.putString(Config.SELECTED_LANGUAGE, Config.language);
+//        editor.putInt("colorTheme", Config.gridThemeID);
+//        editor.apply();
+//    }
 }
