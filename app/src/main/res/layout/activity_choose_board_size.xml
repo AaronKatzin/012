@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="70dp"
             android:gravity="center"
-            android:text="Free play"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/choose_size_text"
             app:layout_constraintEnd_toStartOf="@+id/choose_size_text"
@@ -64,6 +63,7 @@
                     android:textAlignment="center"
                     android:textSize="35sp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,6 +97,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:onClick="game6"
                     android:text="6"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="35sp"
                     android:textStyle="bold"
@@ -124,6 +125,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:onClick="game8"
                     android:text="8"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="35sp"
                     android:textStyle="bold"
@@ -151,6 +153,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:onClick="game10"
                     android:text="10"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="35sp"
                     android:textStyle="bold"
@@ -176,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:onClick="backToMenu"
-            android:text="Back"
+            android:text="@string/back"
             android:textAlignment="center"
             android:textSize="25sp" />
     </LinearLayout>

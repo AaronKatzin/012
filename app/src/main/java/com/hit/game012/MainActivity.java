@@ -95,13 +95,10 @@ public class MainActivity extends AppCompatActivity {
         animation.addAnimation(fadein);
         findViewById(R.id.SigninButtonLayout).setAnimation(animation);
     }
+
     private void authOnCreate(){
-
-
         mAuth = FirebaseAuth.getInstance();
-
         createLoginRequest();
-
         findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -187,15 +184,21 @@ public class MainActivity extends AppCompatActivity {
         }
         String lang=sharedPref.getString(Config.SELECTED_LANGUAGE,"en");
         Config.setLanguage(lang);
-
-        String languageToLoad  =Config.language; // your language
+        saveMem();
+        String languageToLoad  = Config.language; // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
-//        ((SettingsActivity)getApplicationContext()).changeLanguage();
-//        Config.setLocale(this,lang);
+
+    }
+    public void saveMem(){
+        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("language", Config.language);
+        editor.putInt("colorTheme", Config.gridThemeID);
+        editor.apply();
     }
 }

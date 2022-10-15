@@ -54,8 +54,12 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("notificationsEnabled", notifications.isChecked());
         editor.putBoolean("soundEnabled", sound.isChecked());
-        editor.putInt("language", languageRadioGroup.getCheckedRadioButtonId());
         editor.putInt("colorTheme", colorThemeRadioGroup.getCheckedRadioButtonId());
+        if (languageRadioGroup.getCheckedRadioButtonId() == R.id.settings_lang_english)
+            Config.setLanguage("en");
+        else
+            Config.setLanguage("iw");
+        editor.putString(Config.SELECTED_LANGUAGE, Config.language);
         editor.apply();
         changeGridColor();
         changeLanguage();
@@ -67,7 +71,12 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         notifications.setChecked(sharedPref.getBoolean("notificationsEnabled", true));
         sound.setChecked(sharedPref.getBoolean("soundEnabled", true));
-        languageRadioGroup.check(sharedPref.getInt("language", R.id.settings_lang_english));
+        String lang = sharedPref.getString(Config.SELECTED_LANGUAGE, "en");
+        if (lang == "en")
+            languageRadioGroup.check(R.id.settings_lang_english);
+        else
+            languageRadioGroup.check(R.id.settings_lang_hebrew);
+//        languageRadioGroup.check(sharedPref.getInt("language", R.id.settings_lang_english));
         colorThemeRadioGroup.check(sharedPref.getInt("colorTheme", R.id.settings_color_theme_1));
     }
 
@@ -84,13 +93,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void changeLanguage(){
-        if (languageRadioGroup.getCheckedRadioButtonId() == R.id.settings_lang_english)
-            Config.setLanguage("en");
-        else
-            Config.setLanguage("iw");
-//        Context context = Config.setLocale(getApplicationContext(), Config.language);
-//        Resources resources = context.getResources();
-
         String languageToLoad  =Config.language; // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);

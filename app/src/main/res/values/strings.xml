@@ -19,7 +19,7 @@ No two rows and no two columns are the same.
     <string name="sign_in">Click to sign in</string>
 
 
-    <string name="logout_button">Sign Out</string>
+    <string name="settings_logout_button">Sign Out</string>
     <string name="placeholder">Loading...</string>
     <string name="message">hey</string>
     <string name="Choose_board_size">Choose board size:</string>
@@ -44,6 +44,16 @@ No two rows and no two columns are the same.
 
     <string name="menu_free_game">Free Game</string>
     <string name="menu_daily_game">Daily Challenge</string>
+    <string name="settings_choose_language">Choose language:</string>
+    <string name="settings_choose_theme">Choose theme:</string>
+    <string name="settings_lang_he">HE</string>
+    <string name="settings_lang_en">EN</string>
+    <string name="settings_header">Settings</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_save">Save</string>
+    <string name="back">Back</string>
+    <string name="about_us">About us</string>
 </resources>
 
 

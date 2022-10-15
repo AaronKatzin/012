@@ -23,4 +23,18 @@
 
     <string name="menu_free_game">משחק חופשי</string>
     <string name="menu_daily_game">האתגר היומי</string>
+    <string name="settings_choose_language">בחר שפה:</string>
+    <string name="settings_choose_theme">בחר ערכת נושא:</string>
+    <string name="settings_lang_he">עברית</string>
+    <string name="settings_lang_en">אנגלית</string>
+    <string name="settings_header">הגדרות</string>
+    <string name="settings_sound">שמע</string>
+    <string name="settings_notifications">התראות</string>
+    <string name="settings_logout_button">התנתקות</string>
+    <string name="settings_save">שמירה</string>
+    <string name="back">חזרה</string>
+    <string name="about_us">עלינו</string>
+    <string name="how_to_play_reminder_title">איך משחקים</string>
+
+
 </resources>
