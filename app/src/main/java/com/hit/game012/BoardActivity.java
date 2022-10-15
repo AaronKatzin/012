@@ -111,20 +111,15 @@ public class BoardActivity extends AppCompatActivity {
         Random r = new Random();
         if (validatorResult){
             // Win
-            int[] winGifOptions = {R.drawable.win1, R.drawable.win2, R.drawable.win3, R.drawable.win4};
+            int[] winGifOptions = {R.drawable.win1, R.drawable.win2, R.drawable.win3, R.drawable.win6, R.drawable.win10, R.drawable.win12,};
             resourceID = winGifOptions[r.nextInt(winGifOptions.length)];
         }
         else{
             // Lose
-            int[] loseGifOptions = {R.drawable.lose1, R.drawable.lose2, R.drawable.lose3};
+            int[] loseGifOptions = {R.drawable.lose11, R.drawable.lose2, R.drawable.lose3,R.drawable.lose6,R.drawable.lose8};
             resourceID = loseGifOptions[r.nextInt(loseGifOptions.length)];
         }
         endGameGif.setImageResource(resourceID);
-
-
-
-
-
 
     }
 
