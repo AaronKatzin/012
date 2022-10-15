@@ -1,70 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/menu_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/menu"
-        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:text="@string/app_name"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="70dp"
+        />
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="50dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/menu_header"
 
         >
+
         <TextView
+            android:id="@+id/menu_btn_free_game"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/how_to_play_reminder_title"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:id="@+id/menu_btn_how_to_play"
             android:layout_marginVertical="20dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:onClick="freeGame"
             android:text="@string/menu_free_game"
             android:textAlignment="center"
-            android:textSize="30sp"
-            android:id="@+id/menu_btn_free_game"
-            android:onClick="freeGame"
-            android:layout_marginVertical="20dp"
+            android:textSize="35sp"
 
             />
+
         <TextView
+            android:id="@+id/menu_btn_daily_game"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:onClick="dailyGame"
             android:text="@string/menu_daily_game"
             android:textAlignment="center"
-            android:textSize="30sp"
-            android:id="@+id/menu_btn_daily_game"
-            android:onClick="dailyGame"
-            android:layout_marginVertical="20dp"
+            android:textSize="35sp"
 
             />
-        <TextView
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_header"
-            android:onClick="options"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:id="@+id/menu_btn_options"
-            android:layout_marginVertical="20dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="30dp">
 
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_us"
-            android:onClick="aboutUs"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:id="@+id/menu_btn_about_us"
-            android:layout_marginVertical="20dp"
+            <TextView
+                android:id="@+id/menu_btn_how_to_play"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/checked"
 
-            />
+                />
+
+            <TextView
+                android:id="@+id/menu_btn_options"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/checked"
+                android:onClick="options"
+
+                />
+
+            <TextView
+                android:id="@+id/menu_btn_about_us"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/checked"
+                android:onClick="aboutUs" />
+
+            <TextView
+                android:id="@+id/menu_btn_high_score"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/checked"
+                android:onClick="aboutUs" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </LinearLayout>
 
