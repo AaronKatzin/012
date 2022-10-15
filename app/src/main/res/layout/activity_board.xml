@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:background="@color/menu_background"
     tools:context=".BoardActivity">
 
     <pl.droidsonroids.gif.GifImageView
@@ -13,7 +14,6 @@
         android:layout_width="match_parent"
         android:visibility="visible"
         android:id="@+id/end_game_gif"
-
         android:elevation="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -75,26 +75,55 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/menu_background"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/goback_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"
             android:onClick="undo"
             android:text="undo" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+        <ImageButton
             android:onClick="getHint"
-            android:text="hint" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/menu_background"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/help_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"
+             />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+
+        <ImageButton
             android:onClick="backToMenu"
-            android:text="back" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/menu_background"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/close_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+
 
     </LinearLayout>
 

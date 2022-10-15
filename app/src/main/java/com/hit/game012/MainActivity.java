@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        init();
-
+        startService(new Intent(getApplicationContext(),BackGroundMusicService.class)); /*defualt activate sound*/
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
         AnimatedTextView gameName = findViewById(R.id.app_name_startup);

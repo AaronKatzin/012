@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">012</string>
-
+    <color type="color" name="menu_background">#2F3437</color>
     <string name="how_to_play_reminder_title">How To Play</string>
     <string name="how_to_play_reminder">
 Three adjacent tiles of the same color in row or column isn’t allowed.
