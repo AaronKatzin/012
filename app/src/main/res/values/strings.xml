@@ -40,7 +40,7 @@ No two rows and no two columns are the same.
     <string name="lose_next_time">Maybe next time..</string>
     <string name="lose_not_good">Not good enough…</string>
     <string name="lose_practice">Practice is the key</string>
-
+    <string name="new_game">New Game</string>
 </resources>
 
 
