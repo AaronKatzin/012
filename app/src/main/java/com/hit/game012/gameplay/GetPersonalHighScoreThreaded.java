@@ -19,8 +19,8 @@ public class GetPersonalHighScoreThreaded implements Callable<Map<String, Intege
     private Map<String, Integer> getPersonalHighScoreFromServer(){
         Client client = new Client(userID);
         client.startConnection();
-        Map<String, Integer> highScoreM = client.getMyHighScore();
         client.sentGameResult(boardSize, score);
+        Map<String, Integer> highScoreM = client.getMyHighScore();
         client.stopConnection();
         return highScoreM;
     }
