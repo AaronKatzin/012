@@ -5,5 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AboutUs">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+    <TextView
+        android:id="@+id/About"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/aboutHeadLine"
+        android:textSize="@dimen/bigTextSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginVertical="70dp"
+        />
+
+        <TextView
+            android:id="@+id/choose_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/about"
+            android:textSize="@dimen/smallTextSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginVertical="60dp"
+            />
+
+        <ImageButton
+            android:onClick="backToMenu"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@color/menu_background"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/close_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

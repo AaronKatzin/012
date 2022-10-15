@@ -18,16 +18,13 @@ public class BackGroundMusicService extends Service {
         return null;
     }
     public void onCreate(){
-        Toast.makeText(this,"Service created",Toast.LENGTH_SHORT).show();
         backGroundMusic = MediaPlayer.create(getApplicationContext(),R.raw.backgroundsound);
         backGroundMusic.setLooping(true);
     }
     public void onStart(Intent intent, int startid){
-        Toast.makeText(this,"Service started",Toast.LENGTH_SHORT).show();
         backGroundMusic.start();
     }
     public void onDestroy(){
-        Toast.makeText(this,"Service  stopped",Toast.LENGTH_SHORT).show();
         backGroundMusic.stop();
     }
 }

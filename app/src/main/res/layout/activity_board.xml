@@ -76,8 +76,8 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -93,8 +93,8 @@
 
         <ImageButton
             android:onClick="getHint"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -110,8 +110,8 @@
 
         <ImageButton
             android:onClick="backToMenu"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"

@@ -20,4 +20,6 @@
     <string name="lose_next_time">אולי בפעם הבאה..</string>
     <string name="lose_not_good">לא מספיק טוב</string>
     <string name="lose_practice">אימון זה המפתח להצלחה</string>
+    <string name="aboutHeadLine">עלינו</string>
+    <string name="about">012 הוא משחק היגיון קטן שפותח על ידי סטודנטים למדעי המחשב במכון הטכנולוגי חולון, HIT.</string>
 </resources>
