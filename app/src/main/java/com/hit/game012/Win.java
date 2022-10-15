@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.gameplay.GetHighScoreListThreaded;
+import com.hit.game012.gameplay.GetPersonalHighScoreThreaded;
 import com.hit.game012.ui.MyListAdapter;
 
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class Win extends AppCompatActivity {
 
     TreeMap<String, String> highScoreTreeMap = new TreeMap<>();
+    Map<String, Integer> myHighScoreM;
     ListView list;
 
     String[] maintitle ={
@@ -51,39 +54,50 @@ public class Win extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
         long gameTime;
-        int hintCounter;
+        int hintCounter,boardSize,score, highScore;
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String userID = mAuth.getCurrentUser().getUid();
 
-        try {
-            highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
-            System.out.println("highScoreTreeMap: ");
 
-            System.out.println(highScoreTreeMap);
+        // calculate current score
+        if(false) {
+            gameTime = (long) getIntent().getExtras().get("gameTime");
+            hintCounter = (int) getIntent().getExtras().get("hintCounter");
+            boardSize = (int) getIntent().getExtras().get("boardSize");
+        }
+        else{
+            gameTime = 0;
+            hintCounter = 0;
+            boardSize = 0;
+        }
+
+        score = (int)gameTime + hintCounter;
+
+        // get previous personal high score and submit current
+        try {
+            myHighScoreM = threadPoolExecutor.submit(new GetPersonalHighScoreThreaded(userID, boardSize, score)).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        if(false) {
-            gameTime = (long) getIntent().getExtras().get("gameTime");
-            hintCounter = (int) getIntent().getExtras().get("hintCounter");
-        }
-        else{
-            gameTime = 100;
-            hintCounter = 1;
+        if(myHighScoreM != null && myHighScoreM.containsKey("score")){
+            highScore = myHighScoreM.get("score");
+        } else {
+
+            highScore = 0;
         }
 
-        long score = gameTime + hintCounter;
-
+        // set score text
         TextView scoreText = findViewById(R.id.scoreText);
-        scoreText.setText(getResources().getString(R.string.score) + score + "\n" + getResources().getString(R.string.high_score));
+        scoreText.setText(getResources().getString(R.string.score) + score + "\n" + getResources().getString(R.string.high_score) + highScore);
 
 
+        // get score board
         try {
             highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
             System.out.println("highScoreTreeMap: ");
