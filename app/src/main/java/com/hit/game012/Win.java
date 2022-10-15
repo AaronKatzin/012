@@ -19,6 +19,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class Win extends AppCompatActivity {
+
+    TreeMap<String, String> HighScoreExample = new TreeMap<>();
     ListView list;
 
     String[] maintitle ={
@@ -39,19 +41,37 @@ public class Win extends AppCompatActivity {
             "Score",
     };
 
+
     Integer[] imgid={
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square,
+            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
+
+        HighScoreExample.put("python", ".py");
+        HighScoreExample.put("c++", ".cpp");
+        HighScoreExample.put("kotlin", ".kt");
+        HighScoreExample.put("golang", ".go");
+        HighScoreExample.put("java", ".java");
+        HighScoreExample.put("python1", ".py");
+        HighScoreExample.put("c++1", ".cpp");
+        HighScoreExample.put("kotlin1", ".kt");
+        HighScoreExample.put("golang1", ".go");
+        HighScoreExample.put("java1", ".java");
+        HighScoreExample.put("python2", ".py");
+        HighScoreExample.put("c++2", ".cpp");
+        HighScoreExample.put("kotlin2", ".kt");
+        HighScoreExample.put("golang2", ".go");
+        HighScoreExample.put("java2", ".java");
+
+        System.out.println("HighScoreExample: ");
+        System.out.println(HighScoreExample);
+
+
+        System.out.println("Printed.");
 
         long gameTime;
         int hintCounter;
@@ -85,7 +105,7 @@ public class Win extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        MyListAdapter adapter=new MyListAdapter(this, maintitle, subtitle,imgid);
+        MyListAdapter adapter=new MyListAdapter(this, HighScoreExample,imgid);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
     }

@@ -11,20 +11,20 @@ import android.widget.TextView;
 
 import com.hit.game012.R;
 
-public class MyListAdapter extends ArrayAdapter<String> {
+import java.util.TreeMap;
+
+public class MyListAdapter extends ArrayAdapter<Object> {
 
     private final Activity context;
-    private final String[] maintitle;
-    private final String[] subtitle;
     private final Integer[] imgid;
+    private final TreeMap<String, String> HighScoreTM;
 
-    public MyListAdapter(Activity context, String[] maintitle,String[] subtitle, Integer[] imgid) {
-        super(context, R.layout.scoreboard_list, maintitle);
+    public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer[] imgid) {
+        super(context, R.layout.scoreboard_list, HighScoreTM.keySet().toArray());
         // TODO Auto-generated constructor stub
 
         this.context=context;
-        this.maintitle=maintitle;
-        this.subtitle=subtitle;
+        this.HighScoreTM = HighScoreTM;
         this.imgid=imgid;
 
     }
@@ -37,9 +37,10 @@ public class MyListAdapter extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView subtitleText = (TextView) rowView.findViewById(R.id.subtitle);
 
-        titleText.setText(maintitle[position]);
-        imageView.setImageResource(imgid[position]);
-        subtitleText.setText(subtitle[position]);
+        String userName = HighScoreTM.keySet().toArray()[position].toString();
+        titleText.setText(userName);
+        imageView.setImageResource(imgid[0]); // todo actual user profile pic
+        subtitleText.setText(HighScoreTM.get(userName).toString());
 
         return rowView;
 
