@@ -132,14 +132,20 @@ public class BoardActivity extends AppCompatActivity {
 
     }
 
-    public void goToWinScreen(View view){
-        Intent intent = new Intent(this, Win.class);
-        intent.putExtra("gameTime", getGameTime());
-        intent.putExtra("hintCounter", hintCounter);
-        intent.putExtra("boardSize", boardSize);
-        intent.putExtra("isDailyGame", isDailyGame);
-        intent.putExtra("win", win);
+    public void goToPostGameActivity(View view){
+        Intent intent;
+        if(win){
+            intent = new Intent(this, Win.class);
+            intent.putExtra("gameTime", getGameTime());
+            intent.putExtra("hintCounter", hintCounter);
+            intent.putExtra("boardSize", boardSize);
+            intent.putExtra("win", win);
 
+
+        } else {
+            intent = new Intent(this, ChooseBoardSize.class);
+        }
+        intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
         finish();
     }

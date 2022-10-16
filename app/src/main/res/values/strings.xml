@@ -9,15 +9,10 @@ Three adjacent tiles of the same color in row or column isn’t allowed.
 Rows and columns have an equal number of each color.
 No two rows and no two columns are the same.
     </string>
-    <string name="title_activity_firebase_login">firebase_login</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="sign_in">Click to sign in</string>
     <string name="about">012 is a little logic game developed by computer science students at the Holon Institute of Technology, HIT.</string>
     <string name="aboutHeadLine">About</string>
@@ -43,8 +38,8 @@ No two rows and no two columns are the same.
     <string name="lose_not_good">Not good enough…</string>
     <string name="lose_practice">Practice is the key</string>
     <string name="new_game">New Game</string>
-    <string name="score">Score: </string>
-    <string name="high_score">Your High Score: </string>
+    <string name="score">Score: %1$d</string>
+    <string name="high_score">Your High Score: %1$d</string>
 
 
     <string name="menu_free_game">Free Game</string>
@@ -60,6 +55,8 @@ No two rows and no two columns are the same.
     <string name="back">Back</string>
     <string name="about_us">About us</string>
     <string name="in_game_timer">In-game Timer</string>
+    <string name="high_score_beat">New High Score!</string>
+    <string name="welcome_button">Welcome %1$s! Enter Here</string>
 </resources>
 
 

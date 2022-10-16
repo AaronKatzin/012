@@ -38,4 +38,16 @@
     <string name="in_game_timer">הצגת זמן משחק</string>
     <string name="aboutHeadLine">עלינו</string>
     <string name="about">012 הוא משחק היגיון קטן שפותח על ידי סטודנטים למדעי המחשב במכון הטכנולוגי חולון, HIT.</string>
+    <string name="high_score_beat">שיא חדש!</string>
+    <string name="score">ניקוד: %1d</string>
+    <string name="high_score">השיא שלך: %1d</string>
+    <string name="sign_in">לחץ להתחבר</string>
+    <string name="next">לשורות ועמודות יש מספר שווה של כל צבע.</string>
+    <string name="previous">אין שתי שורות ושתי עמודות זהות.</string>
+    <string name="how_to_play_reminder">אסור להשתמש בשלושה אריחים סמוכים באותו צבע בשורה או בעמודה.
+לשורות ועמודות יש מספר שווה של כל צבע.
+אין שתי שורות ושתי עמודות זהות.
+</string>
+    <string name="placeholder">טוען...</string>
+    <string name="welcome_button">שלום  %1$s! לחץ כאן להיכנס</string>
 </resources>

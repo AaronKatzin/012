@@ -2,6 +2,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.gameplay.GetHighScoreListThreaded;
 import com.hit.game012.gameplay.GetPersonalHighScoreThreaded;
@@ -27,24 +29,8 @@ public class Win extends AppCompatActivity {
     Map<String, Integer> myHighScoreM;
     ListView list;
     boolean isDailyGame = false;
-
-    String[] maintitle ={
-            "User Name","User Name",
-            "User Name","User Name",
-            "User Name",
-            "User Name","User Name",
-            "User Name","User Name",
-            "User Name",
-    };
-
-    String[] subtitle ={
-            "Score","Score",
-            "Score","Score",
-            "Score",
-            "Score","Score",
-            "Score","Score",
-            "Score",
-    };
+    LottieAnimationView awardAnimation, barChartAnimation, fireworksAnimationView;
+    TextView highScoreBeatText;
 
 
     Integer[] imgid={
@@ -60,6 +46,10 @@ public class Win extends AppCompatActivity {
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         boolean win = (boolean) getIntent().getExtras().get("win");
+        awardAnimation = findViewById(R.id.awardAnimationView);
+        barChartAnimation = findViewById(R.id.barChartAnimation);
+        highScoreBeatText = findViewById(R.id.highScoreBeatText);
+        fireworksAnimationView = findViewById(R.id.fireworksAnimationView);
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -73,6 +63,7 @@ public class Win extends AppCompatActivity {
 
 
         if(win){
+            fireworksAnimationView.setVisibility(View.VISIBLE);
             try {
                 score = (int) Math.min((( ((gameTime-hintCounter*5)/60)/(99+((gameTime-hintCounter*5)/60)) ))  * 2^(boardSize), Integer.MAX_VALUE);
                 System.out.println("Score calculated: " + score);
@@ -100,19 +91,24 @@ public class Win extends AppCompatActivity {
         } else {
             highScore = sharedPref.getInt("personalHighScore", 0);
             System.out.println("got highscore from personal prefs: " + highScore);
+            barChartAnimation.setVisibility(View.VISIBLE);
         }
 
         // set score text
-        TextView scoreText = findViewById(R.id.scoreText);
-        scoreText.setText(getResources().getString(R.string.score) + score + "\n" + getResources().getString(R.string.high_score) + highScore);
-
+        if(win){ // only show current score if you just played a game and won
+            TextView scoreText = findViewById(R.id.scoreText);
+            scoreText.setText(String.format(getResources().getString(R.string.score), score));
+            scoreText.setVisibility(View.VISIBLE);
+        }
+        // always show your high score
+        TextView scoreText = findViewById(R.id.personalHighScoreText);
+        scoreText.setText(String.format(getResources().getString(R.string.high_score), highScore));
 
         // get score board
         if(isDailyGame) {
             try {
                 highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
                 System.out.println("highScoreTreeMap: ");
-
                 System.out.println(highScoreTreeMap);
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -123,6 +119,10 @@ public class Win extends AppCompatActivity {
             MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, imgid);
             list = (ListView) findViewById(R.id.list);
             list.setAdapter(adapter);
+
+            // make score board visible
+            findViewById(R.id.multiplayerHighScoreTable).setVisibility(View.VISIBLE);
+
         } else {
             // store new personal high score
             if(score >= highScore){
@@ -131,11 +131,39 @@ public class Win extends AppCompatActivity {
                 editor.apply();
 
                 System.out.println("saved highscore to personal prefs: " + score);
-                // todo fireworks GIF since you beat your highscore?
+
+
             }
         }
+
+        if(score >= highScore && win){
+            awardAnimation.setVisibility(View.VISIBLE);
+            highScoreBeatText.setVisibility(View.VISIBLE);
+        }
+
+        onCreateAnimations();
     }
 
+    private void onCreateAnimations(){
+        awardAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                awardAnimation.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+    }
     public void newGame(View view){
         Intent intent = new Intent(this, ChooseBoardSize.class);
         intent.putExtra("isDailyGame", isDailyGame);
