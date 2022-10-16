@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            enterButton.setText("Welcome " + user.getDisplayName() + "! Enter");
+            enterButton.setText(String.format(getResources().getString(R.string.welcome_button),  user.getDisplayName()));
             enterLayout.setVisibility(View.VISIBLE);
 
         } else {

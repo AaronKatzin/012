@@ -95,12 +95,12 @@ public class Win extends AppCompatActivity {
         // set score text
         if(win){ // only show current score if you just played a game and won
             TextView scoreText = findViewById(R.id.scoreText);
-            scoreText.setText(getResources().getString(R.string.score) + score);
+            scoreText.setText(String.format(getResources().getString(R.string.score), score));
             scoreText.setVisibility(View.VISIBLE);
         }
         // always show your high score
         TextView scoreText = findViewById(R.id.personalHighScoreText);
-        scoreText.setText(getResources().getString(R.string.high_score) + highScore);
+        scoreText.setText(String.format(getResources().getString(R.string.high_score), highScore));
 
         // get score board
         if(isDailyGame) {
