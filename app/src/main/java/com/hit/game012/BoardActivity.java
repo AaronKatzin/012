@@ -37,6 +37,7 @@ public class BoardActivity extends AppCompatActivity {
     private BoardView boardView;
     private Client client;
     private int hintCounter = 0;
+    private boolean win = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,10 +121,12 @@ public class BoardActivity extends AppCompatActivity {
             // Win
             int[] winGifOptions = {R.drawable.win1, R.drawable.win2, R.drawable.win3, R.drawable.win6, R.drawable.win10, R.drawable.win12,};
             resourceID = winGifOptions[r.nextInt(winGifOptions.length)];
+            win = true;
         } else {
             // Lose
             int[] loseGifOptions = {R.drawable.lose11, R.drawable.lose2, R.drawable.lose3, R.drawable.lose6, R.drawable.lose8};
             resourceID = loseGifOptions[r.nextInt(loseGifOptions.length)];
+            win = false;
         }
         endGameGif.setImageResource(resourceID);
 
@@ -135,6 +138,8 @@ public class BoardActivity extends AppCompatActivity {
         intent.putExtra("hintCounter", hintCounter);
         intent.putExtra("boardSize", boardSize);
         intent.putExtra("isDailyGame", isDailyGame);
+        intent.putExtra("win", win);
+
         startActivity(intent);
     }
 

@@ -55,10 +55,10 @@ public class Win extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
         long gameTime;
-        int hintCounter,boardSize,score;
-        int highScore = 0;
+        int hintCounter,boardSize,score, highScore = 0;
         boolean isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
+        boolean win = (boolean) getIntent().getExtras().get("win");
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -71,7 +71,13 @@ public class Win extends AppCompatActivity {
         boardSize = (int) getIntent().getExtras().get("boardSize");
 
 
-        score = (int)gameTime + hintCounter;
+        if(win){
+            score = (int) Math.min((1 / ( ((gameTime-hintCounter*5)/60)/(99+((gameTime-hintCounter*5)/60)) ))  * 2^(boardSize/2/3/4), Integer.MAX_VALUE);
+            System.out.println("Score calculated: " + score);
+        } else {
+            score = 0;
+            System.out.println("Default score: " + score);
+        }
 
         // get previous personal high score and submit current
         if(isDailyGame){
