@@ -5,6 +5,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+/**
+ * This class represents a game board.
+ * The board contains rows, size and all board functionality.
+ * Board --> Row[] --> Cell[] --> Tile
+ */
 public class Board {
     private Row[] board;
     private Integer size;
@@ -20,11 +25,24 @@ public class Board {
         this.board = board.board.clone();
     }
 
-
     public Integer getSize() {
         return size;
     }
 
+    public Tile getTile(@NotNull Index index) {
+        checkIndexInRange(index);
+        return board[index.getRow()].getTile(index.getCol());
+    }
+
+    public Tile setTile(@NotNull Index index, Tile newState) {
+        checkIndexInRange(index);
+        return board[index.getRow()].setTile(index.getCol(), newState);
+    }
+
+    /**
+     * Check illegal value in index
+     * @param index to check
+     */
     private void checkIndexInRange(@NotNull Index index) {
         int row = index.getRow();
         int col = index.getCol();
@@ -36,16 +54,6 @@ public class Board {
             throw new IllegalArgumentException("column must be >= 0 but was " + col);
         if (col >= size)
             throw new IllegalArgumentException("column must be < board size (" + size + ") but was " + col);
-    }
-
-    public Tile getTile(@NotNull Index index) {
-        checkIndexInRange(index);
-        return board[index.getRow()].getTile(index.getCol());
-    }
-
-    public Tile setTile(@NotNull Index index, Tile newState) {
-        checkIndexInRange(index);
-        return board[index.getRow()].setTile(index.getCol(), newState);
     }
 
     public Tile stepTile(@NotNull Index index) {
@@ -115,7 +123,6 @@ public class Board {
         }
         return text.toString();
     }
-
 
     public Tile getTileAt(int row, int col) {
         return getTile(new Index(row, col));

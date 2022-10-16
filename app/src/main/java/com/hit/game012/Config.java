@@ -2,7 +2,11 @@ package com.hit.game012;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -21,7 +25,7 @@ public class Config {
     public static String language;
     public static boolean inGameTimerEnabled;
     public static final String SELECTED_LANGUAGE = "Selected.Language";
-
+    public static String CHANNEL_ID="27";
 
     public static void setInGameTimerEnabled(boolean inGameTimerEnabled) {
         Config.inGameTimerEnabled = inGameTimerEnabled;
@@ -46,6 +50,5 @@ public class Config {
             COLOR_TILE_ZERO = R.drawable.tile_zero_theme_2;
         }
     }
-
 
 }

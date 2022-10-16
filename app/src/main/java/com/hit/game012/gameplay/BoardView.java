@@ -25,74 +25,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-
+/**
+ * Class BoardView is the visual representation of the board.
+ * It extends Fragment class in order to be reused in multiple activities.
+ */
 public class BoardView extends Fragment {
     private static Board board;
-    private BoardSolver boardSolver;
-    private static Timer timer;
     private static Stack<Move> moves;
-    private Set<Index> highlightedIndexes;
+    private BoardSolver boardSolver;
     private GridView mGridView;
     private GridAdapter adapter;
-
-
-    public static Board getBoard() {
-        return board;
-    }
+    private Set<Index> highlightedIndexes;
 
     public BoardView(Board board) {
-        this.board = board;
-
-        boardSolver = new BoardSolver(board);
-        timer = new Timer();
-
-        highlightedIndexes = new HashSet<>();
+        BoardView.board = board;
         moves = new Stack<>();
-
-    }
-
-    public void startGame() {
-        timer.start();
-        
-
-    }
-
-    public int requestHint() {
-        boardSolver.setBoard(board);
-        Hint hint = boardSolver.requestHint();
-        List<Index> involvedTiles = hint.getInvolvedTiles();
-        highlightedIndexes.clear();
-        if (involvedTiles != null) {
-            highlightedIndexes.addAll(involvedTiles);
-            System.out.println("Highlighted indexes: " + highlightedIndexes);
-        }
-        highlightHintTiles(involvedTiles);
-        adapter.setInGameMessageChanged(true);
-        return hint.getMessage();
-    }
-
-    private void highlightHintTiles(List<Index> highlighted) {
-        if (highlighted != null) {
-            adapter.setHighlightedTiles(highlighted);
-            mGridView.invalidateViews();
-        }
-    }
-
-
-    public static void addToMoveStack(Move move) {
-        long time = System.currentTimeMillis();
-        if (!moves.empty()) {
-            Move lastMove = moves.pop();
-            long delay = 1000; // 1 Second
-            if (!lastMove.getIndex().equals(move.getIndex()) || (time - lastMove.getTime()) > delay) {
-                moves.push(lastMove);
-            }
-        }
-        moves.push(move);
-    }
-
-    public long getGameTime() {
-        return timer.getTotalTime();
+        boardSolver = new BoardSolver(board);
+        highlightedIndexes = new HashSet<>();
     }
 
     @Nullable
@@ -101,16 +50,20 @@ public class BoardView extends Fragment {
         View view = inflater.inflate(R.layout.view_board_fragment, container, false);
         mGridView = view.findViewById(R.id.board);
         initGrid(view.getContext(), board.getSize());
-//        allTileView = adapter.allTileViews;
-//        setupAdapter();
-
         return view;
     }
+
+    /**
+     * Init the grid and set adapter
+     * @param context
+     * @param size
+     */
     private void initGrid(Context context, int size){
         mGridView.setNumColumns(size);
-        adapter = new GridAdapter(context, board, mGridView, getActivity());
+        adapter = new GridAdapter(context, board, getActivity());
         mGridView.setAdapter(adapter);
 
+        // spacing between the tiles
         int spacing;
         switch (size){
             case 4:
@@ -122,20 +75,62 @@ public class BoardView extends Fragment {
             default:
                 spacing = 5;
         }
-
         mGridView.setVerticalSpacing(spacing);
         mGridView.setHorizontalSpacing(spacing);
     }
-//
-//    public static Tile onClick(View view, Index index) {
-//        Tile newMove = board.stepTile(index);
-//        Move move = new Move(index, newMove.getSerialized());
-//        addToMoveStack(move);
-//        return newMove;
-//    }
 
+    public static Board getBoard() {
+        return board;
+    }
 
+    /**
+     * Function to request hint from solver and to highlight the involved tiles
+     * @return id of the hint message
+     */
+    public int requestHint() {
+        highlightedIndexes.clear();
+        boardSolver.setBoard(board);
+        Hint hint = boardSolver.requestHint();
+        List<Index> involvedTiles = hint.getInvolvedTiles();
+        if (involvedTiles != null) {
+            highlightedIndexes.addAll(involvedTiles);
+        }
+        highlightHintTiles(involvedTiles);
+        adapter.setInGameMessageChanged(true);
+        return hint.getMessage();
+    }
+
+    private void highlightHintTiles(List<Index> highlighted) {
+        if (highlighted != null) {
+            adapter.setHighlightedTiles(highlighted);
+//            mGridView.invalidateViews();
+            adapter.notifyDataSetInvalidated();
+        }
+    }
+
+    /**
+     * Add move to move stack
+     * @param move
+     */
+    public static void addToMoveStack(Move move) {
+        long time = System.currentTimeMillis();
+        if (!moves.empty()) {
+            Move lastMove = moves.pop();
+            long delay = 1000; // 1 Second
+            // Check if last move was part of double click
+            if (!lastMove.getIndex().equals(move.getIndex()) || (time - lastMove.getTime()) > delay) {
+                moves.push(lastMove);
+            }
+        }
+        moves.push(move);
+    }
+
+    /**
+     * Function to undo the last move
+     * @return false if no moves were made, true otherwise
+     */
     public boolean undo(){
+        // Moves stack empty means no moves was made
         if (moves.empty()){
             adapter.setInGameMessageChanged(true);
             return false;
@@ -147,11 +142,10 @@ public class BoardView extends Fragment {
         }
         else
             color = Tile.EMPTY.getSerialized();
-//        int lastMovePos=lastMove.getIndex().getRow()* board.getSize()+lastMove.getIndex().getCol();
-//        TileViewHolder tileView = (TileViewHolder) mGridView.findViewHolderForAdapterPosition(lastMovePos);
+
         board.setTile(lastMove.getIndex(),Tile.deserialize(color));
-//        tileView.setColor(Tile.deserialize(color));
-        mGridView.invalidateViews();
+//        mGridView.invalidateViews();
+        adapter.notifyDataSetInvalidated();
         return true;
     }
 

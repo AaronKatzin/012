@@ -8,10 +8,6 @@ public class Cell {
         return isLocked;
     }
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
-
     @Override
     public String toString() {
         return state.toString();

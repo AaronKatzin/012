@@ -46,10 +46,9 @@ public class GridAdapter extends BaseAdapter {
     private boolean inGameMessageChanged = false;
     private boolean isValidating = false;
 
-    public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
+    public GridAdapter(Context context, Board board, FragmentActivity activity) {
         this.context = context;
         this.board = board;
-//        mGridView = grid;
         tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100) / board.getSize();
         inflater = LayoutInflater.from(context.getApplicationContext());
         locked = new ArrayList<>();
@@ -106,9 +105,7 @@ public class GridAdapter extends BaseAdapter {
                     Tile newMove = board.stepTile(index);
                     Move move = new Move(index, newMove.getSerialized());
                     BoardView.addToMoveStack(move);
-//                    notifyDataSetChanged();
                     notifyDataSetInvalidated();
-//                    mGridView.invalidateViews();
                     validateBoard();
                 } else {
                     for (View lockedView : locked) {
@@ -151,75 +148,20 @@ public class GridAdapter extends BaseAdapter {
             default:
                 tileDrawable = R.drawable.tile_empty;
         }
-
-//        if(Config.gridThemeID==1){
-//            switch (tile) {
-//                case COLOR1:
-//                    tileDrawable = R.drawable.tile_zero_theme_1;
-//                    break;
-//                case COLOR2:
-//                    tileDrawable = R.drawable.tile_one_theme_1;
-//                    break;
-//                default:
-//                    tileDrawable = R.drawable.tile_empty;
-//            }
-//        }
-//
-//        else{
-//            switch (tile) {
-//                case COLOR1:
-//                    tileDrawable = R.drawable.tile_zero_theme_2;
-//                    break;
-//                case COLOR2:
-//                    tileDrawable = R.drawable.tile_one_theme_2;
-//                    break;
-//                default:
-//                    tileDrawable = R.drawable.tile_empty;
-//            }
-//        }
         tileView.setBackground(view.getResources().getDrawable(tileDrawable, view.getContext().getTheme()));
 
     }
 
     private void validateBoard() {
-
         if (board.isFull() && !isValidating) {
-
-            // save the time?
             long gameTime = ((BoardActivity) activity).getGameTime();
-            System.out.println("Game time stopped " + gameTime);
-            //validate in new thread
+            // Validate in new thread
             isValidating = true;
-
-            System.out.println("start validate");
             threadPoolExecutor.submit(validator);
-
-//            if
-//            ((BoardActivity) activity).setEndGameGif(validatorResult);
-
-
         }
 
 
     }
 
-//    public void popupAnim(View view) {
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
-//        final View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win, null);
-//        alertDialogBuilder.setView(layout);
-////        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
-////        alertDialogBuilder.setTitle("Connection Failed");
-////        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
-//
-////            @Override
-////            public void onClick(DialogInterface dialogInterface, int i) {
-//        // add these two lines, if you wish to close the app:
-////                finishAffinity();
-////                System.exit(0);
-////            }
-////        });
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.show();
-//    }
 
 }

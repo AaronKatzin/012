@@ -8,7 +8,6 @@ public class Row {
     private int size;
     private Cell[] content;
 
-
     public Row(int size) {
         this.size = size;
         this.content = new Cell[size];
@@ -17,6 +16,10 @@ public class Row {
 
     public Tile getTile(int index){
         return content[index].state;
+    }
+
+    public void setLocked(int index, boolean lock){
+        content[index].isLocked = lock;
     }
 
     public Tile setTile(int index, Tile newState){
@@ -28,12 +31,14 @@ public class Row {
         return content[index].state = content[index].state.nextState();
     }
 
-    public void setLocked(int index, boolean lock){
-        content[index].isLocked = lock;
+    public boolean isLocked(int col){
+        return content[col].isLocked();
     }
-    public void setAllLocks(boolean locked){
-        Arrays.stream(content).forEach(i -> i.isLocked = locked);
-    }
+
+    /**
+     * Helper function to get the row represented by string
+     * @return string of chars represented the tiles colors.
+     */
     public String serialize(){
         String serialized = "";
         for (Cell c:content){
@@ -41,6 +46,7 @@ public class Row {
         }
         return serialized;
     }
+
     public Row copy() {
         Row clone = new Row(size);
         IntStream.range(0, size).forEach(index -> {
@@ -49,6 +55,7 @@ public class Row {
         });
         return clone;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,9 +71,6 @@ public class Row {
         return result;
     }
 
-    public boolean isLocked(int col){
-        return content[col].isLocked();
-    }
     @Override
     public String toString() {
         return Arrays.toString(content);

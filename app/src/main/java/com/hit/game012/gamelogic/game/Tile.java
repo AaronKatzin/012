@@ -10,6 +10,10 @@ public enum Tile {
         this.serialized = serialized;
     }
 
+    public char getSerialized() {
+        return serialized;
+    }
+
     /**
      * @return the opposite color of the tile.
      * empty cells have null opposite.
@@ -24,6 +28,7 @@ public enum Tile {
                 return null;
         }
     }
+
     /**
      * @return the next state of the tile after being clicked.
      */
@@ -37,10 +42,11 @@ public enum Tile {
                 return EMPTY;
         }
     }
-    public char getSerialized() {
-        return serialized;
-    }
 
+    /**
+     * @param serialize - char representing a tile color
+     * @return new Tile from char
+     */
     public static Tile deserialize(char serialize){
         switch (serialize){
             case 'e':

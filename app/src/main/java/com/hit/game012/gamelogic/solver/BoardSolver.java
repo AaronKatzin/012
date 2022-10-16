@@ -19,29 +19,39 @@ import java.util.stream.IntStream;
  * In order to solve a board (no backtracking!), we need to follow these steps:
  * 1. Check for an adjacent same color tile pair - set both ends with opposite color.
  * 2. Check for same color tile pair separated by an empty tile - set middle tile to opposite color.
- * 3. Check if row contains all required tiles from same color - rest of the tiles can be set to opposite color.
+ * 3. Check if row/col contains all required tiles from same color - rest of the tiles can be set to opposite color.
  * 4. Check unique rows and columns.
  */
 public class BoardSolver {
     private Board board;
-    private BoardChecker checker;
-    private final int MAX_ITERATIONS = 500;
 
     public BoardSolver(Board b) {
         this.board = b;
-
     }
 
-    public boolean tryToSolve() {
+    public Board getBoard() {
+        return board;
+    }
+    public void setBoard(Board board){
+        this.board = board.copy();
+    }
 
-        while ( !board.isFull()) {
-//            System.out.println("solving.." + i++);
+    /**
+     * Iteratively try to place a tile in the board.
+     * @return true if board is solvable, false otherwise
+     */
+    public boolean tryToSolve() {
+        while (!board.isFull()) {
             if (placeTile() == null)
+                // The board is unsolvable
                 return false;
         }
         return true;
     }
 
+    /**
+     * @return Hint that holds a message and the involved tiles
+     */
     public Hint requestHint() {
         if (board.isFull()) {
             return new Hint(R.string.hint_board_full, null);
@@ -115,6 +125,11 @@ public class BoardSolver {
         return null;
     }
 
+    /**
+     * Check for empty tile next to two adjacent same color tiles
+     * @param toPlace boolean to determine if the found index should be colored in the board
+     * @return the involved index
+     */
     private Index findEmptyNextToTwoAdjacentTile(boolean toPlace) {
         Tile tile1, tile2;
         for (int row = 0; row < board.getSize(); row++) {
@@ -172,7 +187,11 @@ public class BoardSolver {
         }
         return null;
     }
-
+    /**
+     * Check for empty tile between two same color tiles
+     * @param toPlace boolean to determine if the found index should be colored in the board
+     * @return the involved index
+     */
     private Index findEmptyBetweenTwoSeperatedTiles(boolean toPlace) {
         Tile tile1, tile2;
         for (int row = 0; row < board.getSize(); row++) {
@@ -207,7 +226,11 @@ public class BoardSolver {
         }
         return null;
     }
-
+    /**
+     * Check for two rows have two empty tiles in the same columns and rest of the tiles are the same
+     * @param toPlace boolean to determine if the found index should be colored in the board
+     * @return the involved indexes
+     */
     private Index[] findUniqueRow(boolean toPlace) {
         for (int row = 0; row < this.board.getSize(); row++) {
             //We can only solve 2 empties
@@ -233,7 +256,11 @@ public class BoardSolver {
         }
         return null;
     }
-
+    /**
+     * Check for two cols have two empty tiles in the same rows and rest of the tiles are the same
+     * @param toPlace boolean to determine if the found index should be colored in the board
+     * @return the involved indexes
+     */
     private Index[] findUniqueCol(boolean toPlace) {
         for (int column = 0; column < this.board.getSize(); column++) {
             //We can only solve 2 empties
@@ -259,7 +286,11 @@ public class BoardSolver {
         }
         return null;
     }
-
+    /**
+     * Check for column with complete amount of tiles in same color
+     * @param toPlace boolean to determine if the found index should be colored in the board
+     * @return the involved index
+     */
     private Index findTilesByColCount(boolean toPlace) {
         int color1Counter = 0, color2Counter = 0;
         for (int col = 0; col < board.getSize(); col++) {
@@ -291,7 +322,11 @@ public class BoardSolver {
         }
         return null;
     }
-
+    /**
+     * Check for rows with complete amount of tiles in same color
+     * @param toPlace boolean to determine if the found index should be colored in the board
+     * @return the involved index
+     */
     private Index findTilesByRowCount(boolean toPlace) {
         int color1Counter = 0, color2Counter = 0;
         for (int row = 0; row < board.getSize(); row++) {
@@ -324,10 +359,5 @@ public class BoardSolver {
         return null;
     }
 
-    public Board getBoard() {
-        return board;
-    }
-    public void setBoard(Board board){
-        this.board = board.copy();
-    }
+
 }

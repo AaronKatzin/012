@@ -4,6 +4,10 @@ import com.hit.game012.gamelogic.game.Index;
 
 import java.util.List;
 
+/**
+ * Class representing a hint for the user.
+ * Hint contains message and list of involved tiles.
+ */
 public class Hint {
     private int message;
     private List<Index> involvedTiles;
@@ -11,6 +15,10 @@ public class Hint {
     public Hint(int message, List<Index> involvedTiles) {
         this.message = message;
         this.involvedTiles = involvedTiles;
+    }
+
+    public List<Index> getInvolvedTiles() {
+        return involvedTiles;
     }
 
     public int getMessage() {
@@ -25,15 +33,4 @@ public class Hint {
                 '}';
     }
 
-    public void setMessage(int message) {
-        this.message = message;
-    }
-
-    public List<Index> getInvolvedTiles() {
-        return involvedTiles;
-    }
-
-    public void setInvolvedTiles(List<Index> involvedTiles) {
-        this.involvedTiles = involvedTiles;
-    }
 }

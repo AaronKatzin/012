@@ -1,14 +1,6 @@
 package com.hit.game012.gameplay;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -18,7 +10,6 @@ import com.hit.game012.gamelogic.checker.BoardChecker;
 import com.hit.game012.gamelogic.game.Board;
 
 import java.util.Random;
-import java.util.concurrent.Callable;
 
 public class Validator implements Runnable {
     private final long VALIDATOR_DELAY = 1000;
@@ -44,20 +35,16 @@ public class Validator implements Runnable {
             checker = new BoardChecker(board);
         }
 
-        if (checker.isSolvedBoolean()) //win
+        if (checker.isSolved()) //win
         {
             System.out.println("win");
             ((BoardActivity) activity).setInGameMessage(getWinMessage(), 40);
             ((BoardActivity) activity).setEndGameGif(true);
-//            popupAnim(view);
-//            return true;
-
-        } else {
+        }
+        else {
             System.out.println("lose");
             ((BoardActivity) activity).setInGameMessage(getLoseMessage(), 40);
             ((BoardActivity) activity).setEndGameGif(false);
-//            return false;
-
         }
 
     }

@@ -12,7 +12,7 @@
     <color name="theme_1_tileOne">#f26e24</color>
     <color name="theme_1_tileZero">#4271c1</color>
     <color name="theme_2_tileOne">#FFBB86FC</color>
-    <color name="theme_2_tileZero">#fef102</color>
+    <color name="theme_2_tileZero">#B0fef102</color>
 
     <color name="background">#353535</color>
 </resources>
