@@ -1,7 +1,10 @@
 package com.hit.game012.gameplay;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,9 @@ import android.widget.PopupWindow;
 import androidx.fragment.app.FragmentActivity;
 
 import com.hit.game012.BoardActivity;
+import com.hit.game012.ChooseBoardSize;
 import com.hit.game012.R;
+import com.hit.game012.Win;
 import com.hit.game012.gamelogic.checker.BoardChecker;
 import com.hit.game012.gamelogic.game.Board;
 
@@ -49,8 +54,6 @@ public class Validator implements Runnable {
             System.out.println("win");
             ((BoardActivity) activity).setInGameMessage(getWinMessage(), 40);
             ((BoardActivity) activity).setEndGameGif(true);
-//            popupAnim(view);
-//            return true;
 
         } else {
             System.out.println("lose");
