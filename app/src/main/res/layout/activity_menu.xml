@@ -95,7 +95,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="20dp"
                 android:background="@drawable/checked"
-                android:onClick="aboutUs" />
+                android:onClick="scoreBoard"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </LinearLayout>

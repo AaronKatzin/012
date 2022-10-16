@@ -29,7 +29,7 @@ public class Win extends AppCompatActivity {
     Map<String, Integer> myHighScoreM;
     ListView list;
     boolean isDailyGame = false;
-    LottieAnimationView awardAnimation, barChartAnimation;
+    LottieAnimationView awardAnimation, barChartAnimation, fireworksAnimationView;
     TextView highScoreBeatText;
 
 
@@ -49,6 +49,7 @@ public class Win extends AppCompatActivity {
         awardAnimation = findViewById(R.id.awardAnimationView);
         barChartAnimation = findViewById(R.id.barChartAnimation);
         highScoreBeatText = findViewById(R.id.highScoreBeatText);
+        fireworksAnimationView = findViewById(R.id.fireworksAnimationView);
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -62,6 +63,7 @@ public class Win extends AppCompatActivity {
 
 
         if(win){
+            fireworksAnimationView.setVisibility(View.VISIBLE);
             try {
                 score = (int) Math.min((( ((gameTime-hintCounter*5)/60)/(99+((gameTime-hintCounter*5)/60)) ))  * 2^(boardSize), Integer.MAX_VALUE);
                 System.out.println("Score calculated: " + score);
@@ -134,7 +136,7 @@ public class Win extends AppCompatActivity {
             }
         }
 
-        if(score >= highScore){
+        if(score >= highScore && win){
             awardAnimation.setVisibility(View.VISIBLE);
             highScoreBeatText.setVisibility(View.VISIBLE);
         }

@@ -135,6 +135,7 @@
         android:id="@+id/fireworksAnimationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:lottie_url="https://assets10.lottiefiles.com/datafiles/Tj3Hd1X74Once2j/data.json"
         app:lottie_autoPlay="true"
         app:layout_constraintBottom_toBottomOf="parent"
