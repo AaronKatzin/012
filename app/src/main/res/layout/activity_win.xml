@@ -5,41 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Win">
-    <LinearLayout
-        android:id="@+id/enterLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/highScoreBeatText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/high_score_beat"
+        android:visibility="invisible"
         android:layout_gravity="center"
-        android:onClick="continueToMenu"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_weight="2"
+        android:textSize="@dimen/bigTextSize"
+        android:minHeight="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/scoreText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
         android:text="TextView"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="2"
+        android:textSize="@dimen/bigTextSize"
+        android:minHeight="40sp"
         app:layout_constraintBottom_toTopOf="@+id/personalHighScoreText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/highScoreBeatText"/>
     <TextView
         android:id="@+id/personalHighScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:text="TextView"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/awardAnimationView"
+        android:layout_weight="2"
+        android:minHeight="40sp"
+        android:text="TextView"
+        android:textSize="@dimen/bigTextSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/scoreText"/>
+
+    <LinearLayout
+        android:id="@+id/dynamicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/personalHighScoreText">
+
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/awardAnimationView"
@@ -53,6 +68,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:lottie_loop="false"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/barChartAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_weight="1"
+        app:lottie_url="https://assets3.lottiefiles.com/private_files/lf30_W3J9n9.json"
+        app:lottie_autoPlay="true"
+        app:layout_constraintBottom_toTopOf="@id/multiplayerHighScoreTable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_loop="false"/>
     <ScrollView
         android:id="@+id/multiplayerHighScoreTable"
         android:layout_width="match_parent"
@@ -68,8 +96,7 @@
         android:paddingRight="2dp"
         android:paddingLeft="2dp">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/fab_margin"
@@ -86,24 +113,23 @@
             </ListView>
         </RelativeLayout>
     </ScrollView>
-        <Button
-            android:id="@+id/newGameButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="newGame"
-            android:text="@string/new_game"
-            android:layout_gravity="center"
-            android:minHeight="60dp"
-            android:maxHeight="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enterLayout"
-            app:layout_constraintVertical_bias="0.9" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/newGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="newGame"
+        android:text="@string/new_game"
+        android:layout_gravity="center"
+        android:minHeight="60dp"
+        android:maxHeight="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dynamicLayout"
+        app:layout_constraintVertical_bias="0.9" />
 
-
+    </LinearLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/fireworksAnimationView"

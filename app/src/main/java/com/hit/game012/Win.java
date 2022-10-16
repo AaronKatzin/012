@@ -30,7 +30,8 @@ public class Win extends AppCompatActivity {
     Map<String, Integer> myHighScoreM;
     ListView list;
     boolean isDailyGame = false;
-    LottieAnimationView awardAnimation;
+    LottieAnimationView awardAnimation, barChartAnimation;
+    TextView highScoreBeatText;
 
     String[] maintitle ={
             "User Name","User Name",
@@ -65,6 +66,8 @@ public class Win extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         boolean win = (boolean) getIntent().getExtras().get("win");
         awardAnimation = findViewById(R.id.awardAnimationView);
+        barChartAnimation = findViewById(R.id.barChartAnimation);
+        highScoreBeatText = findViewById(R.id.highScoreBeatText);
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -105,6 +108,7 @@ public class Win extends AppCompatActivity {
         } else {
             highScore = sharedPref.getInt("personalHighScore", 0);
             System.out.println("got highscore from personal prefs: " + highScore);
+            barChartAnimation.setVisibility(View.VISIBLE);
         }
 
         // set score text
@@ -144,11 +148,14 @@ public class Win extends AppCompatActivity {
                 editor.apply();
 
                 System.out.println("saved highscore to personal prefs: " + score);
-                // todo fireworks GIF since you beat your highscore?
-                awardAnimation.setVisibility(View.VISIBLE);
 
 
             }
+        }
+
+        if(score >= highScore){
+            awardAnimation.setVisibility(View.VISIBLE);
+            highScoreBeatText.setVisibility(View.VISIBLE);
         }
 
         onCreateAnimations();
