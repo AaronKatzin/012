@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -32,24 +31,6 @@ public class Win extends AppCompatActivity {
     boolean isDailyGame = false;
     LottieAnimationView awardAnimation, barChartAnimation;
     TextView highScoreBeatText;
-
-    String[] maintitle ={
-            "User Name","User Name",
-            "User Name","User Name",
-            "User Name",
-            "User Name","User Name",
-            "User Name","User Name",
-            "User Name",
-    };
-
-    String[] subtitle ={
-            "Score","Score",
-            "Score","Score",
-            "Score",
-            "Score","Score",
-            "Score","Score",
-            "Score",
-    };
 
 
     Integer[] imgid={
@@ -165,24 +146,19 @@ public class Win extends AppCompatActivity {
         awardAnimation.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-//                Log.e("Animation:","start");
-//                        awardAnimation.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-//                Log.e("Animation:","end");
                 awardAnimation.setVisibility(View.GONE);
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-//                Log.e("Animation:","cancel");
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-//                Log.e("Animation:","repeat");
             }
         });
     }
