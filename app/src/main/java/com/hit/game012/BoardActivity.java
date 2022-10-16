@@ -141,6 +141,7 @@ public class BoardActivity extends AppCompatActivity {
         intent.putExtra("win", win);
 
         startActivity(intent);
+        finish();
     }
 
 }

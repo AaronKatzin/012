@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
 //        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
+        finish();
     }
 
     public void loadMemSettings() {
