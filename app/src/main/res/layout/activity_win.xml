@@ -5,12 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Win">
+    <LinearLayout
+        android:id="@+id/enterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:onClick="continueToMenu"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:text="TextView"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/personalHighScoreText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/personalHighScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:text="TextView"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/multiplayerHighScoreTable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ScrollView
         android:id="@+id/multiplayerHighScoreTable"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:fillViewport="true"
+        android:layout_weight="6"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/newGameButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,29 +75,21 @@
             </ListView>
         </RelativeLayout>
     </ScrollView>
+        <Button
+            android:id="@+id/newGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="newGame"
+            android:text="@string/new_game"
+            android:layout_gravity="center"
+            android:minHeight="60dp"
+            android:maxHeight="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterLayout"
+            app:layout_constraintVertical_bias="0.9" />
 
-    <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/multiplayerHighScoreTable"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
+</LinearLayout>
 
-    <Button
-        android:id="@+id/newGameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="newGame"
-        android:text="@string/new_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreText"
-        app:layout_constraintVertical_bias="0.9" />
 </androidx.constraintlayout.widget.ConstraintLayout>
