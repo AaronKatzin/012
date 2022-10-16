@@ -26,6 +26,7 @@ public class Win extends AppCompatActivity {
     TreeMap<String, String> highScoreTreeMap = new TreeMap<>();
     Map<String, Integer> myHighScoreM;
     ListView list;
+    boolean isDailyGame = false;
 
     String[] maintitle ={
             "User Name","User Name",
@@ -56,7 +57,7 @@ public class Win extends AppCompatActivity {
         setContentView(R.layout.activity_win);
         long gameTime;
         int hintCounter,boardSize,score, highScore = 0;
-        boolean isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
+        isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         boolean win = (boolean) getIntent().getExtras().get("win");
 
@@ -137,6 +138,7 @@ public class Win extends AppCompatActivity {
 
     public void newGame(View view){
         Intent intent = new Intent(this, ChooseBoardSize.class);
+        intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
     }
 
