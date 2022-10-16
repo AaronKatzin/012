@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -127,7 +128,9 @@ public class Win extends AppCompatActivity {
             MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, imgid);
             list = (ListView) findViewById(R.id.list);
             list.setAdapter(adapter);
-            list.setVisibility(View.VISIBLE);
+
+            // make score board visible
+            findViewById(R.id.multiplayerHighScoreTable).setVisibility(View.VISIBLE);
 
         } else {
             // store new personal high score
