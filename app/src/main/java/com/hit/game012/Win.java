@@ -140,6 +140,7 @@ public class Win extends AppCompatActivity {
         Intent intent = new Intent(this, ChooseBoardSize.class);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
+        finish();
     }
 
 

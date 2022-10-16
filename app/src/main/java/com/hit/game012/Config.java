@@ -21,12 +21,16 @@ public class Config {
     public static String language;
     public static boolean inGameTimerEnabled;
     public static final String SELECTED_LANGUAGE = "Selected.Language";
+    public static boolean soundEnabled;
 
 
     public static void setInGameTimerEnabled(boolean inGameTimerEnabled) {
         Config.inGameTimerEnabled = inGameTimerEnabled;
     }
 
+    public static void setSoundEnabled(boolean soundEnabled){
+        Config.soundEnabled = soundEnabled;
+    }
 
     public static void setLanguage(String language) {
         Config.language = language;

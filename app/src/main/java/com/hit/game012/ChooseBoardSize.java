@@ -104,6 +104,7 @@ public class ChooseBoardSize extends AppCompatActivity {
         intent.putExtra("size", size);
         intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
+        finish();
 
     }
 
@@ -147,5 +148,6 @@ public class ChooseBoardSize extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
     }
+
 }
 
