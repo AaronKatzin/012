@@ -56,9 +56,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 if(sound.isChecked())
-                startService(new Intent(getApplicationContext(),BackGroundMusicService.class));
+                    startService(new Intent(getApplicationContext(),BackGroundMusicService.class));
                 else
-                stopService(new Intent(getApplicationContext(),BackGroundMusicService.class));
+                    stopService(new Intent(getApplicationContext(),BackGroundMusicService.class));
 
 
             }

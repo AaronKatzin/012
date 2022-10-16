@@ -49,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        init();
+
         loadMemSettings();
-		startService(new Intent(getApplicationContext(),BackGroundMusicService.class)); /*defualt activate sound*/
+        if (Config.soundEnabled)
+		    startService(new Intent(getApplicationContext(),BackGroundMusicService.class)); /*defualt activate sound*/
+
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
         left.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
 //        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
+        finish();
     }
 
     public void loadMemSettings() {
@@ -194,6 +197,10 @@ public class MainActivity extends AppCompatActivity {
 
         boolean inGameTimerEnabled = sharedPref.getBoolean("enableInGameTimer", true);
         Config.setInGameTimerEnabled(inGameTimerEnabled);
+
+        boolean soundEnabled = sharedPref.getBoolean("soundEnabled", true);
+        Config.setSoundEnabled(soundEnabled);
+
     }
 
 //    public void saveMem() {
