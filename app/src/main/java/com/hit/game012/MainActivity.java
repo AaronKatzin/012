@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        init();
         loadMemSettings();
+		startService(new Intent(getApplicationContext(),BackGroundMusicService.class)); /*defualt activate sound*/
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
         left.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));

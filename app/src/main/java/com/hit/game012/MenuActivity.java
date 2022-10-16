@@ -43,6 +43,7 @@ public class MenuActivity extends AppCompatActivity {
         chooseBoardSize(true);
     }
 
+
     public void options(View view){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

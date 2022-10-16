@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">012</string>
-
+    <dimen name="smallTextSize">30sp</dimen>
+    <dimen name="bigTextSize">40sp</dimen>
+    <color name="menu_background" type="color">#2F3437</color>  <!--ALL APP BACKGROUND COLOR-->
     <string name="how_to_play_reminder_title">How To Play</string>
     <string name="how_to_play_reminder">
 Three adjacent tiles of the same color in row or column isn’t allowed.
@@ -17,8 +19,8 @@ No two rows and no two columns are the same.
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="sign_in">Click to sign in</string>
-
-
+    <string name="about">012 is a little logic game developed by computer science students at the Holon Institute of Technology, HIT.</string>
+    <string name="aboutHeadLine">About</string>
     <string name="settings_logout_button">Sign Out</string>
     <string name="placeholder">Loading...</string>
     <string name="message">hey</string>

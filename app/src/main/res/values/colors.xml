@@ -13,6 +13,5 @@
     <color name="theme_1_tileZero">#4271c1</color>
     <color name="theme_2_tileOne">#FFBB86FC</color>
     <color name="theme_2_tileZero">#fef102</color>
-
-    <color name="background">#353535</color>
+    <color name="background">#2F3437</color>
 </resources>

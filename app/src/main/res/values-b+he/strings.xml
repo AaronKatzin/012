@@ -36,6 +36,6 @@
     <string name="how_to_play_reminder_title">איך משחקים</string>
     <string name="about_us">עלינו</string>
     <string name="in_game_timer">הצגת זמן משחק</string>
-
-
+    <string name="aboutHeadLine">עלינו</string>
+    <string name="about">012 הוא משחק היגיון קטן שפותח על ידי סטודנטים למדעי המחשב במכון הטכנולוגי חולון, HIT.</string>
 </resources>

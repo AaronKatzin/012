@@ -52,6 +52,17 @@ public class SettingsActivity extends AppCompatActivity {
                 changeLanguage();
                 refreshActivity();
             });
+        sound.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if(sound.isChecked())
+                startService(new Intent(getApplicationContext(),BackGroundMusicService.class));
+                else
+                stopService(new Intent(getApplicationContext(),BackGroundMusicService.class));
+
+
+            }
+        });
     }
     private void updateInGameTimerVisibility(){
         Config.setInGameTimerEnabled(enableInGameTimer.isChecked());
