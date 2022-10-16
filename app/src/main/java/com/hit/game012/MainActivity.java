@@ -8,12 +8,19 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -37,6 +44,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.hit.game012.startupsequence.AnimatedImageView;
 import com.hit.game012.startupsequence.AnimatedTextView;
+import com.hit.game012.startupsequence.MyNotificationPublisher;
 
 import java.util.Locale;
 
@@ -49,8 +57,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        init();
+
         loadMemSettings();
+        if (Config.soundEnabled)
+		    startService(new Intent(getApplicationContext(),BackGroundMusicService.class)); /*defualt activate sound*/
+
         AnimatedImageView left = findViewById(R.id.left_tile);
         AnimatedImageView right = findViewById(R.id.right_tile);
         left.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
@@ -172,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
 //        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
+        finish();
     }
 
     public void loadMemSettings() {
@@ -193,6 +205,10 @@ public class MainActivity extends AppCompatActivity {
 
         boolean inGameTimerEnabled = sharedPref.getBoolean("enableInGameTimer", true);
         Config.setInGameTimerEnabled(inGameTimerEnabled);
+
+        boolean soundEnabled = sharedPref.getBoolean("soundEnabled", true);
+        Config.setSoundEnabled(soundEnabled);
+
     }
 
 //    public void saveMem() {
@@ -202,4 +218,32 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putInt("colorTheme", Config.gridThemeID);
 //        editor.apply();
 //    }
+
+    private void scheduleNotification (Notification notification , int delay) {
+        Intent notificationIntent = new Intent( this, MyNotificationPublisher. class ) ;
+        notificationIntent.putExtra(MyNotificationPublisher. NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(MyNotificationPublisher. NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        long futureInMillis = SystemClock. elapsedRealtime () + delay ;
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context. ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        scheduleNotification(getNotification() , 30000 ) ;
+        return true;
+//        return super.onOptionsItemSelected(item);
+    }
+
+    private Notification getNotification () {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, "default") ;
+        builder.setContentTitle( "A new daily challenge" ) ;
+        builder.setContentText("try to play!") ;
+        builder.setSmallIcon(R.mipmap.ic_launcher ) ;
+        builder.setAutoCancel( true ) ;
+        builder.setChannelId(Config.NOTIFICATION_CHANNEL_ID ) ;
+        return builder.build() ;
+    }
 }
