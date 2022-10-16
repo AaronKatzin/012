@@ -72,8 +72,13 @@ public class Win extends AppCompatActivity {
 
 
         if(win){
-            score = (int) Math.min((1 / ( ((gameTime-hintCounter*5)/60)/(99+((gameTime-hintCounter*5)/60)) ))  * 2^(boardSize/2/3/4), Integer.MAX_VALUE);
-            System.out.println("Score calculated: " + score);
+            try {
+                score = (int) Math.min((( ((gameTime-hintCounter*5)/60)/(99+((gameTime-hintCounter*5)/60)) ))  * 2^(boardSize), Integer.MAX_VALUE);
+                System.out.println("Score calculated: " + score);
+            } catch (ArithmeticException e){
+                System.out.println("ArithmeticException! \ngameTime: " + gameTime + "\nhintCounter: " + hintCounter + "\nboardSize: " +  boardSize);
+                score = 0;
+            }
         } else {
             score = 0;
             System.out.println("Default score: " + score);
@@ -93,6 +98,7 @@ public class Win extends AppCompatActivity {
             }
         } else {
             highScore = sharedPref.getInt("personalHighScore", 0);
+            System.out.println("got highscore from personal prefs: " + highScore);
         }
 
         // set score text
@@ -120,9 +126,10 @@ public class Win extends AppCompatActivity {
             // store new personal high score
             if(score >= highScore){
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("personalHighScore", highScore);
+                editor.putInt("personalHighScore", score);
                 editor.apply();
 
+                System.out.println("saved highscore to personal prefs: " + score);
                 // todo fireworks GIF since you beat your highscore?
             }
         }
