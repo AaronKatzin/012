@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void continueToMenu(View view) {
         Intent intent = new Intent(this, MenuActivity.class);
-//        intent.putExtra("userID", mAuth.getCurrentUser().getUid());
         startActivity(intent);
     }
 
@@ -195,11 +194,4 @@ public class MainActivity extends AppCompatActivity {
         Config.setInGameTimerEnabled(inGameTimerEnabled);
     }
 
-//    public void saveMem() {
-//        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPref.edit();
-//        editor.putString(Config.SELECTED_LANGUAGE, Config.language);
-//        editor.putInt("colorTheme", Config.gridThemeID);
-//        editor.apply();
-//    }
 }

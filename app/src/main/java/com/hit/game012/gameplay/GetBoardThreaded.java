@@ -24,7 +24,6 @@ public class GetBoardThreaded implements Callable<Board> {
         Client client = new Client(userID);
         client.startConnection();
         Board board = client.getBoard(size);
-        System.out.println(client.getHighScoreList());
         client.stopConnection();
         return board;
     }

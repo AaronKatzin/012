@@ -3,6 +3,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Chronometer;
@@ -44,6 +45,7 @@ public class BoardActivity extends AppCompatActivity {
         init();
         getBoard();
         resetInGameMessage(boardSize);
+
         // show board fragment
         boardView = new BoardView(board);
         getSupportFragmentManager().beginTransaction()
