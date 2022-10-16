@@ -3,6 +3,7 @@ package com.hit.game012;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -54,13 +55,15 @@ public class Win extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
         long gameTime;
-        int hintCounter,boardSize,score, highScore;
+        int hintCounter,boardSize,score;
+        int highScore = 0;
+        boolean isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
+        SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String userID = mAuth.getCurrentUser().getUid();
-
 
         // calculate current score
         gameTime = (long) getIntent().getExtras().get("gameTime");
@@ -71,19 +74,19 @@ public class Win extends AppCompatActivity {
         score = (int)gameTime + hintCounter;
 
         // get previous personal high score and submit current
-        try {
-            myHighScoreM = threadPoolExecutor.submit(new GetPersonalHighScoreThreaded(userID, boardSize, score)).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if(myHighScoreM != null && myHighScoreM.containsKey("score")){
-            highScore = myHighScoreM.get("score");
+        if(isDailyGame){
+            try {
+                myHighScoreM = threadPoolExecutor.submit(new GetPersonalHighScoreThreaded(userID, boardSize, score)).get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(myHighScoreM != null && myHighScoreM.containsKey("score")){
+                highScore = myHighScoreM.get("score");
+            }
         } else {
-
-            highScore = 0;
+            highScore = sharedPref.getInt("personalHighScore", 0);
         }
 
         // set score text
@@ -92,20 +95,31 @@ public class Win extends AppCompatActivity {
 
 
         // get score board
-        try {
-            highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
-            System.out.println("highScoreTreeMap: ");
+        if(isDailyGame) {
+            try {
+                highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
+                System.out.println("highScoreTreeMap: ");
 
-            System.out.println(highScoreTreeMap);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+                System.out.println(highScoreTreeMap);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, imgid);
+            list = (ListView) findViewById(R.id.list);
+            list.setAdapter(adapter);
+        } else {
+            // store new personal high score
+            if(score >= highScore){
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("personalHighScore", highScore);
+                editor.apply();
+
+                // todo fireworks GIF since you beat your highscore?
+            }
         }
-
-        MyListAdapter adapter=new MyListAdapter(this, highScoreTreeMap,imgid);
-        list=(ListView)findViewById(R.id.list);
-        list.setAdapter(adapter);
     }
 
     public void newGame(View view){

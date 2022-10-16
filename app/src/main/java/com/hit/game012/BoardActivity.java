@@ -134,6 +134,7 @@ public class BoardActivity extends AppCompatActivity {
         intent.putExtra("gameTime", getGameTime());
         intent.putExtra("hintCounter", hintCounter);
         intent.putExtra("boardSize", boardSize);
+        intent.putExtra("isDailyGame", isDailyGame);
         startActivity(intent);
     }
 
