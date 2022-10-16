@@ -96,6 +96,15 @@ public class BoardActivity extends AppCompatActivity {
             setInGameMessage(R.string.undo_stack_emp, 28);
         }
     }
+    public void changeSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+    public void howToPlay(View view) {
+        Intent intent = new Intent(this, HowToPlayReminder.class);
+        startActivity(intent);
+    }
+
 
     public void resetInGameMessage(int boardSize) {
         inGameMessageView.setTextSize(40);

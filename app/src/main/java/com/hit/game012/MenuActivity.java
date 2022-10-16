@@ -49,7 +49,8 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void aboutUs(View view){
-
+        Intent intent = new Intent(this, AboutUs.class);
+        startActivity(intent);
     }
 
     public void chooseBoardSize(boolean isDailyGame){
