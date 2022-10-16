@@ -30,6 +30,7 @@ public class Win extends AppCompatActivity {
     Map<String, Integer> myHighScoreM;
     ListView list;
     boolean isDailyGame = false;
+    LottieAnimationView awardAnimation;
 
     String[] maintitle ={
             "User Name","User Name",
@@ -63,6 +64,7 @@ public class Win extends AppCompatActivity {
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         boolean win = (boolean) getIntent().getExtras().get("win");
+        awardAnimation = findViewById(R.id.awardAnimationView);
 
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
@@ -143,35 +145,40 @@ public class Win extends AppCompatActivity {
 
                 System.out.println("saved highscore to personal prefs: " + score);
                 // todo fireworks GIF since you beat your highscore?
+                awardAnimation.setVisibility(View.VISIBLE);
 
-                LottieAnimationView awardAnimation = findViewById(R.id.awardAnimationView);
-                awardAnimation.addAnimatorListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-//                Log.e("Animation:","start");
-                        awardAnimation.setVisibility(View.VISIBLE);
-                    }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-//                Log.e("Animation:","end");
-                        awardAnimation.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-//                Log.e("Animation:","cancel");
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-//                Log.e("Animation:","repeat");
-                    }
-                });
             }
         }
+
+        onCreateAnimations();
     }
 
+    private void onCreateAnimations(){
+        awardAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+//                Log.e("Animation:","start");
+//                        awardAnimation.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+//                Log.e("Animation:","end");
+                awardAnimation.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+//                Log.e("Animation:","cancel");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+//                Log.e("Animation:","repeat");
+            }
+        });
+    }
     public void newGame(View view){
         Intent intent = new Intent(this, ChooseBoardSize.class);
         intent.putExtra("isDailyGame", isDailyGame);
