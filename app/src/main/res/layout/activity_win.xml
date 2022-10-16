@@ -92,4 +92,28 @@
 
 </LinearLayout>
 
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fireworksAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_url="https://assets10.lottiefiles.com/datafiles/Tj3Hd1X74Once2j/data.json"
+        app:lottie_autoPlay="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:lottie_loop="true"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/awardAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_P4uaWNCYrE.json"
+        app:lottie_autoPlay="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_loop="false"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

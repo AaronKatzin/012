@@ -2,6 +2,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.gameplay.GetHighScoreListThreaded;
 import com.hit.game012.gameplay.GetPersonalHighScoreThreaded;
@@ -141,6 +143,31 @@ public class Win extends AppCompatActivity {
 
                 System.out.println("saved highscore to personal prefs: " + score);
                 // todo fireworks GIF since you beat your highscore?
+
+                LottieAnimationView awardAnimation = findViewById(R.id.awardAnimationView);
+                awardAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+//                Log.e("Animation:","start");
+                        awardAnimation.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+//                Log.e("Animation:","end");
+                        awardAnimation.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+//                Log.e("Animation:","cancel");
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+//                Log.e("Animation:","repeat");
+                    }
+                });
             }
         }
     }
