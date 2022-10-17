@@ -77,8 +77,9 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:onClick="undo"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -89,17 +90,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9"
-            android:onClick="undo"
             android:text="undo" />
 
         <ImageButton
             android:onClick="getHint"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/help_pic"
+            android:src="@drawable/eye_pic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
@@ -111,12 +111,42 @@
 
         <ImageButton
             android:onClick="backToMenu"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@drawable/close_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <ImageButton
+            android:onClick="howToPlay"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@color/menu_background"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/help_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <ImageButton
+            android:onClick="changeSettings"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@color/menu_background"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings_pic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"

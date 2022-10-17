@@ -4,8 +4,10 @@ package com.hit.game012;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -44,11 +46,13 @@ public class BoardActivity extends AppCompatActivity {
     private int gameTime;
     private int hintCounter = 0;
     private boolean win = false;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksounds);
         init();
         getBoard();
         resetInGameMessage(boardSize);
@@ -69,7 +73,6 @@ public class BoardActivity extends AppCompatActivity {
         inGameTimerChronometer.setVisibility((Config.inGameTimerEnabled) ? View.VISIBLE : View.INVISIBLE);
         boardSize = (int) getIntent().getExtras().get("size");
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
-
     }
 
     private void getBoard() {
@@ -102,6 +105,15 @@ public class BoardActivity extends AppCompatActivity {
             setInGameMessage(R.string.undo_stack_emp, 28);
         }
     }
+    public void changeSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+    public void howToPlay(View view) {
+        Intent intent = new Intent(this, HowToPlayReminder.class);
+        startActivity(intent);
+    }
+
 
     public void resetInGameMessage(int boardSize) {
         inGameMessageView.setTextSize(40);

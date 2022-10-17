@@ -64,7 +64,7 @@
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="20dp"
-                android:background="@drawable/checked"
+                android:background="@drawable/help_pic"
                 android:onClick="howToPlay"
                 />
 
@@ -74,7 +74,7 @@
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="20dp"
-                android:background="@drawable/checked"
+                android:background="@drawable/settings_pic"
                 android:onClick="options"
 
                 />
@@ -85,7 +85,7 @@
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="20dp"
-                android:background="@drawable/checked"
+                android:background="@drawable/info_pic"
                 android:onClick="aboutUs" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="20dp"
-                android:background="@drawable/checked"
+                android:background="@drawable/trophy_pic"
                 android:onClick="scoreBoard"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
