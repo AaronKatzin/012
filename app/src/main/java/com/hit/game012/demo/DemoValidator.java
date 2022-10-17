@@ -6,7 +6,6 @@ import com.hit.game012.DemoActivity;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.game.Tile;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +50,7 @@ public class DemoValidator implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ((DemoActivity) activity).endGame();
+                ((DemoActivity) activity).endDemoGame();
             }
 
         }

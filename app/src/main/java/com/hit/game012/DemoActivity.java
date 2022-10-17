@@ -41,11 +41,11 @@ public class DemoActivity extends AppCompatActivity {
         setMessage(0);
     }
 
-    @Override
-    protected void onDestroy() {
-        Config.setGridThemeID(currentTheme);
-        super.onDestroy();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        Config.setGridThemeID(currentTheme);
+//        super.onDestroy();
+//    }
 
     private void init(){
         inGameMessageView = findViewById(R.id.demo_in_game_message);
@@ -62,7 +62,9 @@ public class DemoActivity extends AppCompatActivity {
         inGameMessageView.setTextSize(30);
         inGameMessageView.initAnimation(1000,200);
     }
-    public void endGame(){
+    public void endDemoGame(){
+        Config.setGridThemeID(currentTheme);
+
         Intent intent = new Intent(this, ChooseBoardSize.class);
         intent.putExtra("isDailyGame", false);
         startActivity(intent);
