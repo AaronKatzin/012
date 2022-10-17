@@ -39,8 +39,11 @@ public class MyListAdapter extends ArrayAdapter<Object> {
 
         String userName = HighScoreTM.keySet().toArray()[position].toString();
         titleText.setText(userName);
-        imageView.setImageResource(imgid[0]); // todo actual user profile pic
+//        imageView.setImageResource(imgid[0]); // todo actual user profile pic
         subtitleText.setText(HighScoreTM.get(userName).toString());
+        // show The Image in a ImageView
+        new DownloadImageTask(imageView).execute("https://robohash.org/" + userName + "?gravatar=yes");
+
 
         return rowView;
 
