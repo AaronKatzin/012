@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -36,6 +37,7 @@ public class BoardActivity extends AppCompatActivity {
     private Chronometer inGameTimerChronometer;
     private BoardView boardView;
     private Client client;
+    private int gameTime;
     private int hintCounter = 0;
     private boolean win = false;
 
@@ -109,9 +111,9 @@ public class BoardActivity extends AppCompatActivity {
         inGameMessageView.initAnimation(800, 100);
     }
 
-    public long getGameTime() {
+    public void stopGameTime() {
         inGameTimerChronometer.stop();
-        return inGameTimerChronometer.getBase();
+        setGameTime((int)(SystemClock.elapsedRealtime() - inGameTimerChronometer.getBase()) / 1000);
     }
 
     public void setEndGameGif(boolean validatorResult) {
@@ -150,4 +152,11 @@ public class BoardActivity extends AppCompatActivity {
         finish();
     }
 
+    private void setGameTime(int gameTime) {
+        this.gameTime = gameTime;
+    }
+
+    public int getGameTime() {
+        return gameTime;
+    }
 }

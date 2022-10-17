@@ -186,8 +186,8 @@ public class GridAdapter extends BaseAdapter {
         if (board.isFull() && !isValidating) {
 
             // save the time?
-            long gameTime = ((BoardActivity) activity).getGameTime();
-            System.out.println("Game time stopped " + gameTime);
+            ((BoardActivity) activity).stopGameTime();
+            System.out.println("Game time stopped " + ((BoardActivity) activity).getGameTime());
             //validate in new thread
             isValidating = true;
 

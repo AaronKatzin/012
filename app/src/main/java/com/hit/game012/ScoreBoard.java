@@ -57,7 +57,7 @@ public class ScoreBoard extends AppCompatActivity {
         String userID = mAuth.getCurrentUser().getUid();
 
         // calculate current score
-        gameTime = (long) getIntent().getExtras().get("gameTime");
+        gameTime = ((int) getIntent().getExtras().get("gameTime"));
         hintCounter = (int) getIntent().getExtras().get("hintCounter");
         boardSize = (int) getIntent().getExtras().get("boardSize");
 
