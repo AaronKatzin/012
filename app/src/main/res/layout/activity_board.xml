@@ -25,14 +25,14 @@
     <LinearLayout
         android:id="@+id/in_game_message_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.hit.game012.startupsequence.AnimatedTextView
             android:id="@+id/in_game_message"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:gravity="center"
             android:text="Message here"
             android:textAlignment="center"

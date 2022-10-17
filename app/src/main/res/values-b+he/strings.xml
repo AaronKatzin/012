@@ -46,8 +46,21 @@
     <string name="previous">אין שתי שורות ושתי עמודות זהות.</string>
     <string name="how_to_play_reminder">אסור להשתמש בשלושה אריחים סמוכים באותו צבע בשורה או בעמודה.
 לשורות ועמודות יש מספר שווה של כל צבע.
-אין שתי שורות ושתי עמודות זהות.
-</string>
+אין שתי שורות ושתי עמודות זהות.</string>
     <string name="placeholder">טוען...</string>
     <string name="welcome_button">שלום  %1$s! לחץ כאן להיכנס</string>
+    <string name="demo_msg_1">אנחנו הולכים למלא את כל הלוח.
+לחץ על האריח כדי להפוך אותו לכתום.</string>
+    <string name="demo_msg_2">מעולה!
+הקש פעמיים על האריח כדי להפוך אותו לכחול.</string>
+    <string name="demo_msg_3">אסור שיהיו שלושה אריחים כתומים ברצף אחד ליד השני.</string>
+    <string name="demo_msg_4">לעולם אל תסמנו גם שלושה אריחים כחולים רצופים.</string>
+    <string name="demo_msg_5">שלושה אריחים כתומים או כחולים ברצף לא חוקיים גם בטור!</string>
+    <string name="demo_msg_6">שורה שלמה חייבת להכיל אותה כמות של אריחים כתומים וכחולים</string>
+    <string name="demo_msg_7">גם לעמודות יש מספר שווה של כל צבע.</string>
+    <string name="demo_msg_8">אתם אמורים לדעת איזה צבע זה…</string>
+    <string name="demo_msg_9">אין שתי שורות ואין שתי עמודות זהות.</string>
+    <string name="demo_msg_10">אתם יודעים מה לעשות…</string>
+    <string name="demo_end_msg">ווהו! עבודה טובה!
+עכשיו בואו נלך לשחק</string>
 </resources>

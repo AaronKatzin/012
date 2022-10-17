@@ -31,7 +31,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void howToPlay(View view){
-
+        Intent intent = new Intent(this, DemoActivity.class);
+        startActivity(intent);
     }
 
     public void freeGame(View view){

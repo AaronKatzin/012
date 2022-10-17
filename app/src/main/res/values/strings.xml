@@ -57,6 +57,20 @@ No two rows and no two columns are the same.
     <string name="in_game_timer">In-game Timer</string>
     <string name="high_score_beat">New High Score!</string>
     <string name="welcome_button">Welcome %1$s! Enter Here</string>
+
+    <string name="demo_msg_1">We’re going to fill the grid.
+        Tap the tile to make it orange.</string>
+    <string name="demo_msg_2">Excellent!
+        Tap twice to turn a tile blue.</string>
+    <string name="demo_msg_3">Three orange tiles next to each other in a row aren’t allowed.</string>
+    <string name="demo_msg_4">Never have three blue tiles together in a row either.</string>
+    <string name="demo_msg_5">Three orange or blue tiles below each other is invalid too!</string>
+    <string name="demo_msg_6">A full row must have as many orange tiles as it has blue ones.</string>
+    <string name="demo_msg_7">Columns have an equal number of each color too.</string>
+    <string name="demo_msg_8">You should be able to know what color this one is…</string>
+    <string name="demo_msg_9">No two rows and no two columns are the same.</string>
+    <string name="demo_msg_10">You know what to do…</string>
+    <string name="demo_end_msg">Yay! Good job! Now let\'s go play</string>
 </resources>
 
 

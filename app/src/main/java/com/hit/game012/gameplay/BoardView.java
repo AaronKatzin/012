@@ -10,7 +10,6 @@ import android.widget.GridView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hit.game012.R;
 import com.hit.game012.gamelogic.game.Board;
@@ -19,7 +18,6 @@ import com.hit.game012.gamelogic.game.Tile;
 import com.hit.game012.gamelogic.solver.BoardSolver;
 import com.hit.game012.gamelogic.solver.Hint;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,11 +49,6 @@ public class BoardView extends Fragment {
 
     }
 
-    public void startGame() {
-        timer.start();
-        
-
-    }
 
     public int requestHint() {
         boardSolver.setBoard(board);
@@ -91,15 +84,11 @@ public class BoardView extends Fragment {
         moves.push(move);
     }
 
-    public long getGameTime() {
-        return timer.getTotalTime();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_board_fragment, container, false);
-        mGridView = view.findViewById(R.id.board);
+        mGridView = view.findViewById(R.id.board_gridview);
         initGrid(view.getContext(), board.getSize());
 //        allTileView = adapter.allTileViews;
 //        setupAdapter();
@@ -126,13 +115,6 @@ public class BoardView extends Fragment {
         mGridView.setVerticalSpacing(spacing);
         mGridView.setHorizontalSpacing(spacing);
     }
-//
-//    public static Tile onClick(View view, Index index) {
-//        Tile newMove = board.stepTile(index);
-//        Move move = new Move(index, newMove.getSerialized());
-//        addToMoveStack(move);
-//        return newMove;
-//    }
 
 
     public boolean undo(){

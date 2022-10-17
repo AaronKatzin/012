@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/menu_background"
+    tools:context=".DemoActivity">
+
+    <LinearLayout
+        android:id="@+id/demo_in_game_message_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <com.hit.game012.startupsequence.AnimatedTextView
+            android:id="@+id/demo_in_game_message"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/demo_boardLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/demo_in_game_bottom_menu"
+        app:layout_constraintTop_toBottomOf="@id/demo_in_game_message_layout">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/demo_fragment_frame"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/demo_in_game_bottom_menu"
+            app:layout_constraintTop_toBottomOf="@+id/demo_in_game_message_layout" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/demo_in_game_bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@color/menu_background"
+            android:onClick="backToMenu"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/close_pic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintVertical_bias="0.9" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
