@@ -159,10 +159,12 @@ public class BoardActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
+            // change color of last tile
             Index index = lastMove.getIndex();
             Tile newMove = board.stepTile(index);
             Move move = new Move(index, newMove.getSerialized());
             BoardView.addToMoveStack(move);
+            boardView.getmGridView().invalidateViews();
         }
     }
 

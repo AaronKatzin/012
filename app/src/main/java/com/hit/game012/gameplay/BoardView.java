@@ -36,6 +36,10 @@ public class BoardView extends Fragment {
     private GridAdapter adapter;
 
 
+    public GridView getmGridView() {
+        return mGridView;
+    }
+
     public static Board getBoard() {
         return board;
     }
