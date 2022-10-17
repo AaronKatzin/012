@@ -4,7 +4,9 @@ package com.hit.game012;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -38,11 +40,13 @@ public class BoardActivity extends AppCompatActivity {
     private Client client;
     private int hintCounter = 0;
     private boolean win = false;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksounds);
         init();
         getBoard();
         resetInGameMessage(boardSize);
@@ -63,7 +67,6 @@ public class BoardActivity extends AppCompatActivity {
         inGameTimerChronometer.setVisibility((Config.inGameTimerEnabled) ? View.VISIBLE : View.INVISIBLE);
         boardSize = (int) getIntent().getExtras().get("size");
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
-
     }
 
     private void getBoard() {

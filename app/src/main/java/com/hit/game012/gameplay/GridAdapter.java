@@ -6,6 +6,7 @@ import static android.view.View.VISIBLE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+
 public class GridAdapter extends BaseAdapter {
     private int tileSize;
     private Board board;
@@ -45,6 +47,8 @@ public class GridAdapter extends BaseAdapter {
     private Validator validator;
     private boolean inGameMessageChanged = false;
     private boolean isValidating = false;
+    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayerLocked;
 
     public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
         this.context = context;
@@ -58,6 +62,9 @@ public class GridAdapter extends BaseAdapter {
         threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         validator = new Validator(activity, activity.getCurrentFocus());
+        mediaPlayer = MediaPlayer.create(context.getApplicationContext(),R.raw.clicksounds);
+        mediaPlayerLocked= MediaPlayer.create(context.getApplicationContext(),R.raw.sounderror);
+
     }
 
     @Override
@@ -103,6 +110,7 @@ public class GridAdapter extends BaseAdapter {
                     ((BoardActivity) activity).resetInGameMessage(board.getSize());
                 highlightedTiles.clear();
                 if (!board.isLocked(index)) {
+                    mediaPlayer.start();
                     Tile newMove = board.stepTile(index);
                     Move move = new Move(index, newMove.getSerialized());
                     BoardView.addToMoveStack(move);
@@ -112,6 +120,7 @@ public class GridAdapter extends BaseAdapter {
                     validateBoard();
                 } else {
                     for (View lockedView : locked) {
+                        mediaPlayerLocked.start();
                         AnimatedImageView padlock = lockedView.findViewById(R.id.lock_icon);
                         padlock.initPadlockAnimation();
                         lockedView.startAnimation(AnimationUtils.loadAnimation(lockedView.getContext(), R.anim.shake_anim));

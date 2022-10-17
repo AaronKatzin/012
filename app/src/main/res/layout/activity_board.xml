@@ -78,8 +78,8 @@
 
         <ImageButton
             android:onClick="undo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -94,8 +94,8 @@
 
         <ImageButton
             android:onClick="getHint"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -111,8 +111,8 @@
 
         <ImageButton
             android:onClick="backToMenu"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -126,8 +126,8 @@
 
         <ImageButton
             android:onClick="howToPlay"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
@@ -141,8 +141,8 @@
 
         <ImageButton
             android:onClick="changeSettings"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/menu_background"
             android:padding="5dp"
             android:scaleType="fitCenter"
