@@ -46,13 +46,15 @@ public class MyListAdapter extends ArrayAdapter<Object> {
         TextView scoreTitleText = (TextView) rowView.findViewById(R.id.score_title);
         TextView boardSizeText = (TextView) rowView.findViewById(R.id.board_size_title);
 
-        String userName = HighScoreTM.keySet().toArray()[position].toString();
+        String uidAndUserName =  HighScoreTM.keySet().toArray()[position].toString();
+        String userName = getUserName(uidAndUserName);
+        String Uid = getUid(uidAndUserName);
         titleText.setText(userName);
-        subtitles = HighScoreTM.get(userName).toString().split("-");
+        subtitles = HighScoreTM.get(uidAndUserName).toString().split("-");
         scoreTitleText.setText(String.format(context.getResources().getString(R.string.score), Integer.parseInt(subtitles[0])));
         boardSizeText.setText(String.format(context.getResources().getString(R.string.board_size_title), Integer.parseInt(subtitles[1])));
         RoboHash robots = new RoboHash(getContext());
-        Handle immutableHandle = robots.calculateHandleFromUUID(UUID.nameUUIDFromBytes(userName.getBytes())); // todo actually get UID instead of username
+        Handle immutableHandle = robots.calculateHandleFromUUID(UUID.nameUUIDFromBytes(Uid.getBytes()));
         try {
             Bitmap bitmap = robots.imageForHandle(immutableHandle);
             imageView.setImageBitmap(bitmap);
@@ -61,10 +63,18 @@ public class MyListAdapter extends ArrayAdapter<Object> {
             imageView.setImageResource(defaultImgid); // default empty picture
         }
 
-        if(userName.equals(firebaseCurrentUid)){
+        if(Uid.equals(firebaseCurrentUid)){
             rowView.setBackgroundColor(Color.parseColor("#5d99c2"));
         }
         return rowView;
 
     };
+
+    private String getUserName(String uidAndUserName){
+        String[] split = uidAndUserName.split(",");
+        return split[split.length-1];
+    }
+    private String getUid(String uidAndUserName){
+        return uidAndUserName.split(",")[0];
+    }
 }

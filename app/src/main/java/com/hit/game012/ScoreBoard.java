@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -52,7 +53,7 @@ public class ScoreBoard extends AppCompatActivity {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userID = mAuth.getCurrentUser().getUid();
+        String userID = mAuth.getCurrentUser().getUid() + ","+  mAuth.getCurrentUser().getDisplayName();
 
         // calculate current score
         gameTime = ((int) getIntent().getExtras().get("gameTime"));
