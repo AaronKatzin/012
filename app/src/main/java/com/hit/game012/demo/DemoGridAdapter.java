@@ -2,6 +2,7 @@ package com.hit.game012.demo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,10 @@ import android.widget.TextView;
 import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.hit.game012.Config;
+import com.hit.game012.DemoActivity;
 import com.hit.game012.R;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.game.Tile;
-import com.hit.game012.gameplay.Validator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,7 @@ public class DemoGridAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ThreadPoolExecutor threadPoolExecutor;
     private DemoValidator validator;
-
+    private Activity activity;
     public static int turn;
     public static List<Index[]> indexesInTurn = Arrays.asList(
             new Index[][]{
@@ -68,6 +69,7 @@ public class DemoGridAdapter extends BaseAdapter {
         turn = 0;
         threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        this.activity = activity;
         validator = new DemoValidator(activity, this);
 
     }
@@ -163,13 +165,18 @@ public class DemoGridAdapter extends BaseAdapter {
     }
 
     public void nextTurn() {
-        if (turn <= indexesInTurn.size())
-            notifyDataSetInvalidated();
-        else
-            endDemo();
+        notifyDataSetInvalidated();
+
+        if (turn < indexesInTurn.size()) {
+            // Set turn message
+            ((DemoActivity) activity).setMessage(turn);
+        }
+        else{
+            // Set end game message
+            ((DemoActivity) activity).setEndGameMessage();
+
+        }
     }
 
-    private void endDemo() {
 
-    }
 }

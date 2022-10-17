@@ -2,6 +2,7 @@ package com.hit.game012;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.hit.game012.startupsequence.AnimatedTextView;
 public class DemoActivity extends AppCompatActivity {
     private AnimatedTextView inGameMessageView;
     private DemoBoardView boardView;
+    private int currentTheme;
     int[] demoMessagesResIDPerMove = {
             R.string.demo_msg_1,
             R.string.demo_msg_2,
@@ -25,6 +27,10 @@ public class DemoActivity extends AppCompatActivity {
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Change theme to match demo messages
+        currentTheme = Config.gridThemeID;
+        Config.setGridThemeID(1);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
         init();
@@ -32,26 +38,37 @@ public class DemoActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.demo_fragment_frame, boardView,boardView.getClass().getSimpleName())
                 .addToBackStack(null).commit();
-        setMessage(-1);
-
-
+        setMessage(0);
     }
+
+    @Override
+    protected void onDestroy() {
+        Config.setGridThemeID(currentTheme);
+        super.onDestroy();
+    }
+
     private void init(){
         inGameMessageView = findViewById(R.id.demo_in_game_message);
     }
     public void setMessage(int turn){
         if (turn< demoMessagesResIDPerMove.length){
-            inGameMessageView.setText(demoMessagesResIDPerMove[turn+1]);
+            inGameMessageView.setText(demoMessagesResIDPerMove[turn]);
             inGameMessageView.setTextSize(30);
             inGameMessageView.initAnimation(1000,200);
         }
     }
-    public void endDemoGame(){
+    public void setEndGameMessage(){
         inGameMessageView.setText(R.string.demo_end_msg);
         inGameMessageView.setTextSize(30);
         inGameMessageView.initAnimation(1000,200);
-
     }
+    public void endGame(){
+        Intent intent = new Intent(this, ChooseBoardSize.class);
+        intent.putExtra("isDailyGame", false);
+        startActivity(intent);
+        finish();
+    }
+    
     public void backToMenu(View view){
         finish();
     }
