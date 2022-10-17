@@ -13,13 +13,17 @@ import android.widget.Chronometer;
 //import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.gamelogic.game.Board;
+import com.hit.game012.gamelogic.game.Index;
+import com.hit.game012.gamelogic.game.Tile;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GetBoardThreaded;
+import com.hit.game012.gameplay.Move;
 import com.hit.game012.net.Client;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
 
 import java.util.Random;
+import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -135,21 +139,33 @@ public class BoardActivity extends AppCompatActivity {
     }
 
     public void goToPostGameActivity(View view){
-        Intent intent;
-        if(win){
-            intent = new Intent(this, ScoreBoard.class);
-            intent.putExtra("gameTime", getGameTime());
-            intent.putExtra("hintCounter", hintCounter);
-            intent.putExtra("boardSize", boardSize);
-            intent.putExtra("win", win);
+        Stack<Move> moves = BoardView.getMoves();
+        Move lastMove = moves.peek();
+        long delay = 1000; // 1 Second
+        if ((System.currentTimeMillis() - lastMove.getTime()) > delay) {
+            Intent intent;
+            if (win) {
+                intent = new Intent(this, ScoreBoard.class);
+                intent.putExtra("gameTime", getGameTime());
+                intent.putExtra("hintCounter", hintCounter);
+                intent.putExtra("boardSize", boardSize);
+                intent.putExtra("win", win);
 
 
+            } else {
+                intent = new Intent(this, ChooseBoardSize.class);
+            }
+            intent.putExtra("isDailyGame", isDailyGame);
+            startActivity(intent);
+            finish();
         } else {
-            intent = new Intent(this, ChooseBoardSize.class);
+            // change color of last tile
+            Index index = lastMove.getIndex();
+            Tile newMove = board.stepTile(index);
+            Move move = new Move(index, newMove.getSerialized());
+            BoardView.addToMoveStack(move);
+            boardView.getmGridView().invalidateViews();
         }
-        intent.putExtra("isDailyGame", isDailyGame);
-        startActivity(intent);
-        finish();
     }
 
     private void setGameTime(int gameTime) {

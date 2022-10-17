@@ -46,7 +46,8 @@
     <string name="previous">אין שתי שורות ושתי עמודות זהות.</string>
     <string name="how_to_play_reminder">אסור להשתמש בשלושה אריחים סמוכים באותו צבע בשורה או בעמודה.
 לשורות ועמודות יש מספר שווה של כל צבע.
-אין שתי שורות ושתי עמודות זהות.</string>
+אין שתי שורות ושתי עמודות זהות.
+</string>
     <string name="placeholder">טוען...</string>
     <string name="welcome_button">שלום  %1$s! לחץ כאן להיכנס</string>
     <string name="demo_msg_1">אנחנו הולכים למלא את כל הלוח.
@@ -63,4 +64,5 @@
     <string name="demo_msg_10">אתם יודעים מה לעשות…</string>
     <string name="demo_end_msg">ווהו! עבודה טובה!
 עכשיו בואו נלך לשחק</string>
+    <string name="board_size_title">לוח בגודל: %1$d</string>
 </resources>

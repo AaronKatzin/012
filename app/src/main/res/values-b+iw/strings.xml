@@ -64,4 +64,5 @@
     <string name="demo_msg_10">אתם יודעים מה לעשות…</string>
     <string name="demo_end_msg">ווהו! עבודה טובה!
 עכשיו בואו נלך לשחק</string>
+    <string name="board_size_title">לוח בגודל: %1$d</string>
 </resources>

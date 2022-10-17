@@ -34,6 +34,10 @@ public class BoardView extends Fragment {
     private GridAdapter adapter;
 
 
+    public GridView getmGridView() {
+        return mGridView;
+    }
+
     public static Board getBoard() {
         return board;
     }
@@ -135,6 +139,10 @@ public class BoardView extends Fragment {
 //        tileView.setColor(Tile.deserialize(color));
         mGridView.invalidateViews();
         return true;
+    }
+
+    public static Stack<Move> getMoves() {
+        return moves;
     }
 
 }
