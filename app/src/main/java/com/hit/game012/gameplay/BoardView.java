@@ -155,4 +155,8 @@ public class BoardView extends Fragment {
         return true;
     }
 
+    public static Stack<Move> getMoves() {
+        return moves;
+    }
+
 }
