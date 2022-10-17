@@ -37,7 +37,7 @@ public class ScoreBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_win);
+        setContentView(R.layout.activity_score_board);
         long gameTime;
         int hintCounter,boardSize,score, highScore = 0;
         isDailyGame = (boolean) getIntent().getExtras().get("isDailyGame");
