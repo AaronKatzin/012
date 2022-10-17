@@ -26,7 +26,6 @@ public class MyListAdapter extends ArrayAdapter<Object> {
 
     public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer defaultImgid) {
         super(context, R.layout.scoreboard_list, HighScoreTM.keySet().toArray());
-        // TODO Auto-generated constructor stub
 
         this.context=context;
         this.HighScoreTM = HighScoreTM;
@@ -44,9 +43,7 @@ public class MyListAdapter extends ArrayAdapter<Object> {
 
         String userName = HighScoreTM.keySet().toArray()[position].toString();
         titleText.setText(userName);
-//        imageView.setImageResource(imgid[0]); // todo actual user profile pic
         subtitleText.setText(HighScoreTM.get(userName).toString());
-        // show The Image in a ImageView
         RoboHash robots = new RoboHash(getContext());
         Handle immutableHandle = robots.calculateHandleFromUUID(UUID.nameUUIDFromBytes(userName.getBytes())); // todo actually get UID instead of username
         try {
