@@ -6,6 +6,7 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -115,7 +116,16 @@ public class ScoreBoard extends AppCompatActivity {
 
             MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, defaultImgid);
             list = (ListView) findViewById(R.id.list);
+
+            // list title
+            TextView textView = new TextView(this);
+            textView.setText(this.getResources().getString(R.string.high_score_list_title));
+            textView.setGravity(Gravity.CENTER);
+            textView.setTextSize(this.getResources().getDimension(R.dimen.smallTextSize));
+
+            list.addHeaderView(textView);
             list.setAdapter(adapter);
+
 
             // make score board visible
             findViewById(R.id.multiplayerHighScoreTable).setVisibility(View.VISIBLE);

@@ -65,4 +65,5 @@
     <string name="demo_end_msg">ווהו! עבודה טובה!
 עכשיו בואו נלך לשחק</string>
     <string name="board_size_title">לוח בגודל: %1$d</string>
+    <string name="high_score_list_title">לוח שיאים</string>
 </resources>

@@ -72,6 +72,7 @@ No two rows and no two columns are the same.
     <string name="demo_msg_10">You know what to do…</string>
     <string name="demo_end_msg">Yay! Good job! Now let\'s go play</string>
     <string name="board_size_title">Board Size: %1$d</string>
+    <string name="high_score_list_title">Leaderboard</string>
 </resources>
 
 
