@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.R;
 import com.hit.game012.ui.robohash.RoboHash;
 import com.hit.game012.ui.robohash.handle.Handle;
@@ -23,6 +24,7 @@ public class MyListAdapter extends ArrayAdapter<Object> {
     private final Activity context;
     private final int defaultImgid;
     private final TreeMap<String, String> HighScoreTM;
+    String firebaseCurrentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer defaultImgid) {
         super(context, R.layout.scoreboard_list, HighScoreTM.keySet().toArray());
@@ -54,6 +56,9 @@ public class MyListAdapter extends ArrayAdapter<Object> {
             imageView.setImageResource(defaultImgid); // default empty picture
         }
 
+        if(userName.equals(firebaseCurrentUid)){
+            rowView.setBackgroundColor(Color.parseColor("#5d99c2"));
+        }
         return rowView;
 
     };
