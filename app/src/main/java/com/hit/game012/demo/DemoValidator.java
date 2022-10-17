@@ -6,6 +6,7 @@ import com.hit.game012.DemoActivity;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.game.Tile;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ public class DemoValidator implements Runnable {
         boolean isValid = true;
         currentTileState = new ArrayList<>();
         turn = DemoGridAdapter.turn;
-
+        System.out.println(turn);
         // Get the final tiles color for this turn
         turnTileState = Arrays.asList(DemoGridAdapter.tilesInTurn.get(turn));
 
@@ -42,8 +43,11 @@ public class DemoValidator implements Runnable {
                 isValid = false;
             }
         }
+        System.out.println("isValid: " + isValid);
         if (isValid) {
+            System.out.println("list size: " + DemoGridAdapter.indexesInTurn.size());
             if (turn < DemoGridAdapter.indexesInTurn.size()) {
+                DemoGridAdapter.turn += 1;
                 adapter.nextTurn();
                 ((DemoActivity) activity).setMessage(turn);
 

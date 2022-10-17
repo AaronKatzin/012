@@ -163,7 +163,7 @@ public class DemoGridAdapter extends BaseAdapter {
     }
 
     public void nextTurn() {
-        if (++turn <= indexesInTurn.size())
+        if (turn <= indexesInTurn.size())
             notifyDataSetInvalidated();
         else
             endDemo();
