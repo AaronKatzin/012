@@ -50,4 +50,5 @@
 </string>
     <string name="placeholder">טוען...</string>
     <string name="welcome_button">שלום  %1$s! לחץ כאן להיכנס</string>
+    <string name="board_size_title">לוח בגודל: %1$d</string>
 </resources>

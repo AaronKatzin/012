@@ -57,6 +57,8 @@ No two rows and no two columns are the same.
     <string name="in_game_timer">In-game Timer</string>
     <string name="high_score_beat">New High Score!</string>
     <string name="welcome_button">Welcome %1$s! Enter Here</string>
+    <string name="board_size_title">Board Size: %1$d</string>
+
 </resources>
 
 

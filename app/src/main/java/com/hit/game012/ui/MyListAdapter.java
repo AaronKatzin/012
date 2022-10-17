@@ -3,6 +3,7 @@ package com.hit.game012.ui;
 import android.app.Activity;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,16 +37,20 @@ public class MyListAdapter extends ArrayAdapter<Object> {
     }
 
     public View getView(int position,View view,ViewGroup parent) {
+        String[] subtitles;
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.scoreboard_list, null,true);
 
         TextView titleText = (TextView) rowView.findViewById(R.id.title);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView subtitleText = (TextView) rowView.findViewById(R.id.subtitle);
+        TextView scoreTitleText = (TextView) rowView.findViewById(R.id.score_title);
+        TextView boardSizeText = (TextView) rowView.findViewById(R.id.board_size_title);
 
         String userName = HighScoreTM.keySet().toArray()[position].toString();
         titleText.setText(userName);
-        subtitleText.setText(HighScoreTM.get(userName).toString());
+        subtitles = HighScoreTM.get(userName).toString().split("-");
+        scoreTitleText.setText(String.format(context.getResources().getString(R.string.score), Integer.parseInt(subtitles[0])));
+        boardSizeText.setText(String.format(context.getResources().getString(R.string.board_size_title), Integer.parseInt(subtitles[1])));
         RoboHash robots = new RoboHash(getContext());
         Handle immutableHandle = robots.calculateHandleFromUUID(UUID.nameUUIDFromBytes(userName.getBytes())); // todo actually get UID instead of username
         try {
