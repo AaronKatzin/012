@@ -2,6 +2,7 @@ package com.hit.game012.ui;
 
 import android.app.Activity;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +11,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hit.game012.R;
+import com.hit.game012.ui.robohash.RoboHash;
+import com.hit.game012.ui.robohash.handle.Handle;
 
+import java.io.IOException;
 import java.util.TreeMap;
+import java.util.UUID;
 
 public class MyListAdapter extends ArrayAdapter<Object> {
 
     private final Activity context;
-    private final Integer[] imgid;
+    private final int defaultImgid;
     private final TreeMap<String, String> HighScoreTM;
 
-    public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer[] imgid) {
+    public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer defaultImgid) {
         super(context, R.layout.scoreboard_list, HighScoreTM.keySet().toArray());
         // TODO Auto-generated constructor stub
 
         this.context=context;
         this.HighScoreTM = HighScoreTM;
-        this.imgid=imgid;
+        this.defaultImgid=defaultImgid;
 
     }
 
@@ -42,8 +47,15 @@ public class MyListAdapter extends ArrayAdapter<Object> {
 //        imageView.setImageResource(imgid[0]); // todo actual user profile pic
         subtitleText.setText(HighScoreTM.get(userName).toString());
         // show The Image in a ImageView
-        new DownloadImageTask(imageView).execute("https://robohash.org/" + userName + "?gravatar=yes");
-
+        RoboHash robots = new RoboHash(getContext());
+        Handle immutableHandle = robots.calculateHandleFromUUID(UUID.nameUUIDFromBytes(userName.getBytes())); // todo actually get UID instead of username
+        try {
+            Bitmap bitmap = robots.imageForHandle(immutableHandle);
+            imageView.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+            imageView.setImageResource(defaultImgid); // default empty picture
+        }
 
         return rowView;
 

@@ -32,10 +32,7 @@ public class ScoreBoard extends AppCompatActivity {
     LottieAnimationView awardAnimation, barChartAnimation, fireworksAnimationView;
     TextView highScoreBeatText;
 
-
-    Integer[] imgid={
-            com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square
-    };
+    int defaultImgid=      com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +113,7 @@ public class ScoreBoard extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, imgid);
+            MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, defaultImgid);
             list = (ListView) findViewById(R.id.list);
             list.setAdapter(adapter);
 
