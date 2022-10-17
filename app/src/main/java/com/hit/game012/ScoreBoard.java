@@ -122,7 +122,7 @@ public class ScoreBoard extends AppCompatActivity {
             TextView textView = new TextView(this);
             textView.setText(this.getResources().getString(R.string.high_score_list_title));
             textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(this.getResources().getDimension(R.dimen.smallTextSize));
+            textView.setTextSize(30);
 
             list.addHeaderView(textView);
             list.setAdapter(adapter);
