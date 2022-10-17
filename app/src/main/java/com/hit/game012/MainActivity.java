@@ -70,12 +70,7 @@ public class MainActivity extends AppCompatActivity {
             LinearLayout enterLayout = findViewById(R.id.enterLayout);
             Button enterButton = findViewById(R.id.enterButton);
 
-            enterButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    continueToMenu(view);
-                }
-            });
+            enterButton.setOnClickListener(view -> continueToMenu(view));
 
             enterButton.setText(String.format(getResources().getString(R.string.welcome_button),  user.getDisplayName()));
             enterLayout.setVisibility(View.VISIBLE);
@@ -102,12 +97,7 @@ public class MainActivity extends AppCompatActivity {
     private void authOnCreate() {
         mAuth = FirebaseAuth.getInstance();
         createLoginRequest();
-        findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
+        findViewById(R.id.sign_in).setOnClickListener(view -> signIn());
     }
 
 
@@ -126,21 +116,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
-    ActivityResultLauncher<Intent> getResult = registerForActivityResult(
+    final ActivityResultLauncher<Intent> getResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                        try {
-                            GoogleSignInAccount account = task.getResult(ApiException.class);
-                            firebaseAuthWithGoogle(account);
-                        } catch (ApiException e) {
-                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    // There are no request codes
+                    Intent data = result.getData();
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    try {
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+                        firebaseAuthWithGoogle(account);
+                    } catch (ApiException e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -150,24 +137,20 @@ public class MainActivity extends AppCompatActivity {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Log.d("Main", "signInWithCredential:onComplete:" + task.isSuccessful());
+                .addOnCompleteListener(this, task -> {
+                    //Log.d("Main", "signInWithCredential:onComplete:" + task.isSuccessful());
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(MainActivity.this, "Login Succeeded!", Toast.LENGTH_SHORT).show();
-                            continueToMenu(getCurrentFocus());
+                    // If sign in fails, display a message to the user. If sign in succeeds
+                    // the auth state listener will be notified and logic to handle the
+                    // signed in user can be handled in the listener.
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, "Login Succeeded!", Toast.LENGTH_SHORT).show();
+                        continueToMenu(getCurrentFocus());
 
-                        } else {
-                            Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
-                        }
-
+                    } else {
+                        Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
                     }
+
                 });
     }
 

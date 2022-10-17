@@ -17,7 +17,7 @@ No two rows and no two columns are the same.
     <string name="about">012 is a little logic game developed by computer science students at the Holon Institute of Technology, HIT.</string>
     <string name="aboutHeadLine">About</string>
     <string name="settings_logout_button">Sign Out</string>
-    <string name="placeholder">Loading...</string>
+    <string name="placeholder">Loading…</string>
     <string name="message">hey</string>
     <string name="Choose_board_size">Choose board size:</string>
     <string name="hint_board_full">Board is full</string>

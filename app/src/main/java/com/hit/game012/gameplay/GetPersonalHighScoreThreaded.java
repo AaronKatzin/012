@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class GetPersonalHighScoreThreaded implements Callable<Map<String, Integer>> {
-    private String userID;
-    private int boardSize, score;
+    private final String userID;
+    private final int boardSize;
+    private final int score;
 
 
     public GetPersonalHighScoreThreaded(String userID, int boardSize, int score) {

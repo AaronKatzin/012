@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -34,7 +33,7 @@ public class ScoreBoard extends AppCompatActivity {
     LottieAnimationView awardAnimation, barChartAnimation, fireworksAnimationView;
     TextView highScoreBeatText;
 
-    int defaultImgid=      com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square;
+    final int defaultImgid=      com.facebook.login.R.drawable.com_facebook_profile_picture_blank_square;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +78,7 @@ public class ScoreBoard extends AppCompatActivity {
         if(isDailyGame){
             try {
                 myHighScoreM = threadPoolExecutor.submit(new GetPersonalHighScoreThreaded(userID, boardSize, score)).get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
             if(myHighScoreM != null && myHighScoreM.containsKey("score")){
@@ -109,14 +106,12 @@ public class ScoreBoard extends AppCompatActivity {
                 highScoreTreeMap = threadPoolExecutor.submit(new GetHighScoreListThreaded(userID)).get();
                 System.out.println("highScoreTreeMap: ");
                 System.out.println(highScoreTreeMap);
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
 
             MyListAdapter adapter = new MyListAdapter(this, highScoreTreeMap, defaultImgid);
-            list = (ListView) findViewById(R.id.list);
+            list = findViewById(R.id.list);
 
             // list title
             TextView textView = new TextView(this);

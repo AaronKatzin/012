@@ -1,13 +1,12 @@
 package com.hit.game012.gameplay;
 
-import com.hit.game012.gamelogic.generator.BoardGenerator;
 import com.hit.game012.net.Client;
 
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
 public class GetHighScoreListThreaded implements Callable<TreeMap<String, String>> {
-    private String userID;
+    private final String userID;
 
 
     public GetHighScoreListThreaded(String userID) {

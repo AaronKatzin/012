@@ -53,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
         intent.putExtra("boardSize", 4);
         intent.putExtra("isDailyGame", true);
         intent.putExtra("win", false);
-        intent.putExtra("gameTime", (int)0);
+        intent.putExtra("gameTime", 0);
         intent.putExtra("hintCounter", 0);
         startActivity(intent);
     }

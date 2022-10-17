@@ -48,7 +48,7 @@
 לשורות ועמודות יש מספר שווה של כל צבע.
 אין שתי שורות ושתי עמודות זהות.
 </string>
-    <string name="placeholder">טוען...</string>
+    <string name="placeholder">טוען…</string>
     <string name="welcome_button">שלום  %1$s! לחץ כאן להיכנס</string>
     <string name="demo_msg_1">אנחנו הולכים למלא את כל הלוח.
 לחץ על האריח כדי להפוך אותו לכתום.</string>

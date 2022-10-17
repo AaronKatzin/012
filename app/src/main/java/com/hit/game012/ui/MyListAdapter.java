@@ -25,7 +25,7 @@ public class MyListAdapter extends ArrayAdapter<Object> {
     private final Activity context;
     private final int defaultImgid;
     private final TreeMap<String, String> HighScoreTM;
-    String firebaseCurrentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    final String firebaseCurrentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer defaultImgid) {
         super(context, R.layout.scoreboard_list, HighScoreTM.keySet().toArray());
@@ -41,16 +41,16 @@ public class MyListAdapter extends ArrayAdapter<Object> {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.scoreboard_list, null,true);
 
-        TextView titleText = (TextView) rowView.findViewById(R.id.title);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView scoreTitleText = (TextView) rowView.findViewById(R.id.score_title);
-        TextView boardSizeText = (TextView) rowView.findViewById(R.id.board_size_title);
+        TextView titleText = rowView.findViewById(R.id.title);
+        ImageView imageView = rowView.findViewById(R.id.icon);
+        TextView scoreTitleText = rowView.findViewById(R.id.score_title);
+        TextView boardSizeText = rowView.findViewById(R.id.board_size_title);
 
         String uidAndUserName =  HighScoreTM.keySet().toArray()[position].toString();
         String userName = getUserName(uidAndUserName);
         String Uid = getUid(uidAndUserName);
         titleText.setText(userName);
-        subtitles = HighScoreTM.get(uidAndUserName).toString().split("-");
+        subtitles = HighScoreTM.get(uidAndUserName).split("-");
         scoreTitleText.setText(String.format(context.getResources().getString(R.string.score), Integer.parseInt(subtitles[0])));
         boardSizeText.setText(String.format(context.getResources().getString(R.string.board_size_title), Integer.parseInt(subtitles[1])));
         RoboHash robots = new RoboHash(getContext());
@@ -68,7 +68,7 @@ public class MyListAdapter extends ArrayAdapter<Object> {
         }
         return rowView;
 
-    };
+    }
 
     private String getUserName(String uidAndUserName){
         String[] split = uidAndUserName.split(",");
