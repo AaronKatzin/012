@@ -22,6 +22,7 @@ public class Config {
     public static boolean inGameTimerEnabled;
     public static final String SELECTED_LANGUAGE = "Selected.Language";
     public static boolean soundEnabled;
+    public static final String NOTIFICATION_CHANNEL_ID = "0" ;
 
 
     public static void setInGameTimerEnabled(boolean inGameTimerEnabled) {
