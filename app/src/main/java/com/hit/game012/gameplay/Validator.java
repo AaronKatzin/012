@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentActivity;
 import com.hit.game012.BoardActivity;
 import com.hit.game012.ChooseBoardSize;
 import com.hit.game012.R;
-import com.hit.game012.Win;
 import com.hit.game012.gamelogic.checker.BoardChecker;
 import com.hit.game012.gamelogic.game.Board;
 

@@ -23,7 +23,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class Win extends AppCompatActivity {
+public class ScoreBoard extends AppCompatActivity {
 
     TreeMap<String, String> highScoreTreeMap = new TreeMap<>();
     Map<String, Integer> myHighScoreM;

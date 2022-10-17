@@ -135,7 +135,7 @@ public class BoardActivity extends AppCompatActivity {
     public void goToPostGameActivity(View view){
         Intent intent;
         if(win){
-            intent = new Intent(this, Win.class);
+            intent = new Intent(this, ScoreBoard.class);
             intent.putExtra("gameTime", getGameTime());
             intent.putExtra("hintCounter", hintCounter);
             intent.putExtra("boardSize", boardSize);

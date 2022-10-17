@@ -1,6 +1,5 @@
 package com.hit.game012;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +48,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void scoreBoard(View view){
-        Intent intent = new Intent(this, Win.class);
+        Intent intent = new Intent(this, ScoreBoard.class);
         intent.putExtra("boardSize", 4);
         intent.putExtra("isDailyGame", true);
         intent.putExtra("win", false);
