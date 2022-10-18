@@ -27,7 +27,6 @@ import java.util.Stack;
 public class BoardView extends Fragment {
     private static Board board;
     private BoardSolver boardSolver;
-    private static Timer timer;
     private static Stack<Move> moves;
     private Set<Index> highlightedIndexes;
     private GridView mGridView;
@@ -44,10 +43,7 @@ public class BoardView extends Fragment {
 
     public BoardView(Board board) {
         this.board = board;
-
         boardSolver = new BoardSolver(board);
-        timer = new Timer();
-
         highlightedIndexes = new HashSet<>();
         moves = new Stack<>();
 

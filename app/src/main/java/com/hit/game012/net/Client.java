@@ -72,10 +72,11 @@ public class Client {
         parseSendReceiveMessage("SEND_GAME_RESULT", buildScoreString(boardSize, score));
     }
 
-    public TreeMap<String, String> getHighScoreList() {
+    public LinkedHashMap<String, String> getHighScoreList() {
         String jsonList = parseSendReceiveMessage("GET_HIGHSCORE_LIST", " ");
         Gson gson = new Gson();
-        return gson.fromJson(jsonList, TreeMap.class);
+        LinkedHashMap<String, String> deserializedHighScoreList = gson.fromJson(jsonList, LinkedHashMap.class);
+        return deserializedHighScoreList;
 
     }
 
@@ -89,6 +90,9 @@ public class Client {
         scoreResult.put("boardSize", boardSize);
         scoreResult.put("score", score);
         return scoreResult;
+    }
+    public void resetScoreBoard(){
+        parseSendReceiveMessage("RESET_SCORE_BOARD", " ");
     }
 
     public void stopConnection() {

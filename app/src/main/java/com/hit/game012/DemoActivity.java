@@ -41,12 +41,6 @@ public class DemoActivity extends AppCompatActivity {
         setMessage(0);
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        Config.setGridThemeID(currentTheme);
-//        super.onDestroy();
-//    }
-
     private void init(){
         inGameMessageView = findViewById(R.id.demo_in_game_message);
     }

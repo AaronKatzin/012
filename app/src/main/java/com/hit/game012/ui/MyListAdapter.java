@@ -17,6 +17,7 @@ import com.hit.game012.ui.robohash.RoboHash;
 import com.hit.game012.ui.robohash.handle.Handle;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -24,10 +25,10 @@ public class MyListAdapter extends ArrayAdapter<Object> {
 
     private final Activity context;
     private final int defaultImgid;
-    private final TreeMap<String, String> HighScoreTM;
+    private final Map<String, String> HighScoreTM;
     final String firebaseCurrentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    public MyListAdapter(Activity context, TreeMap<String, String> HighScoreTM, Integer defaultImgid) {
+    public MyListAdapter(Activity context, Map<String, String> HighScoreTM, Integer defaultImgid) {
         super(context, R.layout.scoreboard_list, HighScoreTM.keySet().toArray());
 
         this.context=context;
