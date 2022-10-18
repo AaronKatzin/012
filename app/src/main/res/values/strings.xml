@@ -29,7 +29,7 @@ No two rows and no two columns can be the same.\n\n
     <string name="hint_dead_end">Pfff… what a mess :(</string>
     <string name="undo_stack_emp">You still didn’t make any move</string>
     <string name="choose_size_free_play">Free game</string>
-    <string name="choose_size_daily_play">Daily game</string>
+    <string name="choose_size_daily_play">Daily Challenge</string>
     <string name="win_great">Great!</string>
     <string name="win_good_job">Good Job!</string>
     <string name="win_excellent">Excellent!</string>
