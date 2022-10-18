@@ -8,6 +8,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
+/**
+ * A class to receive, execute and send a result to each client.
+ */
 public class ServerThread extends Thread {
     protected Socket socket;
     private DailyBoardGenerator generator;
@@ -23,20 +26,33 @@ public class ServerThread extends Thread {
         this.highScoreList = highScoreList;
     }
 
-    private String[] parseMsg(String msg) {
-        String splittedMsg[] = msg.split("\\|");
-        if (splittedMsg.length > 3) {
+    /**
+     * Function to parse and validate string received from client
+     *
+     * @param msg string sent by client
+     * @return A String array containing [command, userData, commandData]
+     * @throws IllegalArgumentException if string is not following the server protocol.
+     */
+    private String[] parseAndValidateMsg(String msg) {
+        String splitMsg[] = msg.split("\\|");
+        if (splitMsg.length > 3) {
             throw new IllegalArgumentException("Bad command");
         }
-        return splittedMsg;
-
+        return splitMsg;
     }
 
+    /**
+     * Function to handle messages from client in the supported protocol
+     *
+     * @param msg string received from client.
+     * @throws IllegalArgumentException if command is not supported in API.
+     */
     private void handleMessage(String msg) {
-        String[] splittedMsg = parseMsg(msg);
-        String command = splittedMsg[0];
-        String userID = splittedMsg[1];
-        String data = splittedMsg[2];
+        String[] splitMsg = parseAndValidateMsg(msg);
+        String command = splitMsg[0];
+        String userData = splitMsg[1];
+        String data = splitMsg[2];
+
         switch (command) {
             case "GET_BOARD":
                 String serialized = getSerializedBoard(Integer.parseInt(data));
@@ -44,11 +60,11 @@ public class ServerThread extends Thread {
                 out.println(serialized);
                 break;
             case "SEND_GAME_RESULT":
-                addToHighScoreList(userID, data);
+                addToHighScoreList(userData, data);
                 out.println("Saved to list");
                 break;
             case "GET_MY_HIGHSCORE":
-                Score score = getHighScoreForUser(userID);
+                Score score = getHighScoreForUser(userData);
                 out.println(score);
                 break;
             case "GET_HIGHSCORE_LIST":
@@ -74,10 +90,22 @@ public class ServerThread extends Thread {
 
     }
 
-    private Score getHighScoreForUser(String userID) {
-        return highScoreList.get(userID);
+    /**
+     * Retrieve and return the user's data in the high score list
+     *
+     * @param userData UUID of the user
+     * @return User's high score
+     */
+    private Score getHighScoreForUser(String userData) {
+        return highScoreList.get(userData);
     }
 
+    /**
+     * Parsing top high scores in the list to JSON object and sends back to client.<br />
+     * If numberOfEntries > list size -> sends back all the list.
+     *
+     * @param numberOfEntries number of entries to be sent back to client.
+     */
     public void serializeAndSendHighScoreList(int numberOfEntries) {
         if (highScoreList.isEmpty()) {
             return;
@@ -89,25 +117,46 @@ public class ServerThread extends Thread {
         out.println(highScoreJson);
     }
 
-    private void addToHighScoreList(String userID, String scoreString) {
+    /**
+     * Function to add new score to the high score list.<br />
+     * If the new score is greater than old score, updates the list.<br />
+     * After the operation, sorts the list.
+     *
+     * @param userData    UUID of the user
+     * @param scoreString as supported in the API
+     */
+    private void addToHighScoreList(String userData, String scoreString) {
         int newScore = Integer.parseInt(scoreString.split("-")[0]);
         int boardSize = Integer.parseInt(scoreString.split("-")[1]);
 
-        if (highScoreList.containsKey(userID)) {
-            int currentScore = highScoreList.get(userID).getScore();
+        if (highScoreList.containsKey(userData)) {
+            int currentScore = highScoreList.get(userData).getScore();
             if (newScore <= currentScore) {
                 return;
             }
         }
-        highScoreList.put(userID, new Score(newScore, boardSize));
+        highScoreList.put(userData, new Score(newScore, boardSize));
         highScoreList = sortMap(highScoreList);
     }
 
+    /**
+     * Function to generate a new board from BoardGenerator with size parameter.
+     *
+     * @param size board size
+     * @return String of the serialized board.
+     */
     public String getSerializedBoard(int size) {
         Board b = generator.getBoard(size);
         return b.stringFromBoard();
     }
 
+    /**
+     * Helper function to sort the high score list map by score.
+     * Using stream operations and NaturalOrderComparator Comparator to compare Strings.
+     *
+     * @param unsortedMap unsorted high score map
+     * @return sorted high score map.
+     */
     private Map<String, Score> sortMap(Map<String, Score> unsortedMap) {
         System.out.println(unsortedMap);
         Map<String, Score> sortedMap = new LinkedHashMap<>();
@@ -118,10 +167,18 @@ public class ServerThread extends Thread {
         return sortedMap;
     }
 
+    /**
+     * Clear the high score list.
+     */
     public void resetHighScoreList() {
         highScoreList = new LinkedHashMap<>();
     }
 
+    /**
+     * Implementation of the thread execution,
+     * Every client will be handled in a different thread.
+     * While client is still connected, the socket will listen to messages and handle them.
+     */
     public void run() {
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
