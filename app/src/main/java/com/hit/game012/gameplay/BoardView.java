@@ -23,7 +23,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-
+/**
+ * BoardView controls the view of the board.
+ * Holds a GridView object to represent the board instance graphically.
+ * The class maintains a Move Stack to support undo.
+ *
+ */
 public class BoardView extends Fragment {
     private static Board board;
     private BoardSolver boardSolver;
@@ -49,21 +54,28 @@ public class BoardView extends Fragment {
 
     }
 
-
+    /**
+     * Request hint from Solver, highlights the involved tiles and shows the hint message.
+     * @return
+     */
     public int requestHint() {
         boardSolver.setBoard(board);
         Hint hint = boardSolver.requestHint();
         List<Index> involvedTiles = hint.getInvolvedTiles();
         highlightedIndexes.clear();
+
         if (involvedTiles != null) {
             highlightedIndexes.addAll(involvedTiles);
-            System.out.println("Highlighted indexes: " + highlightedIndexes);
         }
         highlightHintTiles(involvedTiles);
         adapter.setInGameMessageChanged(true);
         return hint.getMessage();
     }
 
+    /**
+     * Function to highlight all tiles in list
+     * @param highlighted list of Tiles to be highlighted.
+     */
     private void highlightHintTiles(List<Index> highlighted) {
         if (highlighted != null) {
             adapter.setHighlightedTiles(highlighted);
@@ -71,13 +83,19 @@ public class BoardView extends Fragment {
         }
     }
 
-
+    /**
+     * Adds a Move to the stack.<br>
+     * Each move contains a timestamp in order to handle quick tile switches (second color),
+     * If two moves made in the DELAY timeframe, removes the first move from stack.
+     *
+     * @param move most recent move
+     */
     public static void addToMoveStack(Move move) {
         long time = System.currentTimeMillis();
         if (!moves.empty()) {
             Move lastMove = moves.pop();
-            long delay = 1000; // 1 Second
-            if (!lastMove.getIndex().equals(move.getIndex()) || (time - lastMove.getTime()) > delay) {
+            long DELAY = 1000; // 1 Second
+            if (!lastMove.getIndex().equals(move.getIndex()) || (time - lastMove.getTime()) > DELAY) {
                 moves.push(lastMove);
             }
         }
@@ -90,14 +108,11 @@ public class BoardView extends Fragment {
         View view = inflater.inflate(R.layout.view_board_fragment, container, false);
         mGridView = view.findViewById(R.id.board_gridview);
         initGrid(view.getContext(), board.getSize());
-//        allTileView = adapter.allTileViews;
-//        setupAdapter();
-
         return view;
     }
     private void initGrid(Context context, int size){
         mGridView.setNumColumns(size);
-        adapter = new GridAdapter(context, board, mGridView, getActivity());
+        adapter = new GridAdapter(context, board, getActivity());
         mGridView.setAdapter(adapter);
 
         int spacing;
@@ -116,24 +131,30 @@ public class BoardView extends Fragment {
         mGridView.setHorizontalSpacing(spacing);
     }
 
-
+    /**
+     * Restore the last move in the stack.
+     *
+     * @return true if undo succeeded, false otherwise.
+     */
     public boolean undo(){
         if (moves.empty()){
+            // No moves made
             adapter.setInGameMessageChanged(true);
             return false;
         }
+
         char color;
         Move lastMove = moves.pop();
         if (moves.contains(lastMove)){
+            // The tile was pressed before - return the color to last color
             color = moves.get(moves.indexOf(lastMove)).getColor();
         }
         else
+            // The tile was not pressed before - empty the tile
             color = Tile.EMPTY.getSerialized();
-//        int lastMovePos=lastMove.getIndex().getRow()* board.getSize()+lastMove.getIndex().getCol();
-//        TileViewHolder tileView = (TileViewHolder) mGridView.findViewHolderForAdapterPosition(lastMovePos);
+
         board.setTile(lastMove.getIndex(),Tile.deserialize(color));
-//        tileView.setColor(Tile.deserialize(color));
-        mGridView.invalidateViews();
+        adapter.notifyDataSetChanged();
         return true;
     }
 

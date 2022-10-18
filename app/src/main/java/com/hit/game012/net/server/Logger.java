@@ -30,7 +30,8 @@ public class Logger {
     }
 
     /**
-     * Log string as info
+     * Log string as info.
+     *
      * @param toLog string to log
      */
     public void info(String toLog) {
@@ -50,7 +51,7 @@ public class Logger {
     /**
      * Close the logger
      */
-    public void close(){
+    public void close() {
         try {
             myOutWriter.close();
             fOut.close();
@@ -62,6 +63,7 @@ public class Logger {
 
     /**
      * Function to find a unique name for log and create the file
+     *
      * @param filename
      * @return Unique filename
      */

@@ -6,22 +6,31 @@ import com.hit.game012.net.Client;
 
 import java.util.concurrent.Callable;
 
+/**
+ * Class implementing Callable to get a board asynchronously.
+ * If fromServer boolean is true request a board from server.
+ *
+ */
 public class GetBoardThreaded implements Callable<Board> {
     private int size;
     private boolean fromServer;
     private BoardGenerator boardGenerator;
-    private String userID;
+    private String userData;
 
 
     public GetBoardThreaded(int size, boolean fromServer, String userID) {
         this.size = size;
         this.fromServer = fromServer;
         boardGenerator = new BoardGenerator();
-        this.userID = userID;
+        this.userData = userID;
     }
 
+    /**
+     * Request a board from server.
+     * @return Board received from server.
+     */
     private Board getBoardFromServer(){
-        Client client = new Client(userID);
+        Client client = new Client(userData);
         client.startConnection();
         Board board = client.getBoard(size);
         client.stopConnection();

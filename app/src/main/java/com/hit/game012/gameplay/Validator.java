@@ -1,74 +1,73 @@
 package com.hit.game012.gameplay;
 
-import static androidx.core.content.ContextCompat.startActivity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.hit.game012.BoardActivity;
-import com.hit.game012.ChooseBoardSize;
 import com.hit.game012.R;
 import com.hit.game012.gamelogic.checker.BoardChecker;
 import com.hit.game012.gamelogic.game.Board;
 
 import java.util.Random;
-import java.util.concurrent.Callable;
 
+/**
+ * Class to validate the board after its full.
+ * The class uses BoardChecker isSolved function.
+ * Implements Runnable to validate the board after a VALIDATOR_DELAY sleep.
+ * The sleep allows the user to complete the move before validator starts.
+ */
 public class Validator implements Runnable {
-    private final long VALIDATOR_DELAY = 1000;
+    private final long VALIDATOR_DELAY = 1000; // 1 second
     private BoardChecker checker;
     private FragmentActivity activity;
     private Random r = new Random();
-    private View view;
 
-    public Validator(FragmentActivity activity, View view) {
+    public Validator(FragmentActivity activity) {
         this.activity = activity;
-        this.view = view;
     }
 
     @Override
     public void run() {
+        // Sleep
         try {
-            Thread.sleep(VALIDATOR_DELAY); //1 second
+            Thread.sleep(VALIDATOR_DELAY);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Board board = BoardView.getBoard();
-        synchronized (board) {
-            checker = new BoardChecker(board);
-        }
 
-        if (checker.isSolvedBoolean()) //win
-        {
-            System.out.println("win");
+        // Feed current board to checker
+        Board board = BoardView.getBoard();
+        checker = new BoardChecker(board);
+
+        if (checker.isSolvedBoolean()) {
+            // Win
             ((BoardActivity) activity).setInGameMessage(getWinMessage(), 40);
             ((BoardActivity) activity).setEndGameGif(true);
 
         } else {
-            System.out.println("lose");
+            // Lose
             ((BoardActivity) activity).setInGameMessage(getLoseMessage(), 40);
             ((BoardActivity) activity).setEndGameGif(false);
-//            return false;
-
         }
 
     }
 
+    /**
+     * Randomly chooses a message to display after a win.
+     * @return the resID of the message
+     */
     private int getWinMessage() {
         int[] winStringMessages = {R.string.win_great, R.string.win_good_job, R.string.win_excellent, R.string.win_amazing};
         int messageId = r.nextInt(winStringMessages.length);
         return winStringMessages[messageId];
     }
+
+    /**
+     * Randomly chooses a message to display after a lose.
+     * @return the resID of the message
+     */
     private int getLoseMessage() {
         int[] loseStringMessages = {R.string.lose_next_time, R.string.lose_not_good, R.string.lose_practice};
         int messageId = r.nextInt(loseStringMessages.length);

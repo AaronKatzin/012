@@ -4,6 +4,11 @@ import com.hit.game012.gamelogic.game.Index;
 
 import java.util.Objects;
 
+/**
+ * Represents a move in the game.
+ * Contains Index, color and time.
+ * Overriding equal and hashcode to be able to check if contained in list only by index.
+ */
 public class Move {
     private Index index;
     private char color;

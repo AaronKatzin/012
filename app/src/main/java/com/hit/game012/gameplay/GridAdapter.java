@@ -37,23 +37,21 @@ import java.util.concurrent.TimeUnit;
 public class GridAdapter extends BaseAdapter {
     private int tileSize;
     private Board board;
-    //    private GridView mGridView;
     private Context context;
     private LayoutInflater inflater;
     private FragmentActivity activity;
     private List<View> locked;
     private List<Index> highlightedTiles;
-    private ThreadPoolExecutor threadPoolExecutor;
-    private Validator validator;
+    private final ThreadPoolExecutor threadPoolExecutor;
+    private final Validator validator;
     private boolean inGameMessageChanged = false;
     private boolean isValidating = false;
     private MediaPlayer mediaPlayer;
     private MediaPlayer mediaPlayerLocked;
 
-    public GridAdapter(Context context, Board board, GridView grid, FragmentActivity activity) {
+    public GridAdapter(Context context, Board board, FragmentActivity activity) {
         this.context = context;
         this.board = board;
-//        mGridView = grid;
         tileSize = (Resources.getSystem().getDisplayMetrics().widthPixels - 100) / board.getSize();
         inflater = LayoutInflater.from(context.getApplicationContext());
         locked = new ArrayList<>();
@@ -61,9 +59,9 @@ public class GridAdapter extends BaseAdapter {
         this.activity = activity;
         threadPoolExecutor = new ThreadPoolExecutor(1, 2,
                 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-        validator = new Validator(activity, activity.getCurrentFocus());
-        mediaPlayer = MediaPlayer.create(context.getApplicationContext(),R.raw.clicksounds);
-        mediaPlayerLocked= MediaPlayer.create(context.getApplicationContext(),R.raw.sounderror);
+        validator = new Validator(activity);
+        mediaPlayer = MediaPlayer.create(context.getApplicationContext(), R.raw.clicksounds);
+        mediaPlayerLocked = MediaPlayer.create(context.getApplicationContext(), R.raw.sounderror);
 
     }
 
@@ -90,6 +88,14 @@ public class GridAdapter extends BaseAdapter {
         this.inGameMessageChanged = inGameMessageChanged;
     }
 
+    /**
+     * Adapter function to get the view for each Tile from board.
+     *
+     * @param position index of the tile in the view
+     * @param view view of the current object
+     * @param parent
+     * @return the view after adapting
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ContextThemeWrapper ctx = new ContextThemeWrapper(context, R.style.Theme_012);
@@ -114,9 +120,7 @@ public class GridAdapter extends BaseAdapter {
                     Tile newMove = board.stepTile(index);
                     Move move = new Move(index, newMove.getSerialized());
                     BoardView.addToMoveStack(move);
-//                    notifyDataSetChanged();
                     notifyDataSetInvalidated();
-//                    mGridView.invalidateViews();
                     validateBoard();
                 } else {
                     for (View lockedView : locked) {
@@ -127,7 +131,6 @@ public class GridAdapter extends BaseAdapter {
                         padlock.setVisibility(INVISIBLE);
                     }
                 }
-//
             }
         });
         if (highlightedTiles.contains(index)) {
@@ -146,11 +149,18 @@ public class GridAdapter extends BaseAdapter {
         highlightView.setMaxWidth(tileSize);
     }
 
+    /**
+     * Function to change tile color in the board.
+     *
+     * @param view     current view
+     * @param tileView tile view in the layout
+     * @param position index of the tile
+     */
     private void setColor(View view, TextView tileView, int position) {
         Tile tile = (Tile) getItem(position);
         int tileDrawable;
 
-        switch (tile){
+        switch (tile) {
             case COLOR1:
                 tileDrawable = Config.COLOR_TILE_ZERO;
                 break;
@@ -160,76 +170,26 @@ public class GridAdapter extends BaseAdapter {
             default:
                 tileDrawable = R.drawable.tile_empty;
         }
-
-//        if(Config.gridThemeID==1){
-//            switch (tile) {
-//                case COLOR1:
-//                    tileDrawable = R.drawable.tile_zero_theme_1;
-//                    break;
-//                case COLOR2:
-//                    tileDrawable = R.drawable.tile_one_theme_1;
-//                    break;
-//                default:
-//                    tileDrawable = R.drawable.tile_empty;
-//            }
-//        }
-//
-//        else{
-//            switch (tile) {
-//                case COLOR1:
-//                    tileDrawable = R.drawable.tile_zero_theme_2;
-//                    break;
-//                case COLOR2:
-//                    tileDrawable = R.drawable.tile_one_theme_2;
-//                    break;
-//                default:
-//                    tileDrawable = R.drawable.tile_empty;
-//            }
-//        }
         tileView.setBackground(view.getResources().getDrawable(tileDrawable, view.getContext().getTheme()));
 
     }
 
+    /**
+     * Function to start a Validator thread to check the board.
+     * The Validator sleeps for a defines period in order to allow user to make final move.
+     */
     private void validateBoard() {
-
         if (board.isFull() && !isValidating) {
-
-            // save the time?
+            // Only validate if board is full and not in validation
+            // Get game time
             ((BoardActivity) activity).stopGameTime();
-            System.out.println("Game time stopped " + ((BoardActivity) activity).getGameTime());
-            //validate in new thread
+
+            // Validate in a new thread
             isValidating = true;
-
-            System.out.println("start validate");
             threadPoolExecutor.submit(validator);
+
             ((BoardActivity) activity).findViewById(R.id.end_game_gif).setVisibility(VISIBLE);
-
-//            if
-//            ((BoardActivity) activity).setEndGameGif(validatorResult);
-
-
         }
-
-
     }
-
-//    public void popupAnim(View view) {
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
-//        final View layout = LayoutInflater.from(view.getContext()).inflate(R.layout.pop_up_win, null);
-//        alertDialogBuilder.setView(layout);
-////        alertDialogBuilder.setMessage("No Internet Connection. Check Your Wifi Or enter code hereMobile Data.");
-////        alertDialogBuilder.setTitle("Connection Failed");
-////        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
-//
-////            @Override
-////            public void onClick(DialogInterface dialogInterface, int i) {
-//        // add these two lines, if you wish to close the app:
-////                finishAffinity();
-////                System.exit(0);
-////            }
-////        });
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.show();
-//    }
 
 }
