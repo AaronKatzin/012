@@ -1,8 +1,8 @@
 package com.hit.game012.net;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.hit.game012.gamelogic.game.Board;
+import com.hit.game012.net.server.NaturalOrderComparator;
 
 import java.io.*;
 import java.net.Socket;
@@ -68,18 +68,30 @@ public class Client {
         return null;
     }
 
-    public void sentGameResult(int boardSize, int score) {
+    public void sendGameResult(int boardSize, int score) {
         parseSendReceiveMessage("SEND_GAME_RESULT", buildScoreString(boardSize, score));
     }
-
-    public LinkedHashMap<String, String> getHighScoreList() {
-        String jsonList = parseSendReceiveMessage("GET_HIGHSCORE_LIST", " ");
-        Gson gson = new Gson();
-        LinkedHashMap<String, String> deserializedHighScoreList = gson.fromJson(jsonList, LinkedHashMap.class);
-        return deserializedHighScoreList;
-
+    public Map<String, String> getHighScoreList(){
+        // Default 10 entries
+        return getHighScoreList(10);
     }
 
+    public Map<String, String> getHighScoreList(int numberOfEntries) {
+        String jsonList = parseSendReceiveMessage("GET_HIGHSCORE_LIST", String.valueOf(numberOfEntries));
+        if (Objects.equals(jsonList, "Empty list")) {
+            return null;
+        }
+        Gson gson = new Gson();
+        Map<String, String> deserializedHighScoreList = gson.fromJson(jsonList, Map.class);
+        return sortMap(deserializedHighScoreList);
+    }
+    private Map<String, String> sortMap(Map<String, String> unsortedMap) {
+        Map<String, String> sortedMap = new LinkedHashMap<>();
+        unsortedMap.entrySet().stream().sorted(Map.Entry.comparingByValue(new NaturalOrderComparator().reversed())).forEachOrdered(x -> {
+            sortedMap.put(((Map.Entry<String, String>) x).getKey(), ((Map.Entry<String, String>) x).getValue());
+        });
+        return sortedMap;
+    }
     public static String buildScoreString(int boardSize, int score) {
         return score + "-" + boardSize;
     }
