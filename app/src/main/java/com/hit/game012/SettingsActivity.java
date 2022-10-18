@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    SwitchMaterial notifications;
     SwitchMaterial sound;
     SwitchMaterial enableInGameTimer;
     RadioGroup languageRadioGroup;
@@ -30,7 +29,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        notifications = findViewById(R.id.settings_notifications_enabled);
         sound = findViewById(R.id.settings_sound_enabled);
         enableInGameTimer = findViewById(R.id.settings_timer_visible);
         languageRadioGroup = findViewById(R.id.radio_group_language);
@@ -75,7 +73,6 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putBoolean("notificationsEnabled", notifications.isChecked());
         editor.putBoolean("soundEnabled", sound.isChecked());
         editor.putBoolean("enableInGameTimer", enableInGameTimer.isChecked());
         editor.putInt("colorTheme", theme);
@@ -85,7 +82,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void loadSettings() {
         SharedPreferences sharedPref = this.getSharedPreferences("application", MODE_PRIVATE);
-        notifications.setChecked(sharedPref.getBoolean("notificationsEnabled", true));
         sound.setChecked(sharedPref.getBoolean("soundEnabled", true));
         enableInGameTimer.setChecked(sharedPref.getBoolean("enableInGameTimer", true));
 
