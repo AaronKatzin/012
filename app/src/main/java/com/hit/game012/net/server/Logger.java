@@ -4,8 +4,11 @@ import java.io.*;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 
+/**
+ * Logger class for Server
+ */
 public class Logger {
-    // In actual server I used Path object, it doesn't work in android studio
+    // In actual server I used Path object, it doesn't work in android studio :/
 
     private final String path = "\\src\\logs";
     private File file;
@@ -26,6 +29,10 @@ public class Logger {
         this.info("[LOG][Init] Log created at " + filename);
     }
 
+    /**
+     * Log string as info
+     * @param toLog string to log
+     */
     public void info(String toLog) {
         System.out.println(toLog);
         LocalDateTime now = LocalDateTime.now();
@@ -39,6 +46,10 @@ public class Logger {
         }
 
     }
+
+    /**
+     * Close the logger
+     */
     public void close(){
         try {
             myOutWriter.close();
@@ -48,6 +59,12 @@ public class Logger {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Function to find a unique name for log and create the file
+     * @param filename
+     * @return Unique filename
+     */
     private String getUniqueName(String filename) {
         int i = 1;
         File f = new File(path + filename + '_' + i + ".txt");

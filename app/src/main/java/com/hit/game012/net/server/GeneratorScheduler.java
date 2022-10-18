@@ -8,6 +8,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class to schedule next daily board generation.
+ * Using ScheduledExecutorService class.
+ */
 public class GeneratorScheduler {
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
     DailyBoardGenerator generator;
@@ -17,7 +21,7 @@ public class GeneratorScheduler {
     public GeneratorScheduler(DailyBoardGenerator generator, int targetHour, int targetMin, int targetSec) {
         this.generator = generator;
         ZonedDateTime zonedNow = ZonedDateTime.of(LocalDateTime.now(), currentZone);
-        zonedNextTarget = zonedNow.withHour(0).withMinute(0).withSecond(0);
+        zonedNextTarget = zonedNow.withHour(targetHour).withMinute(targetMin).withSecond(targetSec);
         startExecution();
 
     }

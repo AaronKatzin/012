@@ -9,16 +9,17 @@ import java.net.Socket;
 import java.util.*;
 
 /**
- * Client class to implement connection with server.
- * The protocol supported: command|userData|data
- * <p>
- * The server commands and data:
- * GET_BOARD - data contains board size, returns a serialized board of the size.
- * GET_MY_HIGHSCORE - data is empty, returns a String with the highest user score.
- * SEND_GAME_RESULT - data contains the score and board size concatenated with char '-' as a delimiter.
- * GET_HIGHSCORE_LIST - data contains number of entries to be sent from the server - default 10,
- * returns a JSON object of the highest scores in the list.
+ * Client class to implement connection with server.<br/>
+ * The protocol supported: command|userData|data <br/>
+ *
+ * The server commands and data:<br/>
+ * GET_BOARD - data contains board size, returns a serialized board of the size.<br/>
+ * GET_MY_HIGHSCORE - data is empty, returns a String with the highest user score.<br/>
+ * SEND_GAME_RESULT - data contains the score and board size concatenated with char '-' as a delimiter.<br/>
+ * GET_HIGHSCORE_LIST - data contains number of entries to be sent from the server - default 10,<br/>
+ * returns a JSON object of the highest scores in the list.<br/>
  * RESET_SCORE_BOARD - data is empty, helper function to clear score board in the server.
+ *
  */
 public class Client {
     private Socket client;
