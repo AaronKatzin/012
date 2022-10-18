@@ -5,9 +5,9 @@
     <color name="menu_background" type="color">#2F3437</color>  <!--ALL APP BACKGROUND COLOR-->
     <string name="how_to_play_reminder_title">How To Play</string>
     <string name="how_to_play_reminder">
-Three adjacent tiles of the same color in row or column isn’t allowed.
-Rows and columns have an equal number of each color.
-No two rows and no two columns are the same.
+Three adjacent tiles of the same color in a row or column isn’t allowed.\n\n
+Rows and columns must have an equal number of each color.\n\n
+No two rows and no two columns can be the same.\n\n
     </string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
