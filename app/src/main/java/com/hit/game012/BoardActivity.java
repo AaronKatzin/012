@@ -42,7 +42,6 @@ public class BoardActivity extends AppCompatActivity {
     private GifImageView endGameGif;
     private Chronometer inGameTimerChronometer;
     private BoardView boardView;
-    private Client client;
     private int gameTime;
     private int hintCounter = 0;
     private boolean win = false;

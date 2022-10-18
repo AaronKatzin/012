@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 
@@ -64,14 +66,18 @@ public class ChooseBoardSize extends AppCompatActivity {
     private void dailyGameInit() {
         header.setText(R.string.choose_size_daily_play);
         loadFromMem();
-//        System.out.println(Arrays.asList(dailyBoardPlayed));
-//        Arrays.fill(dailyBoardPlayed, false);
+
         System.out.println(Arrays.asList(dailyBoardPlayed));
         String today = String.valueOf(LocalDate.now());
+
         if (!today.equals(dailyBoardDay)) {
             dailyBoardDay = today;
             Arrays.fill(dailyBoardPlayed, false);
         }
+
+        TextView todayLabel = findViewById(R.id.choose_size_today);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        todayLabel.setText(String.valueOf(formatter.format(LocalDate.now(ZoneId.systemDefault()))));
         updateCheckDailyGame();
     }
 
