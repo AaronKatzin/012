@@ -8,6 +8,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class to schedule next daily board generation.
+ * Using ScheduledExecutorService class.
+ */
 public class GeneratorScheduler {
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
     DailyBoardGenerator generator;
@@ -17,40 +21,40 @@ public class GeneratorScheduler {
     public GeneratorScheduler(DailyBoardGenerator generator, int targetHour, int targetMin, int targetSec) {
         this.generator = generator;
         ZonedDateTime zonedNow = ZonedDateTime.of(LocalDateTime.now(), currentZone);
-        zonedNextTarget = zonedNow.withHour(0).withMinute(0).withSecond(0);
+        // Target next generate to 00:00:00 Local Time
+        zonedNextTarget = zonedNow.withHour(targetHour).withMinute(targetMin).withSecond(targetSec);
         startExecution();
-
     }
-    public void startExecution()
-    {
-        Runnable taskWrapper = new Runnable(){
 
+    /**
+     * Schedule the next execution, after run we call the function again to schedule next execution.
+     */
+    public void startExecution() {
+        Runnable taskWrapper = new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 generator.run();
+                // After each run, we schedule the next execution again
                 startExecution();
             }
-
         };
         long delay = computeNextDelay();
         executorService.schedule(taskWrapper, delay, TimeUnit.SECONDS);
     }
 
-    private long computeNextDelay()
-    {
+    private long computeNextDelay() {
         ZonedDateTime zonedNow = ZonedDateTime.of(LocalDateTime.now(), currentZone);
         Duration duration = Duration.between(zonedNow, zonedNextTarget);
 
-        if(duration.getSeconds() <= 0){
+        if (duration.getSeconds() <= 0) {
+            // Negative duration means we are after the target time, we will increase it in 1 day.
             zonedNextTarget = zonedNextTarget.plusDays(1);
             duration = Duration.between(zonedNow, zonedNextTarget);
         }
         return duration.getSeconds();
     }
 
-    public void stop()
-    {
+    public void stop() {
         executorService.shutdown();
         try {
             executorService.awaitTermination(1, TimeUnit.DAYS);

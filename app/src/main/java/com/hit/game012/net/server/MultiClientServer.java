@@ -3,17 +3,20 @@ package com.hit.game012.net.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Path;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
-public class MulticlientServer {
+/**
+ * Class to run as the main server instance
+ * The server supports multiple clients in parallel as every new connection starts a new thread.
+ * The server maintains a high score Map with userData as the key, and score as the value.
+ * The server will generate new daily boards of all sizes every 00:00 Israel Local time.
+ * The server logs all requests.
+ */
+public class MultiClientServer {
     private static final int PORT = 5234;
     private static LinkedHashMap<String, Score> highScoreList;
 
-    // In actual server I used Path object, it doesn't work in android studio
+    // In the actual server I used Path object, it doesn't work in android studio :/
     private static String path = "\\src\\net\\highScoreList.ser";
 
     public static void main(String args[]) {
@@ -23,13 +26,15 @@ public class MulticlientServer {
         Socket socket = null;
         Logger logger = new Logger();
         DailyBoardGenerator generator = new DailyBoardGenerator(logger);
-        GeneratorScheduler executor = new GeneratorScheduler(generator, 21, 04, 0);
+        GeneratorScheduler executor = new GeneratorScheduler(generator, 0, 0, 0);
 
+        // Loads high score list from file, if not succeeded creates an empty Map.
         loadHighScoreList();
         if (highScoreList == null) {
             highScoreList = new LinkedHashMap<>();
         }
 
+        // Adding shutdown hook to save the high score list and close the logger when program exists.
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 logger.info("[SERVER][SHUTDOWN] Saving high score list ");
@@ -46,6 +51,7 @@ public class MulticlientServer {
             e.printStackTrace();
         }
         while (true) {
+            // Running in loop and receive connection requests
             try {
                 socket = serverSocket.accept();
             } catch (IOException e) {
@@ -60,13 +66,14 @@ public class MulticlientServer {
                 }
             }
 
-            // new thread for a client
+            // When connection established, creates a new thread.
             new ServerThread(socket, generator, highScoreList, logger).start();
         }
-
-
     }
 
+    /**
+     * Function to save current high score list as a file.
+     */
     public static void saveHighScoreList() {
         try {
             // Saving of object in a file
@@ -84,6 +91,9 @@ public class MulticlientServer {
 
     }
 
+    /**
+     * Function to load high score list from file
+     */
     public static void loadHighScoreList() {
         try {
             // Reading the object from a file
