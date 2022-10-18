@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * Class representing the score.
- * Comparable for the leader board calculation, Serializable for saving the leaderboard.
+ * Comparable for the high score sort calculation, Serializable for saving the high score list.
  */
 public class Score implements Comparable<Score>, Serializable {
     private int score;
