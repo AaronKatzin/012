@@ -5,8 +5,8 @@ The user is presented with a board of tiles, and he must fill them following the
  - Rows and columns must have an equal number of each color.  
  - No two rows and no two columns can be the same.  
 
-## Presentation[012.pptx]
-## Video[012.mp4]
+## [Presentation](012.pptx)
+## [Video](012.mp4)
 
 Credits:
 Robot user icons lovingly delivered by Robohash.org - https://github.com/e1ven/Robohash
