@@ -114,13 +114,17 @@ public class GridAdapter extends BaseAdapter {
                     ((BoardActivity) activity).resetInGameMessage(board.getSize());
                 highlightedTiles.clear();
                 if (!board.isLocked(index)) {
+                    // Tile is not locked - change tile color, add move to stack, update the view.
+                    // If the board is full, start validation
                     mediaPlayer.start();
                     Tile newMove = board.stepTile(index);
                     Move move = new Move(index, newMove.getSerial());
                     BoardView.addToMoveStack(move);
                     notifyDataSetInvalidated();
-                    validateBoard();
+                    if (board.isFull())
+                            validateBoard();
                 } else {
+                    // Tile is locked - start padlock and tile animation for all locked tiles
                     for (View lockedView : locked) {
                         mediaPlayerLocked.start();
                         AnimatedImageView padlock = lockedView.findViewById(R.id.lock_icon);
@@ -174,11 +178,11 @@ public class GridAdapter extends BaseAdapter {
 
     /**
      * Function to start a Validator thread to check the board.
-     * The Validator sleeps for a defines period in order to allow user to make final move.
+     * The Validator sleeps for a defines period of time in order to allow user to finish final move.
      */
     private void validateBoard() {
-        if (board.isFull() && !isValidating) {
-            // Only validate if board is full and not in validation
+        if (!isValidating) {
+            // Only validate if board is full and not in validation process
             // Get game time
             ((BoardActivity) activity).stopGameTime();
 

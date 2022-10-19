@@ -2,14 +2,18 @@ package com.hit.game012.startupsequence;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.hit.game012.R;
 
 /**
  * Class to add animation sequence to ImageView element.
@@ -35,10 +39,10 @@ public class AnimatedImageView extends androidx.appcompat.widget.AppCompatImageV
     }
 
     /**
-     * Adding and starting fade-in animation on current ImageView
+     * Adding and starting fade-in animation to current ImageView
      *
-     * @param duration of the fade-in animation in milliseconds
-     * @param offset bewfore animation starts in milliseconds
+     * @param duration in milliseconds of the fade-in animation
+     * @param offset in milliseconds before animation starts
      */
     public void initFadeInAnimation(long duration, long offset){
         Animation fadeIn = new AlphaAnimation(0,1);
@@ -49,6 +53,10 @@ public class AnimatedImageView extends androidx.appcompat.widget.AppCompatImageV
         animation.addAnimation(fadeIn);
         this.setAnimation(animation);
     }
+
+    /**
+     * Adding and starting fade-in fade-out animation to current ImageView
+     */
     public void initPadlockAnimation(){
         this.setVisibility(VISIBLE);
         Animation fadeIn = new AlphaAnimation(0, 1);
@@ -63,6 +71,7 @@ public class AnimatedImageView extends androidx.appcompat.widget.AppCompatImageV
         AnimationSet animation = new AnimationSet(false);
         animation.addAnimation(fadeIn);
         animation.addAnimation(fadeOut);
+
         this.setAnimation(animation);
     }
 }

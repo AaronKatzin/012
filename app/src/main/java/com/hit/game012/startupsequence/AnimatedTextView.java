@@ -26,10 +26,10 @@ public class AnimatedTextView extends androidx.appcompat.widget.AppCompatTextVie
         super(context, attrs, defStyleAttr);
     }
     /**
-     * Adding and starting fade-in animation on current ImageView
+     * Adding and starting fade-in animation to current ImageView
      *
-     * @param duration of the fade-in animation in milliseconds
-     * @param offset bewfore animation starts in milliseconds
+     * @param duration in milliseconds of the fade-in animation
+     * @param offset in milliseconds before animation starts
      */
     public void initFadeInAnimation(long duration, long offset){
         Animation fadeIn = new AlphaAnimation(0,1);
