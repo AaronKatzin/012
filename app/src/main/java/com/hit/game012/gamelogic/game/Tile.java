@@ -4,10 +4,10 @@ public enum Tile {
     EMPTY('e'),
     COLOR1('a'),
     COLOR2('b');
-    private char serialized;
+    private char serial;
 
-    Tile(char serialized){
-        this.serialized = serialized;
+    Tile(char serial){
+        this.serial = serial;
     }
 
     /**
@@ -37,8 +37,8 @@ public enum Tile {
                 return EMPTY;
         }
     }
-    public char getSerialized() {
-        return serialized;
+    public char getSerial() {
+        return serial;
     }
 
     public static Tile deserialize(char serialize){

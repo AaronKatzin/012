@@ -3,7 +3,6 @@ package com.hit.game012.gameplay;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -118,7 +116,7 @@ public class GridAdapter extends BaseAdapter {
                 if (!board.isLocked(index)) {
                     mediaPlayer.start();
                     Tile newMove = board.stepTile(index);
-                    Move move = new Move(index, newMove.getSerialized());
+                    Move move = new Move(index, newMove.getSerial());
                     BoardView.addToMoveStack(move);
                     notifyDataSetInvalidated();
                     validateBoard();

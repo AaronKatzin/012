@@ -24,8 +24,6 @@ import java.util.stream.IntStream;
  */
 public class BoardSolver {
     private Board board;
-    private BoardChecker checker;
-    private final int MAX_ITERATIONS = 500;
 
     public BoardSolver(Board b) {
         this.board = b;
@@ -35,7 +33,6 @@ public class BoardSolver {
     public boolean tryToSolve() {
 
         while ( !board.isFull()) {
-//            System.out.println("solving.." + i++);
             if (placeTile() == null)
                 return false;
         }

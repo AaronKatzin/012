@@ -12,7 +12,7 @@ import java.util.*;
  * A class to receive, execute and send a result to each client.
  */
 public class ServerThread extends Thread {
-    protected Socket socket;
+    protected Socket clientSocket;
     private DailyBoardGenerator generator;
     private BufferedReader in;
     private PrintWriter out;
@@ -20,7 +20,7 @@ public class ServerThread extends Thread {
     Map<String, Score> highScoreList;
 
     public ServerThread(Socket clientSocket, DailyBoardGenerator generator, Map<String, Score> highScoreList, Logger logger) {
-        this.socket = clientSocket;
+        this.clientSocket = clientSocket;
         this.generator = generator;
         this.logger = logger;
         this.highScoreList = highScoreList;
@@ -77,11 +77,11 @@ public class ServerThread extends Thread {
                 break;
             case "QUIT":
                 try {
-                    socket.close();
+                    clientSocket.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                logger.info("[CLIENT][" + socket.getInetAddress() + ":" + socket.getPort() + "] Client disconnected ");
+                logger.info("[CLIENT][" + clientSocket.getInetAddress() + ":" + clientSocket.getPort() + "] Client disconnected ");
                 return;
 
             default:
@@ -181,17 +181,17 @@ public class ServerThread extends Thread {
      */
     public void run() {
         try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
         } catch (IOException e) {
             return;
         }
-        logger.info("[SERVER] new client connected: " + socket.toString());
+        logger.info("[SERVER] new client connected: " + clientSocket.toString());
         String line;
         while (true) {
             try {
                 line = in.readLine();
-                logger.info("[CLIENT][" + socket.getInetAddress() + ":" + socket.getPort() + "] sent: " + line);
+                logger.info("[CLIENT][" + clientSocket.getInetAddress() + ":" + clientSocket.getPort() + "] sent: " + line);
                 handleMessage(line);
 
             } catch (IOException e) {

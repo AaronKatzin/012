@@ -37,7 +37,7 @@ public class Row {
     public String serialize(){
         String serialized = "";
         for (Cell c:content){
-            serialized += c.state.getSerialized();
+            serialized += c.state.getSerial();
         }
         return serialized;
     }

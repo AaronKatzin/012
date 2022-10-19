@@ -33,7 +33,4 @@ public class Hint {
         return involvedTiles;
     }
 
-    public void setInvolvedTiles(List<Index> involvedTiles) {
-        this.involvedTiles = involvedTiles;
-    }
 }

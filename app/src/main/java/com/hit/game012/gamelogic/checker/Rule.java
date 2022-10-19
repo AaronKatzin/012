@@ -9,7 +9,7 @@ import com.hit.game012.gamelogic.game.Board;
  * is not concerned with additional metadata.
  */
 @FunctionalInterface
-public interface BooleanRule {
+public interface Rule {
 
     /**
      * Checks if this rule is satisfied by the {@code board}.

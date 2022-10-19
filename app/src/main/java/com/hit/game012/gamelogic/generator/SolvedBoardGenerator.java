@@ -1,6 +1,6 @@
 package com.hit.game012.gamelogic.generator;
 
-import com.hit.game012.gamelogic.checker.BooleanRules;
+import com.hit.game012.gamelogic.checker.Rules;
 import com.hit.game012.gamelogic.game.*;
 
 import java.util.Collections;
@@ -135,9 +135,9 @@ public class SolvedBoardGenerator {
     }
 
     private boolean isValid(Board board) {
-        return BooleanRules.EQUAL_BLUE_AND_RED.check(board)
-                && BooleanRules.NO_3_CONSECUTIVE.check(board)
-                && (!board.isFull() || BooleanRules.NO_IDENTICAL_ROWS_OR_COLUMNS.check(board))
+        return Rules.EQUAL_BLUE_AND_RED.check(board)
+                && Rules.NO_3_CONSECUTIVE.check(board)
+                && (!board.isFull() || Rules.NO_IDENTICAL_ROWS_OR_COLUMNS.check(board))
                 && !previousBoards.contains(board);
     }
 

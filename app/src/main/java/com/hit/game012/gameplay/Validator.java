@@ -1,8 +1,6 @@
 package com.hit.game012.gameplay;
 
 
-import android.view.View;
-
 import androidx.fragment.app.FragmentActivity;
 
 import com.hit.game012.BoardActivity;
@@ -41,7 +39,7 @@ public class Validator implements Runnable {
         Board board = BoardView.getBoard();
         checker = new BoardChecker(board);
 
-        if (checker.isSolvedBoolean()) {
+        if (checker.isSolved()) {
             // Win
             ((BoardActivity) activity).setInGameMessage(getWinMessage(), 40);
             ((BoardActivity) activity).setEndGameGif(true);

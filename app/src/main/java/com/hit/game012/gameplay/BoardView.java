@@ -151,7 +151,7 @@ public class BoardView extends Fragment {
         }
         else
             // The tile was not pressed before - empty the tile
-            color = Tile.EMPTY.getSerialized();
+            color = Tile.EMPTY.getSerial();
 
         board.setTile(lastMove.getIndex(),Tile.deserialize(color));
         adapter.notifyDataSetChanged();

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Chronometer;
 
@@ -20,7 +19,6 @@ import com.hit.game012.gamelogic.game.Tile;
 import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GetBoardThreaded;
 import com.hit.game012.gameplay.Move;
-import com.hit.game012.net.Client;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
 
@@ -173,7 +171,7 @@ public class BoardActivity extends AppCompatActivity {
             // change color of last tile
             Index index = lastMove.getIndex();
             Tile newMove = board.stepTile(index);
-            Move move = new Move(index, newMove.getSerialized());
+            Move move = new Move(index, newMove.getSerial());
             BoardView.addToMoveStack(move);
             boardView.getmGridView().invalidateViews();
         }
