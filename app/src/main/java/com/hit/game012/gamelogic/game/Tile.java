@@ -6,29 +6,30 @@ public enum Tile {
     COLOR2('b');
     private char serial;
 
-    Tile(char serial){
+    Tile(char serial) {
         this.serial = serial;
     }
 
     /**
      * @return the opposite color of the tile.
-     * empty cells have null opposite.
+     * empty cells opposite is null.
      */
-    public Tile oppositeColor(){
-        switch(this){
-            case COLOR1 :
+    public Tile oppositeColor() {
+        switch (this) {
+            case COLOR1:
                 return COLOR2;
-            case COLOR2 :
+            case COLOR2:
                 return COLOR1;
             default:
                 return null;
         }
     }
+
     /**
      * @return the next state of the tile after being clicked.
      */
-    public Tile nextState(){
-        switch(this){
+    public Tile nextState() {
+        switch (this) {
             case EMPTY:
                 return COLOR1;
             case COLOR1:
@@ -37,12 +38,17 @@ public enum Tile {
                 return EMPTY;
         }
     }
+
     public char getSerial() {
         return serial;
     }
 
-    public static Tile deserialize(char serialize){
-        switch (serialize){
+    /**
+     * @param serialize - char representing a tile color
+     * @return new Tile from char
+     */
+    public static Tile deserialize(char serialize) {
+        switch (serialize) {
             case 'e':
                 return Tile.EMPTY;
             case 'a':

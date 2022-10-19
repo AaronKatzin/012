@@ -3,7 +3,6 @@ package com.hit.game012.gameplay;
 import com.hit.game012.net.Client;
 
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
 public class GetHighScoreListThreaded implements Callable<Map<String, String>> {

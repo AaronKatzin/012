@@ -28,7 +28,7 @@ public class SolvedBoardGenerator {
     /**
      * Generates a solved board of the size of this generator.
      *
-     * @return the generated board
+     * @return the generated board.
      */
     public Board generateBoard() {
         Board board = new Board(size);
@@ -37,29 +37,27 @@ public class SolvedBoardGenerator {
         Collections.shuffle(validRows);
 
         int rowIndex = 0;
-        int[] intInRow = new int[size];
-        int[] attempts = new int[size];
+        int[] intInRow = new int[size]; // final board representation by rows
+        int[] attempts = new int[size]; // number of the attempts to solve board with current row
 
-        // While the grid is not full
+        // While the board is not full
         do {
             attempts[rowIndex]++;
-            // Get the first binary row from queue and check if valid
+            // Get the first binary row from queue and check if board is still valid
             int row = validRows.poll();
             setRow(rowIndex, row, board);
             if (isValid(board)) {
+                // board is still valid
                 intInRow[rowIndex] = row;
                 rowIndex++;
             } else {
                 // if not valid, return row to queue and empty the row in board.
                 validRows.offer(row);
                 setEmptyRow(rowIndex, board);
-                //
-//                if (intInRow[rowIndex] != 0) {
-//                    validRows.offer(intInRow[rowIndex]);
-//                    intInRow[rowIndex] = 0;
-//                }
-                // Check if no more options are left - if so, clear the grid and start over.
+
+                // Check if no more options are left - if so, clear the board and start over.
                 if (attempts[rowIndex] >= validRows.size()) {
+                    // We tried all options in the list
                     attempts[rowIndex] = 0;
                     for (int clearRowIndex = 1; clearRowIndex < rowIndex; clearRowIndex++) {
                         if (intInRow[clearRowIndex] != 0) {
@@ -74,19 +72,20 @@ public class SolvedBoardGenerator {
             }
         }
         while (rowIndex < size);
-        /*
-        When grid is completed - add the board to previous board list.
-        remove the first added board if greater than CHECK_UNIQUE.
-        */
+
+        // When grid is completed - add the board to previous board list.
         previousBoards.offer(board);
+
         if (previousBoards.size() > CHECK_UNIQUE)
+            // Remove the first added board if greater than CHECK_UNIQUE.
             previousBoards.poll();
         return board;
     }
 
     /**
      * Generates all the valid combinations of binary numbers with "size" bits.
-     * @return a set of valid integers
+     *
+     * @return a set of valid integers.
      */
     private LinkedList<Integer> generateRows() {
         return IntStream.range(0, (int) Math.pow(2, size))
@@ -95,6 +94,12 @@ public class SolvedBoardGenerator {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    /**
+     * Check if vector is valid
+     *
+     * @param vector = integer representing a row
+     * @return true if vector is valid, false otherwise
+     */
     private boolean isValidRow(int vector) {
         //Get all the coordinates of the 1's in the binary vector
         int[] ones = IntStream.range(0, size)
@@ -134,18 +139,37 @@ public class SolvedBoardGenerator {
         return true;
     }
 
+    /**
+     * Check if the board is still valid and not in previousBoards (unique board)
+     *
+     * @param board
+     * @return true if valid, false otherwise
+     */
     private boolean isValid(Board board) {
-        return Rules.EQUAL_BLUE_AND_RED.check(board)
+        return Rules.EQUAL_COLOR_COUNT.check(board)
                 && Rules.NO_3_CONSECUTIVE.check(board)
                 && (!board.isFull() || Rules.NO_IDENTICAL_ROWS_OR_COLUMNS.check(board))
                 && !previousBoards.contains(board);
     }
 
+    /**
+     * Set color tiles in board of rowIndex.
+     *
+     * @param rowIndex
+     * @param rowContents integer representation of valid board row.
+     * @param board
+     */
     private void setRow(int rowIndex, int rowContents, Board board) {
         IntStream.range(0, size).forEach(columnIndex ->
                 board.setTile(new Index(rowIndex, columnIndex), (rowContents & (1 << (size - 1 - columnIndex))) == 0 ? Tile.COLOR1 : Tile.COLOR2));
     }
 
+    /**
+     * Empty the row in the board.
+     *
+     * @param rowIndex
+     * @param board
+     */
     private void setEmptyRow(int rowIndex, Board board) {
         IntStream.range(0, size).forEach(columnIndex -> board.setTile(new Index(rowIndex, columnIndex), Tile.EMPTY));
     }

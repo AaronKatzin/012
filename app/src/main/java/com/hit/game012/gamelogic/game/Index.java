@@ -7,8 +7,8 @@ public class Index {
     private Integer col;
 
     public Index(Integer row, Integer col) {
-        if (row<0) throw new IllegalArgumentException("row must be > 0, but was " + row);
-        if (col<0) throw new IllegalArgumentException("col must be > 0, but was " + col);
+        if (row < 0) throw new IllegalArgumentException("row must be > 0, but was " + row);
+        if (col < 0) throw new IllegalArgumentException("col must be > 0, but was " + col);
         this.row = row;
         this.col = col;
     }

@@ -16,6 +16,10 @@ import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gamelogic.game.Index;
 import com.hit.game012.gamelogic.game.Tile;
 
+/**
+ * Class to show the demo board in How To Play activity.
+ * The demo board is a special case of the regular board
+ */
 public class DemoBoardView extends Fragment {
     public static Board board;
     private GridView mGridView;
@@ -30,6 +34,9 @@ public class DemoBoardView extends Fragment {
         return view;
     }
 
+    /**
+     * Creates the demo board scenario
+     */
     private void initBoard() {
         board = new Board(4);
 

@@ -4,9 +4,7 @@ package com.hit.game012.gamelogic.checker;
 import com.hit.game012.gamelogic.game.Board;
 
 /**
- * Created on 02/11/2015.
- * This is a class of rules that are optimized as the result
- * is not concerned with additional metadata.
+ * This is a functional interface for game rules.
  */
 @FunctionalInterface
 public interface Rule {

@@ -5,6 +5,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+/**
+ * This class represents a game board.
+ * The board contains rows, size and all board functionality.
+ * Board --> Row[] --> Cell[] --> Tile
+ */
 public class Board {
     private Row[] board;
     private Integer size;
@@ -20,11 +25,25 @@ public class Board {
         this.board = board.board.clone();
     }
 
-
     public Integer getSize() {
         return size;
     }
 
+    public Tile getTile(@NotNull Index index) {
+        checkIndexInRange(index);
+        return board[index.getRow()].getTile(index.getCol());
+    }
+
+    public Tile setTile(@NotNull Index index, Tile newState) {
+        checkIndexInRange(index);
+        return board[index.getRow()].setTile(index.getCol(), newState);
+    }
+
+    /**
+     * Check illegal value in index
+     *
+     * @param index to check
+     */
     private void checkIndexInRange(@NotNull Index index) {
         int row = index.getRow();
         int col = index.getCol();
@@ -38,16 +57,6 @@ public class Board {
             throw new IllegalArgumentException("column must be < board size (" + size + ") but was " + col);
     }
 
-    public Tile getTile(@NotNull Index index) {
-        checkIndexInRange(index);
-        return board[index.getRow()].getTile(index.getCol());
-    }
-
-    public Tile setTile(@NotNull Index index, Tile newState) {
-        checkIndexInRange(index);
-        return board[index.getRow()].setTile(index.getCol(), newState);
-    }
-
     public Tile stepTile(@NotNull Index index) {
         checkIndexInRange(index);
         return board[index.getRow()].stepTile(index.getCol());
@@ -55,7 +64,8 @@ public class Board {
 
     public int countTilesInRow(int row, Tile tile) {
         if (row < 0) throw new IllegalArgumentException("row must be >= 0 but was " + row);
-        if (row >= size) throw new IllegalArgumentException("row must be < board size (" + size + ") but was " + row);
+        if (row >= size)
+            throw new IllegalArgumentException("row must be < board size (" + size + ") but was " + row);
         return IntStream.range(0, size).reduce(0, (sum, i) -> (board[row].getTile(i) == tile ? sum + 1 : sum));
     }
 
@@ -67,7 +77,7 @@ public class Board {
     }
 
     public boolean isFull() {
-        return !IntStream.range(0,size).anyMatch(i -> countTilesInRow(i, Tile.EMPTY) > 0);
+        return !IntStream.range(0, size).anyMatch(i -> countTilesInRow(i, Tile.EMPTY) > 0);
     }
 
     public int percentageSolved() {
@@ -77,7 +87,7 @@ public class Board {
         return Math.round(100 * percentFull);
     }
 
-    public void setLocked(Index index, boolean locked){
+    public void setLocked(Index index, boolean locked) {
         checkIndexInRange(index);
         board[index.getRow()].setLocked(index.getCol(), locked);
     }
@@ -88,25 +98,28 @@ public class Board {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 char ch = serializedBoard.charAt(0);
-                index=new Index(i,j);
-                board.setTile(index,Tile.deserialize(ch));
-                board.setLocked(index,ch!='e');
+                index = new Index(i, j);
+                board.setTile(index, Tile.deserialize(ch));
+                board.setLocked(index, ch != 'e');
                 serializedBoard = serializedBoard.substring(1);
             }
         }
         return board;
     }
-    public String stringFromBoard(){
+
+    public String stringFromBoard() {
         String serialized = "";
         for (Row row : board)
             serialized += row.serialize();
         return serialized;
     }
+
     public Board copy() {
         Board clone = new Board(size);
         IntStream.range(0, size).forEach(index -> clone.board[index] = board[index].copy());
         return clone;
     }
+
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
@@ -116,7 +129,6 @@ public class Board {
         return text.toString();
     }
 
-
     public Tile getTileAt(int row, int col) {
         return getTile(new Index(row, col));
     }
@@ -125,13 +137,12 @@ public class Board {
         return setTile(new Index(row, col), oppositeColor);
     }
 
-    public boolean isLocked(Index index){
+    public boolean isLocked(Index index) {
         checkIndexInRange(index);
         return board[index.getRow()].isLocked(index.getCol());
     }
-    public Index getIndex(int id){
-        return new Index (id/size, id % size);
+
+    public Index getIndex(int id) {
+        return new Index(id / size, id % size);
     }
 }
-
-

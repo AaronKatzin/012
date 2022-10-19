@@ -27,7 +27,6 @@ import java.util.Stack;
  * BoardView controls the view of the board.
  * Holds a GridView object to represent the board instance graphically.
  * The class maintains a Move Stack to support undo.
- *
  */
 public class BoardView extends Fragment {
     private static Board board;
@@ -56,7 +55,8 @@ public class BoardView extends Fragment {
 
     /**
      * Request hint from Solver, highlights the involved tiles and shows the hint message.
-     * @return
+     *
+     * @return resID of the current hint
      */
     public int requestHint() {
         boardSolver.setBoard(board);
@@ -74,6 +74,7 @@ public class BoardView extends Fragment {
 
     /**
      * Function to highlight all tiles in list
+     *
      * @param highlighted list of Tiles to be highlighted.
      */
     private void highlightHintTiles(List<Index> highlighted) {
@@ -110,13 +111,19 @@ public class BoardView extends Fragment {
         initGrid(view.getContext(), board.getSize());
         return view;
     }
-    private void initGrid(Context context, int size){
-        mGridView.setNumColumns(size);
+
+    /**
+     * Initialize the grid and set the adapter
+     *
+     * @param context of the activity
+     * @param size board size
+     */
+    private void initGrid(Context context, int size) {
         adapter = new GridAdapter(context, board, getActivity());
         mGridView.setAdapter(adapter);
 
         int spacing;
-        switch (size){
+        switch (size) {
             case 4:
                 spacing = 7;
                 break;
@@ -129,6 +136,7 @@ public class BoardView extends Fragment {
 
         mGridView.setVerticalSpacing(spacing);
         mGridView.setHorizontalSpacing(spacing);
+        mGridView.setNumColumns(size);
     }
 
     /**
@@ -136,8 +144,8 @@ public class BoardView extends Fragment {
      *
      * @return true if undo succeeded, false otherwise.
      */
-    public boolean undo(){
-        if (moves.empty()){
+    public boolean undo() {
+        if (moves.empty()) {
             // No moves made
             adapter.setInGameMessageChanged(true);
             return false;
@@ -145,15 +153,14 @@ public class BoardView extends Fragment {
 
         char color;
         Move lastMove = moves.pop();
-        if (moves.contains(lastMove)){
+        if (moves.contains(lastMove)) {
             // The tile was pressed before - return the color to last color
             color = moves.get(moves.indexOf(lastMove)).getColor();
-        }
-        else
+        } else
             // The tile was not pressed before - empty the tile
             color = Tile.EMPTY.getSerial();
 
-        board.setTile(lastMove.getIndex(),Tile.deserialize(color));
+        board.setTile(lastMove.getIndex(), Tile.deserialize(color));
         adapter.notifyDataSetChanged();
         return true;
     }

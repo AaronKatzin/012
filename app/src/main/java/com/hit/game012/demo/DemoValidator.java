@@ -10,11 +10,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A class to validate a turn in the demo board.
+ * Checks if all the participating tiles in the turn are in their final state.
+ * If true:
+ * - Increments the turn and start {@code nextTurn()} function in the adapter.
+ * - Sleeps for DEMO_VALIDATOR_DELAY after last validation before starting the next activity.
+ */
 public class DemoValidator implements Runnable {
     private DemoGridAdapter adapter;
     private Activity activity;
-    private List<Tile> currentTileState;
     private List<Tile> turnTileState;
+    private int DEMO_VALIDATOR_DELAY = 1500;
 
 
     public DemoValidator(Activity activity, DemoGridAdapter adapter) {
@@ -26,7 +33,6 @@ public class DemoValidator implements Runnable {
     @Override
     public void run() {
         boolean isValid = true;
-        currentTileState = new ArrayList<>();
         int turn = DemoGridAdapter.turn;
         // Get the final tiles color for this turn
         turnTileState = Arrays.asList(DemoGridAdapter.tilesInTurn.get(turn));
@@ -46,7 +52,7 @@ public class DemoValidator implements Runnable {
             adapter.nextTurn();
             if (DemoGridAdapter.turn == 10){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(DEMO_VALIDATOR_DELAY);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

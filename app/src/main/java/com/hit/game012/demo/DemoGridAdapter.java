@@ -32,6 +32,8 @@ public class DemoGridAdapter extends BaseAdapter {
     private DemoValidator validator;
     private Activity activity;
     public static int turn;
+
+    // A list of all indexed involved in each turn
     public static List<Index[]> indexesInTurn = Arrays.asList(
             new Index[][]{
                     {new Index(0, 0)},
@@ -47,6 +49,7 @@ public class DemoGridAdapter extends BaseAdapter {
                     {new Index(0, 3)}
             }
     );
+    // A list of all final Tile colors for each turn
     public static List<Tile[]> tilesInTurn = Arrays.asList(
             new Tile[][]{
                     {Tile.COLOR1},
@@ -89,6 +92,13 @@ public class DemoGridAdapter extends BaseAdapter {
         return 0;
     }
 
+    /**
+     * All demo logic is implemented in this function.
+     * If the current turn < total turns and current index participating in the current turn:
+     * - Highlight the participating indexes
+     * - Set the onClickListener if tile not in its final color
+     * - Validate the turn after each click
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ContextThemeWrapper ctx = new ContextThemeWrapper(context, R.style.Theme_012);
@@ -160,18 +170,25 @@ public class DemoGridAdapter extends BaseAdapter {
         highlightView.setMaxWidth(tileSize);
     }
 
+    /**
+     * Validate the current turn in a second thread.
+     */
     private void validateTurn() {
         threadPoolExecutor.submit(validator);
     }
 
+    /**
+     * Next turn logic.
+     * Update the view with next turn data.
+     * Checks if demo is finished.
+     */
     public void nextTurn() {
         notifyDataSetInvalidated();
 
         if (turn < indexesInTurn.size()) {
             // Set turn message
             ((DemoActivity) activity).setMessage(turn);
-        }
-        else{
+        } else {
             // Set end game message
             ((DemoActivity) activity).setEndGameMessage();
 

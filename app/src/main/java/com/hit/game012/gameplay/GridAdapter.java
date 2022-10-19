@@ -88,11 +88,11 @@ public class GridAdapter extends BaseAdapter {
 
     /**
      * Adapter function to get the view for each Tile from board.
-     *
-     * @param position index of the tile in the view
-     * @param view view of the current object
-     * @param parent
-     * @return the view after adapting
+     * For each position:
+     * - The color is set to the corresponding tile color in the board.
+     * - The tile is set with an onClickListener.
+     * - Highlighted tiles (Involved in hint) will become highlighted.
+     * - Locked tiles are saved in a list to allow animation on all locked tiles.
      */
     @Override
     public View getView(int position, View view, ViewGroup parent) {

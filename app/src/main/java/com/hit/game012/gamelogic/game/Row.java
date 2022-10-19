@@ -12,35 +12,44 @@ public class Row {
     public Row(int size) {
         this.size = size;
         this.content = new Cell[size];
-        IntStream.range(0,size).forEach(i -> content[i] = new Cell());
+        IntStream.range(0, size).forEach(i -> content[i] = new Cell());
     }
 
-    public Tile getTile(int index){
+    public Tile getTile(int index) {
         return content[index].state;
     }
 
-    public Tile setTile(int index, Tile newState){
+    public Tile setTile(int index, Tile newState) {
         Tile oldState = getTile(index);
         content[index].state = newState;
         return oldState;
     }
-    public Tile stepTile(int index){
+
+    public Tile stepTile(int index) {
         return content[index].state = content[index].state.nextState();
     }
 
-    public void setLocked(int index, boolean lock){
+    public void setLocked(int index, boolean lock) {
         content[index].isLocked = lock;
     }
-    public void setAllLocks(boolean locked){
+
+    public void setAllLocks(boolean locked) {
         Arrays.stream(content).forEach(i -> i.isLocked = locked);
     }
-    public String serialize(){
+
+    /**
+     * Helper function to get the row represented by string
+     *
+     * @return string of chars represented the tiles colors.
+     */
+    public String serialize() {
         String serialized = "";
-        for (Cell c:content){
+        for (Cell c : content) {
             serialized += c.state.getSerial();
         }
         return serialized;
     }
+
     public Row copy() {
         Row clone = new Row(size);
         IntStream.range(0, size).forEach(index -> {
@@ -49,6 +58,7 @@ public class Row {
         });
         return clone;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,9 +74,10 @@ public class Row {
         return result;
     }
 
-    public boolean isLocked(int col){
+    public boolean isLocked(int col) {
         return content[col].isLocked();
     }
+
     @Override
     public String toString() {
         return Arrays.toString(content);
