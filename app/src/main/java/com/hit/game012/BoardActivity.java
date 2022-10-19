@@ -10,8 +10,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 
-
-//import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.hit.game012.gamelogic.game.Board;
 import com.hit.game012.gamelogic.game.Index;
@@ -20,7 +18,6 @@ import com.hit.game012.gameplay.BoardView;
 import com.hit.game012.gameplay.GetBoardThreaded;
 import com.hit.game012.gameplay.Move;
 import com.hit.game012.startupsequence.AnimatedTextView;
-
 
 import java.util.Random;
 import java.util.Stack;
@@ -31,7 +28,11 @@ import java.util.concurrent.TimeUnit;
 
 import pl.droidsonroids.gif.GifImageView;
 
-
+/**
+ * Game activity.
+ * Receives board asynchronously either locally or from the server.
+ * Starts BoardView fragment to load the board.
+ */
 public class BoardActivity extends AppCompatActivity {
     private Board board;
     private int boardSize;
@@ -53,6 +54,7 @@ public class BoardActivity extends AppCompatActivity {
         init();
         getBoard();
         resetInGameMessage(boardSize);
+
         // show board fragment
         boardView = new BoardView(board);
         getSupportFragmentManager().beginTransaction()

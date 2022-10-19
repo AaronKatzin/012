@@ -16,14 +16,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Class to allow changing of app settings.
+ * Using SharedPreferences to save the current settings locally.
+ * Updates the Config class with new settings.
+ */
 public class SettingsActivity extends AppCompatActivity {
-
     SwitchMaterial sound;
     SwitchMaterial enableInGameTimer;
     RadioGroup languageRadioGroup;
     RadioGroup colorThemeRadioGroup;
     Button logout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +53,22 @@ public class SettingsActivity extends AppCompatActivity {
                 changeLanguage();
                 refreshActivity();
             });
-        sound.setOnClickListener(new View.OnClickListener(){
+
+        sound.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                if(sound.isChecked())
-                    startService(new Intent(getApplicationContext(),BackGroundMusicService.class));
+            public void onClick(View view) {
+                if (sound.isChecked())
+                    startService(new Intent(getApplicationContext(), BackGroundMusicService.class));
                 else
-                    stopService(new Intent(getApplicationContext(),BackGroundMusicService.class));
-
-
+                    stopService(new Intent(getApplicationContext(), BackGroundMusicService.class));
             }
         });
     }
-    private void updateInGameTimerVisibility(){
+
+    private void updateInGameTimerVisibility() {
         Config.setInGameTimerEnabled(enableInGameTimer.isChecked());
     }
+
     public void saveSettings() {
         int theme = changeGridColor();
         changeLanguage();

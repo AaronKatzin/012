@@ -9,6 +9,10 @@ import android.view.View;
 import com.hit.game012.demo.DemoBoardView;
 import com.hit.game012.startupsequence.AnimatedTextView;
 
+/**
+ * Demo activity.
+ * Loads the DemoBoardView fragment.
+ */
 public class DemoActivity extends AppCompatActivity {
     private AnimatedTextView inGameMessageView;
     private DemoBoardView boardView;

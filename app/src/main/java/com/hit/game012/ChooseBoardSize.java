@@ -15,13 +15,18 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
-
+/**
+ * Activity to choose the size of the game to play.
+ * If in daily challenge mode, loads the boolean array from SharedPreferences
+ * to check if user already played today, and update the button's view with the check mark.
+ * If current date is different than the one saved in SharedPreferences, reset the boolean array.
+ */
 public class ChooseBoardSize extends AppCompatActivity {
     private TextView header;
     private boolean isDailyGame;
     private Boolean[] dailyBoardPlayed;
     private String dailyBoardDay;
-    private int[] boardPlayed = {
+    private final int[] boardPlayed = {
             R.id.board_checked_0,
             R.id.board_checked_1,
             R.id.board_checked_2,
@@ -41,12 +46,7 @@ public class ChooseBoardSize extends AppCompatActivity {
         game6.setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
         game8.setBackground(getResources().getDrawable(Config.COLOR_TILE_ONE, this.getTheme()));
         game10.setBackground(getResources().getDrawable(Config.COLOR_TILE_ZERO, this.getTheme()));
-        if(isDailyGame){
-            game4.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
-            game6.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
-            game8.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
-            game10.setTextColor(getResources().getColor(R.color.black, this.getTheme()));
-        }
+
 
         dailyBoardPlayed = new Boolean[4];
         header = findViewById(R.id.choose_size_header);
@@ -141,7 +141,7 @@ public class ChooseBoardSize extends AppCompatActivity {
     }
 
     public void updateCheckDailyGame() {
-        for(int i=0;i<dailyBoardPlayed.length;i++){
+        for (int i = 0; i < dailyBoardPlayed.length; i++) {
             if (dailyBoardPlayed[i])
                 findViewById(boardPlayed[i]).setVisibility(View.VISIBLE);
         }
@@ -149,7 +149,7 @@ public class ChooseBoardSize extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if(isDailyGame)
+        if (isDailyGame)
             updateCheckDailyGame();
         super.onWindowFocusChanged(hasFocus);
 

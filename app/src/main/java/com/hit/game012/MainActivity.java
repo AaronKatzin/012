@@ -40,6 +40,13 @@ import com.hit.game012.startupsequence.AnimatedTextView;
 
 import java.util.Locale;
 
+/**
+ * Entry point to the app.
+ * Loads all user's settings from SharedPreferences and updates the Config class.
+ * Loads start animation.
+ * If soundEnabled starts background music.
+ * Takes care of Firebase login.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSigninClient;

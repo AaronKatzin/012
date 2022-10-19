@@ -26,10 +26,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Activity representing the scoreboard screen
- *
+ * <p>
  * in case of Daily Game, shows user's current score, user's high score, and multiplayer scoreboard
  * which is fetched from the server
- *
+ * <p>
  * In case of a free game,  shows user's current score and user's high score
  */
 public class ScoreBoard extends AppCompatActivity {
@@ -195,6 +195,7 @@ public class ScoreBoard extends AppCompatActivity {
 
     /**
      * Finish current screen and start ChooseBoardSize activity
+     *
      * @param view current view
      */
     public void newGame(View view) {
