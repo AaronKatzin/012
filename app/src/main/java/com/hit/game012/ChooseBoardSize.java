@@ -17,8 +17,8 @@ import java.util.Arrays;
 
 /**
  * Activity to choose the size of the game to play.
- * If in daily challenge mode, loads the boolean array from SharedPreferences
- * to check if user already played today, and update the button's view with the check mark.
+ * If in daily challenge mode, loads the boolean array from SharedPreferences to check if user already played today
+ * And update the button's view with the check mark.
  * If current date is different than the one saved in SharedPreferences, reset the boolean array.
  */
 public class ChooseBoardSize extends AppCompatActivity {
