@@ -7,8 +7,9 @@ The user is presented with a board of tiles, and he must fill them following the
  - Rows and columns must have an equal number of each color.  
  - No two rows and no two columns can be the same.   
 ## The app
- - Link to PowerPoint [Presentation](012.pptx)  
- - Link to [Video](012.mp4)
+ - Link to PowerPoint [Presentation](012.pptx)
+ - Link to PDF [Presentation](012.pdf)
+ - Link to [Video](https://youtu.be/irraVPGowMo)
 
 ### Credits
  - Robot user icons lovingly delivered by Robohash.org - https://github.com/e1ven/Robohash
