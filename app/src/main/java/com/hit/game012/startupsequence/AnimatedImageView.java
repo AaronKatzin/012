@@ -11,6 +11,10 @@ import android.view.animation.DecelerateInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * Class to add animation sequence to ImageView element.
+ * Inherit from ImageView.
+ */
 public class AnimatedImageView extends androidx.appcompat.widget.AppCompatImageView {
 
 
@@ -30,13 +34,19 @@ public class AnimatedImageView extends androidx.appcompat.widget.AppCompatImageV
 
     }
 
-    public void initStartupAnimation(long duration, long offset){
-        Animation fadein = new AlphaAnimation(0,1);
-        fadein.setInterpolator(new DecelerateInterpolator());
-        fadein.setDuration(duration);
-        if (offset != 0) fadein.setStartOffset(offset);
+    /**
+     * Adding and starting fade-in animation on current ImageView
+     *
+     * @param duration of the fade-in animation in milliseconds
+     * @param offset bewfore animation starts in milliseconds
+     */
+    public void initFadeInAnimation(long duration, long offset){
+        Animation fadeIn = new AlphaAnimation(0,1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setDuration(duration);
+        if (offset != 0) fadeIn.setStartOffset(offset);
         AnimationSet animation = new AnimationSet(false);
-        animation.addAnimation(fadein);
+        animation.addAnimation(fadeIn);
         this.setAnimation(animation);
     }
     public void initPadlockAnimation(){

@@ -123,7 +123,7 @@ public class BoardActivity extends AppCompatActivity {
         String message = getResources().getString(resID);
         inGameMessageView.setTextSize(size);
         inGameMessageView.setText(message);
-        inGameMessageView.initAnimation(800, 100);
+        inGameMessageView.initFadeInAnimation(800, 100);
     }
 
     public void stopGameTime() {

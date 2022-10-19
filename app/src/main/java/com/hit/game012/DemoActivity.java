@@ -52,13 +52,13 @@ public class DemoActivity extends AppCompatActivity {
         if (turn< demoMessagesResIDPerMove.length){
             inGameMessageView.setText(demoMessagesResIDPerMove[turn]);
             inGameMessageView.setTextSize(30);
-            inGameMessageView.initAnimation(1000,200);
+            inGameMessageView.initFadeInAnimation(1000,200);
         }
     }
     public void setEndGameMessage(){
         inGameMessageView.setText(R.string.demo_end_msg);
         inGameMessageView.setTextSize(30);
-        inGameMessageView.initAnimation(1000,200);
+        inGameMessageView.initFadeInAnimation(1000,200);
     }
     public void endDemoGame(){
         Config.setGridThemeID(currentTheme);

@@ -82,7 +82,7 @@ public class ScoreBoard extends AppCompatActivity {
             fireworksAnimationView.setVisibility(View.VISIBLE);
             try {
                 // calculate score
-                score = (int) Math.min((1000 / (gameTime + (hintCounter * 5))) * Math.pow(2, boardSize), Integer.MAX_VALUE); // Math.pow(2, (boardSize)) ?
+                score = (int) Math.min((1000 / (gameTime + (hintCounter * 5))) * Math.pow(2, boardSize), Integer.MAX_VALUE);
                 System.out.println("Score calculated: " + score);
             } catch (ArithmeticException e) {
                 // in case of division by 0
