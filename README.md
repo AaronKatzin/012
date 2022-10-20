@@ -9,7 +9,6 @@ The user is presented with a board of tiles, and he must fill them following the
 ## The app
  - Link to online PDF [Presentation](https://drive.google.com/file/d/1KdhYRvf4C6IRwKVSku6AkxJFna8BLLzE/view?usp=sharing)
  - Link to PowerPoint [Presentation](012.pptx)
- - Link to PDF [Presentation](012.pdf)
  - Link to [Video](https://youtu.be/irraVPGowMo)
 
 ### Credits
