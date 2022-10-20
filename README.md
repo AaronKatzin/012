@@ -7,6 +7,7 @@ The user is presented with a board of tiles, and he must fill them following the
  - Rows and columns must have an equal number of each color.  
  - No two rows and no two columns can be the same.   
 ## The app
+ - Link to APK [File](012.apk)
  - Link to online PDF [Presentation](https://drive.google.com/file/d/1KdhYRvf4C6IRwKVSku6AkxJFna8BLLzE/view?usp=sharing)
  - Link to PowerPoint [Presentation](012.pptx)
  - Link to [Video](https://youtu.be/irraVPGowMo)
